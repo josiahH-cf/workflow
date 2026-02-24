@@ -1,0 +1,10 @@
+# NOTE: These contents should be appended to the existing file.
+
+# Agent personal overrides
+CLAUDE.local.md
+
+# Claude session artifacts
+.claude/plans/
+
+# Worktree scratch directories
+.trees/
