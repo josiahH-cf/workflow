@@ -34,7 +34,7 @@ A reusable project scaffolding system for agent-assisted development workflows. 
 - Deterministic automation (linters, formatters, type-checkers, CI) enforces rules that instruction files cannot reliably guarantee. Don't do in AGENTS what can reliably done with pre-existing tools.
 - The human bottleneck is review, not generation — optimize the workflow for reviewer speed, not author speed.
 
-### Instruction and Context Principles
+## Instruction and Context Principles
 
 - Instruction files should be short (under 60 lines at root level) and contain only what a language model needs to know.
 - AGENTS.md is the single source of truth for cross-tool instructions; CLAUDE.md imports it rather than duplicating it.
@@ -43,14 +43,14 @@ A reusable project scaffolding system for agent-assisted development workflows. 
 - Document what the agent gets wrong, not everything it should do — reactive instruction updates are more effective than comprehensive manuals.
 - Instruction files are reviewed like code; stale instructions are worse than no instructions.
 
-### Tool-Specific Principles
+## Tool-Specific Principles
 
 - Claude Code is the primary tool for deep, multi-file work that requires codebase understanding, architectural reasoning, and interactive judgment.
 - Codex is strongest for well-specified tasks that can run unattended, for multi-hour structured execution via PLANS.md, and for PR review as a 'third-party'.
 - Copilot is strongest for in-editor completions, inline suggestions, GitHub-native PR workflows, and as the coding agent for issue-to-PR automation within the GitHub ecosystem. It can do a lot but has fewer tokens to play with, typically.
 - When an agent gets stuck in a loop, switch to a different tool for a fresh perspective; Claude catches what Codex misses and vice versa.
 
-### Context-Length and Token-Efficiency Principles
+## Context-Length and Token-Efficiency Principles
 
 - Treat context like a budget — every file included, every instruction loaded, and every conversation turn costs tokens that reduce quality at the margin. Clear your conversation frequently.
 - Start every new task in a fresh session; use /clear after completing each task, not just when context runs out.
@@ -59,7 +59,7 @@ A reusable project scaffolding system for agent-assisted development workflows. 
 - Include only the files a task actually touches as context, not the full repository; use @ references to pull in specific files rather than descriptions of what the project does.
 - If you compact more than twice in one session, the task is too large or the prompt is too vague — stop, re-scope, and start fresh.
 
-### Git and Rollback Principles
+## Git and Rollback Principles
 
 - Commit after every accepted change — this is the single most protective habit, comparable to saving in a game before a boss fight.
 - Use git worktrees to run parallel agents on non-overlapping tasks; each worktree gets its own branch and its own agent session.
