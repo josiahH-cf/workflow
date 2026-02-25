@@ -5,13 +5,21 @@ A reusable project scaffolding system for agent-assisted development workflows. 
 ## Setup
 
 1. **Download** the latest `scaffold-template.zip` from the [Releases page](./releases/latest).
-2. **Extract** the zip into any project root. All files land at their correct relative paths — no renaming or restructuring needed.
-3. **Customize** the following files for your project:
+2. **Place** the zip in your project root.
+3. **Initialize** using the [Initialization Meta-Prompt](meta-prompts/initialization.md): paste it into a coding agent session and it will extract the zip, resolve conflicts with existing files, and walk you through customizing every placeholder interactively.
+4. **`CLAUDE.local.md`** is gitignored and intended for personal preferences (verbosity, communication style). Do not put project rules there.
+
+<details>
+<summary>Manual setup (without the initialization meta-prompt)</summary>
+
+1. Extract the zip into any project root. All files land at their correct relative paths — no renaming or restructuring needed.
+2. Customize the following files for your project:
    - **`AGENTS.md`** — Replace placeholder values: project name, build/test/lint commands, architecture overview, and naming conventions. This is the single source of truth that all agents read.
    - **`.claude/settings.json`** — Adjust tool permissions and hooks for your stack (e.g., formatter command, lint command).
    - **`.github/workflows/copilot-setup-steps.yml`** — Replace placeholder steps with your actual runtime setup, install, build, and test commands.
    - **`.codex/config.toml`** — Adjust sandbox and model settings if using Codex.
-4. **`CLAUDE.local.md`** is gitignored and intended for personal preferences (verbosity, communication style). Do not put project rules there.
+
+</details>
 
 > **Note:** The meta-prompts used to drive the workflow are maintained separately in this repository under `/meta-prompts/`. They are not included in the template zip — reference them directly from this repo when running planning, build, or review sessions.
 
@@ -75,6 +83,7 @@ A reusable project scaffolding system for agent-assisted development workflows. 
 ```
 /template/                          — Distributable scaffolding (zipped in releases)
 /meta-prompts/
+  initialization.md                 — One-time project setup meta-prompt (used with the scaffold zip)
   major/                            — 3 consolidated session meta-prompts (Plan, Build, Review & Ship)
   minor/                            — Per-phase meta-prompts (Phase 0–7)
 /.github/workflows/
@@ -89,9 +98,15 @@ A reusable project scaffolding system for agent-assisted development workflows. 
 
 ## Meta-Prompt Reference
 
-The workflow is driven by **meta-prompts** — structured instructions you paste into an agent session. Two levels are available:
+The workflow is driven by **meta-prompts** — structured instructions you paste into an agent session. Three levels are available:
 
-### Major Meta-Prompts (consolidated sessions)
+### Initialization Meta-Prompt (one-time setup)
+
+| File | Purpose |
+|------|---------|
+| [`meta-prompts/initialization.md`](meta-prompts/initialization.md) | Interactive agent-guided setup: extracts the scaffold zip, resolves conflicts, customizes all placeholders, and verifies the result. Run once per project. |
+
+### Major Meta-Prompts (recurring workflow sessions)
 
 | # | File | Phases | Purpose |
 |---|------|--------|---------|
