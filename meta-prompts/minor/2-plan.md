@@ -1,3 +1,5 @@
+<!-- slash-command: plan -->
+<!-- description: Decompose a locked spec into ordered implementation tasks -->
 # Phase 2 — Plan
 
 **Objective:** Decompose a locked spec into 2–5 ordered implementation tasks.

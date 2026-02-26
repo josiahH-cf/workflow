@@ -1,7 +1,14 @@
+---
+description: 'Decompose a locked spec into ordered implementation tasks'
+agent: 'agent'
+---
 <!-- generated-from-metaprompt -->
+
+[AGENTS.md](../../AGENTS.md)
+
 You are planning implementation tasks. Do not write code. Do not write tests.
 
-Read the spec at: $ARGUMENTS
+Read the spec at: ${input:filePath:Provide the path to the spec or task file}
 Read the project's conventions file (AGENTS.md) for relevant patterns.
 
 Decompose the spec into 2–5 implementation tasks, ordered by dependency (tasks that others depend on come first).

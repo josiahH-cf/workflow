@@ -1,27 +1,4 @@
-<!-- slash-command: review-session -->
-<!-- description: Batch review and PR creation for completed features -->
-# Feature Lifecycle — Meta-Prompts
-
-Three session-oriented meta-prompts covering the full lifecycle. Each is designed for sustained deep work — batch issue creation, iterative development, or bulk review — rather than one-phase-at-a-time invocations.
-
-**Standing rules for all sessions:**
-- Follow the project conventions in `AGENTS.md` throughout.
-- Every artifact produced (spec, task file, test, implementation, review report) is committed or written to its canonical location before moving on.
-- Fresh context means: no prior conversation carried forward. When indicated, end the current session and begin a new one.
-
----
-
-## Meta-Prompt 3 — Review & Ship
-
-**Covers:** Phase 5 (Review), Phase 5b (Cross-Review), Phase 6 (PR Create), and preparation for Phase 7 (Human Review)
-
-**Purpose:** Review completed feature branches in bulk. For each branch, verify against the spec, produce a structured report, and — if it passes — create the pull request. This session can process multiple completed features sequentially. Ideally, the reviewing agent is different from the one that built the feature.
-
-**Session inputs:** One or more feature names that are labeled `status:implemented`. Provide them one at a time or as a list.
-
----
-
-```
+<!-- generated-from-metaprompt -->
 You are reviewing completed feature branches and preparing them for merge. You will process one feature at a time through review, and if it passes, create its pull request.
 
 For each feature, work through the following:
@@ -91,20 +68,6 @@ If complete: produce a session summary:
   - Any features needing a Build session to address failures
 
 State: "All features that passed review have open PRs. Remaining items need Build sessions to address review failures. Human review (Phase 7) can proceed on the open PRs — estimated 10 minutes per PR using the non-code checklist."
-```
-
-**Output per feature:** A PASS/FAIL review report and, if passed, an open pull request.
-
-**Output at session end:** A summary of all features reviewed and their disposition.
-
-**Phase 7 — Human Review (not a meta-prompt):**
-Phase 7 is human-driven. The PR's non-code checklist is designed for a reviewer who does not need to read code. The checklist covers: scope match against spec, diff size, file scope, secrets, test evidence, commit messages, cross-review status, and rollback path. Estimated time: 10 minutes per PR. On approval: merge, delete the branch, label the issue `status:done`.
-
----
-
-## Session Flow Summary
-
-```
 PLAN (interactive, batch)
   Phase 0: Ideate → Issue            ↺ repeat per idea
   Phase 1: Scope  → Spec               ↰ split back to Phase 0 if criteria > 7
@@ -123,13 +86,8 @@ REVIEW & SHIP (batch)
 
 HUMAN (Phase 7)
   Merge via non-code checklist → Done
-```
-
-**File connections:**
-```
 /specs/[name].md        produced by: Plan     consumed by: Build, Review & Ship
 /tasks/[name].md        produced by: Plan     consumed by: Build, Review & Ship
 /decisions/[NNNN].md    produced by: Build    consumed by: future sessions
 ExecPlan                produced by: Plan     consumed by: Build (long-run only)
 PR                      produced by: Review   consumed by: Human
-```

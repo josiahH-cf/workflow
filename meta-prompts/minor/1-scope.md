@@ -1,3 +1,5 @@
+<!-- slash-command: scope -->
+<!-- description: Explore the codebase and produce a locked spec with acceptance criteria -->
 # Phase 1 — Scope
 
 **Objective:** Explore the codebase and produce a locked spec with testable acceptance criteria.

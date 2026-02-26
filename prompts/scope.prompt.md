@@ -1,7 +1,14 @@
+---
+description: 'Explore the codebase and produce a locked spec with acceptance criteria'
+agent: 'agent'
+---
 <!-- generated-from-metaprompt -->
+
+[AGENTS.md](../../AGENTS.md)
+
 You are scoping a new feature. Do not write code. Do not create implementation files.
 
-The feature is: $ARGUMENTS
+The feature is: ${input:specOrFeature:Provide the spec path or feature description}
 
 Read the project's conventions file (AGENTS.md) before starting.
 

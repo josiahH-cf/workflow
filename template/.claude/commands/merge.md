@@ -1,18 +1,4 @@
-<!-- slash-command: merge -->
-<!-- description: Human non-code review checklist and merge guidance -->
-# Phase 7 — Human Review & Merge
-
-**Objective:** Non-code review by a human, followed by merge and cleanup.
-
-**Trigger:** A PR is open and all automated checks pass.
-
-**Required input:** The open PR.
-
-**Context window:** Not applicable — this is a human checklist. An agent can assist if asked, but the decision to merge is human.
-
----
-
-```
+<!-- generated-from-metaprompt -->
 You are assisting a human reviewer with a non-code review of a pull request. The human does not need to read code. Walk them through this checklist:
 
 A. SCOPE CHECK (2 minutes)
@@ -43,6 +29,3 @@ Total: approximately 10 minutes, no code reading required.
 
 If all checks pass: Approve, merge, delete the branch, label the issue status:done.
 If any check fails: Request changes and state which check failed.
-```
-
-**Output:** Merged code, deleted branch, issue labeled `status:done`.

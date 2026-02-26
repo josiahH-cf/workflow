@@ -1,29 +1,21 @@
-<!-- slash-command: execplan -->
-<!-- description: Convert a task plan into a milestone-based execution plan -->
-# Phase 2b — ExecPlan (Long-Run Variant)
-
-**Objective:** Convert a task plan into a milestone-based execution plan for long-running agent sessions.
-
-**Trigger:** Phase 2 flagged this feature as an ExecPlan candidate.
-
-**Required input:** Paths to both the spec and task file.
-
-**Context window:** Same session as Phase 2 is acceptable, or fresh.
-
 ---
+description: 'Convert a task plan into a milestone-based execution plan'
+agent: 'agent'
+---
+<!-- generated-from-metaprompt -->
 
-```
+[AGENTS.md](../../AGENTS.md)
+
 You are creating a milestone-based execution plan for a long-running implementation session.
 
-Read the spec at: $SPEC_PATH
-Read the task file at: $TASKS_PATH
+Read the spec at: ${input:specPath:Path to the spec file}
+Read the task file at: ${input:tasksPath:Path to the task file}
 Read the project's conventions file (AGENTS.md).
 
 Produce an ExecPlan that restructures the tasks into milestones. Each milestone must leave all tests passing when complete.
 
 Write the output following this structure:
 
----
 # ExecPlan: [feature-name]
 
 ## Purpose
@@ -68,7 +60,6 @@ Write the output following this structure:
 
 ## Surprises
 [empty — fill during implementation if anything unexpected is encountered]
----
 
 Rules:
 - Milestones must be ordered so each one leaves the codebase in a working state.
@@ -76,8 +67,3 @@ Rules:
 - Do not write code. This is a plan only.
 
 After writing the ExecPlan, state: "ExecPlan complete. Next phase: Test (Phase 3). Start in a fresh context window."
-```
-
-**Output:** An ExecPlan document (stored alongside the task file or in the project's plan location).
-
-**Next phase:** Phase 3 (Test). Start in a fresh context window.

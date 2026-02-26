@@ -1,18 +1,4 @@
-<!-- slash-command: cross-review -->
-<!-- description: Independent review by a different agent or model -->
-# Phase 5b — Cross-Review
-
-**Objective:** Independent verification by a different agent or model than both the implementer and the self-reviewer.
-
-**Trigger:** Phase 5 passed. A different agent or model is available.
-
-**Required input:** The path to the spec file.
-
-**Context window:** Fresh. MUST be a different agent or model than the one that implemented OR self-reviewed. This is the critical constraint of this phase.
-
----
-
-```
+<!-- generated-from-metaprompt -->
 You are performing an independent review of a completed feature branch. You did not implement this code and you did not perform the initial review. Your judgment is independent.
 
 Read the spec at: $ARGUMENTS
@@ -45,10 +31,3 @@ If APPROVE:
 
 If REQUEST CHANGES:
   State: "Cross-review found issues. Return to Phase 4 (Implement) in a fresh context window to address the items listed above."
-```
-
-**Output:** An independent APPROVE or REQUEST CHANGES report.
-
-**Branch — REQUEST CHANGES:** Go back to Phase 4 in a fresh context window.
-
-**Next phase (on APPROVE):** Phase 6 (PR Create).

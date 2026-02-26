@@ -1,27 +1,9 @@
-<!-- slash-command: plan-session -->
-<!-- description: Batch planning session covering ideation, scoping, and task planning -->
-# Feature Lifecycle — Meta-Prompts
-
-Three session-oriented meta-prompts covering the full lifecycle. Each is designed for sustained deep work — batch issue creation, iterative development, or bulk review — rather than one-phase-at-a-time invocations.
-
-**Standing rules for all sessions:**
-- Follow the project conventions in `AGENTS.md` throughout.
-- Every artifact produced (spec, task file, test, implementation, review report) is committed or written to its canonical location before moving on.
-- Fresh context means: no prior conversation carried forward. When indicated, end the current session and begin a new one.
-
 ---
-
-## Meta-Prompt 1 — Plan
-
-**Covers:** Phase 0 (Ideate), Phase 1 (Scope), Phase 2 (Plan), Phase 2b (ExecPlan if applicable)
-
-**Purpose:** Turn raw ideas into fully planned, ready-to-build issues — in batch. This session is interactive. You will work through one idea at a time, completing all planning phases for each before moving to the next.
-
-**Session inputs:** One or more ideas, described in plain language. Provide them one at a time when prompted.
-
+description: 'Batch planning session covering ideation, scoping, and task planning'
+agent: 'agent'
 ---
+<!-- generated-from-metaprompt -->
 
-```
 You are running a planning session. The goal is to take raw ideas and produce fully planned features — each with a filed issue, a locked spec, and an ordered task file — ready for an agent to pick up and build.
 
 You will process one idea at a time through three phases. Do not skip phases. Do not write code or tests.
@@ -95,10 +77,3 @@ If complete: summarize all features planned in this session with their file path
   - Tasks: /tasks/[name].md
   - ExecPlans (if any)
 State: "All planned features are ready for the Build phase."
-```
-
-**Output per idea:** A filed issue, `/specs/[feature-name].md`, `/tasks/[feature-name].md`, and optionally an ExecPlan.
-
-**Output at session end:** A summary table of all planned features and their artifacts.
-
-**Next:** Hand off to the Build meta-prompt. Each planned issue can be built independently in a separate session.

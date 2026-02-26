@@ -8,3 +8,7 @@ CLAUDE.local.md
 
 # Worktree scratch directories
 .trees/
+
+# Local agent permission overrides
+.vscode/
+.claude/settings.local.json

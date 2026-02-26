@@ -1,4 +1,4 @@
-name: Release Template Zip
+name: Release Scaffold & Prompts
 
 on:
   push:
@@ -72,17 +72,41 @@ jobs:
 
           echo "tag=$new_tag" >> "$GITHUB_OUTPUT"
 
-      - name: Create scaffold zip
+      - name: Create scaffold-template.zip (templates only)
         run: |
           cd template
           zip -r ../scaffold-template.zip . -x "**/.DS_Store"
           cd ..
 
-      - name: Upload workflow artifact
+      - name: Create scaffold-metaprompts.zip (prompt files only)
+        run: |
+          mkdir -p _metaprompts-staging
+          cp -r prompts _metaprompts-staging/prompts
+          cd _metaprompts-staging
+          zip -r ../scaffold-metaprompts.zip . -x "**/.DS_Store"
+          cd ..
+          rm -rf _metaprompts-staging
+
+      - name: Create scaffold-full.zip (templates + prompt files)
+        run: |
+          mkdir -p _full-staging
+          cp -r template/* _full-staging/
+          cp -r template/.* _full-staging/ 2>/dev/null || true
+          mkdir -p _full-staging/prompts
+          cp prompts/*.prompt.md _full-staging/prompts/
+          cd _full-staging
+          zip -r ../scaffold-full.zip . -x "**/.DS_Store"
+          cd ..
+          rm -rf _full-staging
+
+      - name: Upload workflow artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: scaffold-template
-          path: scaffold-template.zip
+          name: scaffold-zips
+          path: |
+            scaffold-template.zip
+            scaffold-metaprompts.zip
+            scaffold-full.zip
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -90,6 +114,9 @@ jobs:
           tag_name: ${{ steps.version.outputs.tag }}
           name: ${{ steps.version.outputs.tag }}
           generate_release_notes: true
-          files: scaffold-template.zip
+          files: |
+            scaffold-template.zip
+            scaffold-metaprompts.zip
+            scaffold-full.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

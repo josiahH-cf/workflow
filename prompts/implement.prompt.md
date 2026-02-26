@@ -1,21 +1,14 @@
-<!-- slash-command: implement -->
-<!-- description: Implement one task to make failing tests pass -->
-# Phase 4 — Implement
-
-**Objective:** Make failing tests pass by implementing exactly one task. Commit when that task's tests pass.
-
-**Trigger:** Failing tests are committed. Task file has at least one task with status "Not started."
-
-**Required input:** The path to the task file.
-
-**Context window:** Fresh for each task. One task per session. Do not batch tasks.
-
 ---
+description: 'Implement one task to make failing tests pass'
+agent: 'agent'
+---
+<!-- generated-from-metaprompt -->
 
-```
+[AGENTS.md](../../AGENTS.md)
+
 You are implementing one task from a planned feature. Only one.
 
-Read the task file at: $ARGUMENTS
+Read the task file at: ${input:filePath:Provide the path to the spec or task file}
 Read the project's conventions file (AGENTS.md).
 
 Orient before writing:
@@ -48,10 +41,3 @@ After committing, check the task file:
 
 - If ALL tasks are now complete:
   State: "All tasks complete. Label the issue status:implemented. Next phase: Review (Phase 5). Start in a fresh context window. For best results, use a different agent or model for review."
-```
-
-**Output:** Committed implementation code for one task. Task file updated. Tests passing.
-
-**Loop:** Repeat Phase 4 in a fresh context window for each remaining task.
-
-**Next phase (when all tasks done):** Phase 5 (Review). **Start in a fresh context window. Use a different agent or model than the one that implemented.**

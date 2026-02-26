@@ -41,7 +41,7 @@
     "PostToolUse": [
       {
         "matcher": "Edit|Write|MultiEdit",
-        "command": "# Replace with your format step, e.g.:\n# npx prettier --write $FILEPATH"
+        "command": "# Shared policy file: keep permission-mode overrides in .claude/settings.local.json.\n# Replace with your format step, e.g.:\n# npx prettier --write $FILEPATH"
       }
     ],
     "Stop": [

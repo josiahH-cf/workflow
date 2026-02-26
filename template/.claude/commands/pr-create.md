@@ -1,18 +1,4 @@
-<!-- slash-command: pr-create -->
-<!-- description: Create a pull request with full description and checklists -->
-# Phase 6 — PR Create
-
-**Objective:** Open a pull request with a complete description linking to the spec, summarizing changes, and including both code and non-code checklists.
-
-**Trigger:** Review (and cross-review if applicable) passed. Issue is labeled `status:reviewed`.
-
-**Required input:** The spec file path and the target branch name.
-
-**Context window:** Can continue from review, or fresh. Either is fine.
-
----
-
-```
+<!-- generated-from-metaprompt -->
 You are creating a pull request for a completed, reviewed feature branch.
 
 Read the spec at: $SPEC_PATH
@@ -21,7 +7,6 @@ Read the project's PR template at /.github/pull_request_template.md if it exists
 
 Produce the PR with this structure:
 
----
 **Title:** [concise imperative summary of the change]
 
 ## What
@@ -53,7 +38,6 @@ Spec: /specs/[feature-name].md
 
 ## Rollback
 [Special steps beyond git revert, or "Standard revert." if none]
----
 
 Rules:
 - If the diff exceeds 300 lines, state this clearly and recommend splitting before opening the PR.
@@ -62,8 +46,3 @@ Rules:
 - Open the PR against the target branch using the project's standard method.
 
 After creating the PR, state: "PR opened. Next phase: Human review and merge (Phase 7). A human reviewer should use the non-code checklist — no code reading required, approximately 10 minutes."
-```
-
-**Output:** An open pull request with a complete, honest description and checklists.
-
-**Next phase:** Phase 7 (Human Review & Merge). This is a human-driven phase.

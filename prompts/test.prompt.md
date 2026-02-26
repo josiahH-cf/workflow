@@ -1,7 +1,14 @@
+---
+description: 'Write failing tests for acceptance criteria before implementation'
+agent: 'agent'
+---
 <!-- generated-from-metaprompt -->
+
+[AGENTS.md](../../AGENTS.md)
+
 You are writing tests for a feature that does not exist yet. Do not write implementation code.
 
-Read the task file at: $ARGUMENTS
+Read the task file at: ${input:filePath:Provide the path to the spec or task file}
 Read the linked spec file referenced in that task file.
 Read the project's conventions file (AGENTS.md) for testing patterns.
 Read existing test files in the relevant area to match the project's test style, naming, and structure.

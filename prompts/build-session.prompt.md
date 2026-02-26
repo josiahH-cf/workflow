@@ -1,27 +1,9 @@
-<!-- slash-command: build-session -->
-<!-- description: Autonomous build session for test-first development of one feature -->
-# Feature Lifecycle — Meta-Prompts
-
-Three session-oriented meta-prompts covering the full lifecycle. Each is designed for sustained deep work — batch issue creation, iterative development, or bulk review — rather than one-phase-at-a-time invocations.
-
-**Standing rules for all sessions:**
-- Follow the project conventions in `AGENTS.md` throughout.
-- Every artifact produced (spec, task file, test, implementation, review report) is committed or written to its canonical location before moving on.
-- Fresh context means: no prior conversation carried forward. When indicated, end the current session and begin a new one.
-
 ---
-
-## Meta-Prompt 2 — Build
-
-**Covers:** Phase 3 (Test), Phase 4 (Implement — looped per task)
-
-**Purpose:** Take a single planned issue and build it end-to-end: write failing tests for all acceptance criteria, then implement one task at a time until all tasks pass. Each task is a commit. This session is autonomous — the agent works through the task file without further input unless a decision or blocker arises.
-
-**Session inputs:** The path to one task file (e.g., `/tasks/[feature-name].md`).
-
+description: 'Autonomous build session for test-first development of one feature'
+agent: 'agent'
 ---
+<!-- generated-from-metaprompt -->
 
-```
 You are building a planned feature. The task file for this session is provided. Read it now, along with the linked spec.
 
 Work through two phases in order. Commit at every checkpoint described below.
@@ -59,10 +41,3 @@ For each task in the task file, in order:
 When all tasks are complete:
 - Confirm the full test suite passes.
 - State: "All tasks complete for [feature-name]. Label the issue status:implemented. This feature is ready for the Review phase."
-```
-
-**Output:** Committed failing tests, committed implementation (one commit per task), updated task file with all tasks marked complete.
-
-**Context note:** If the feature has many tasks and context becomes constrained, it is correct to stop mid-feature and resume in a fresh session pointing at the same task file. The task file's status tracking ensures continuity.
-
-**Next:** Hand off to the Review & Ship meta-prompt.

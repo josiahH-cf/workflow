@@ -1,3 +1,5 @@
+<!-- slash-command: test -->
+<!-- description: Write failing tests for acceptance criteria before implementation -->
 # Phase 3 — Test
 
 **Objective:** Write and commit failing tests — one per acceptance criterion — before any implementation code exists.

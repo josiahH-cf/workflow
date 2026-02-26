@@ -1,21 +1,14 @@
-<!-- slash-command: review -->
-<!-- description: Verify implementation against spec with PASS/FAIL report -->
-# Phase 5 — Review (Self-Verify)
-
-**Objective:** Verify the implementation against the spec. Produce a PASS/FAIL report per acceptance criterion.
-
-**Trigger:** All tasks are marked complete in the task file. Issue is labeled `status:implemented`.
-
-**Required input:** The path to the spec file.
-
-**Context window:** Fresh. Ideally a different agent or model than the implementer. If the same agent must self-verify, still use a fresh context window with no implementation history.
-
 ---
+description: 'Verify implementation against spec with PASS/FAIL report'
+agent: 'agent'
+---
+<!-- generated-from-metaprompt -->
 
-```
+[AGENTS.md](../../AGENTS.md)
+
 You are reviewing a completed feature branch. You did not write this code. Approach it with fresh eyes.
 
-Read the spec at: $ARGUMENTS
+Read the spec at: ${input:specOrFeature:Provide the spec path or feature description}
 Read the project's conventions file (AGENTS.md).
 Read the full diff of the current branch against the target branch.
 Read the task file linked from the spec's feature name at /tasks/[feature-name].md.
@@ -55,10 +48,3 @@ If ALL checks pass:
 If ANY check fails:
   List each failure with the specific fix needed.
   State: "Review FAILED. Return to Phase 4 (Implement) in a fresh context window to address the failures listed above. Do not proceed to PR."
-```
-
-**Output:** A PASS/FAIL report per acceptance criterion and code quality check.
-
-**Branch — FAIL:** Go back to Phase 4 in a fresh context window to fix specific failures.
-
-**Next phase (on PASS):** Phase 5b (Cross-Review) if a different agent is available. Otherwise, Phase 6 (PR Create).

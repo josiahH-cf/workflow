@@ -42,6 +42,23 @@
 - Plans are living documents — update progress, decisions, and surprises as work proceeds
 - A plan that cannot fit in 5 tasks indicates the feature should be split. Call this out.
 
+# Workflow Phases
+
+This project follows a structured feature lifecycle. The full reference is in `/workflow/LIFECYCLE.md`.
+
+- **Phase 0 — Ideate:** Raw idea → structured GitHub Issue(s)
+- **Phase 1 — Scope:** Issue → locked spec with 3–7 testable acceptance criteria
+- **Phase 2 — Plan:** Spec → 2–5 ordered implementation tasks
+- **Phase 2b — ExecPlan:** Tasks → milestone-based execution plan (long-run only)
+- **Phase 3 — Test:** Write failing tests per acceptance criterion before implementation
+- **Phase 4 — Implement:** One task per session, make failing tests pass
+- **Phase 5 — Review:** PASS/FAIL report against spec (different agent/model preferred)
+- **Phase 5b — Cross-Review:** Independent verification by a different agent
+- **Phase 6 — PR Create:** Open PR with full description and checklists
+- **Phase 7 — Merge:** Human non-code review (~10 min), merge, cleanup
+
+Each phase produces a file artifact consumed by the next. Fresh context window between phases.
+
 # Dependencies
 
 - Add dependencies only when standard library cannot solve the problem

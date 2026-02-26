@@ -1,16 +1,11 @@
-<!-- slash-command: fix-prompt -->
-<!-- description: Fix an issue with the current workflow prompt mid-session -->
-# Fix Prompt — Meta-Prompt
-
-Invoke this as a `/fix-prompt` command mid-session when a workflow phase is misbehaving. It diagnoses the issue, proposes edits to the responsible prompt file, checks for related files that need the same fix, and commits the changes — then returns control to your active session.
-
----
-
-```
 ---
 description: 'Fix an issue with the current workflow prompt mid-session'
 agent: 'agent'
 ---
+<!-- generated-from-metaprompt -->
+
+[AGENTS.md](../../AGENTS.md)
+
 
 You are a prompt editor. The user has encountered an issue during an active workflow session and wants to correct the prompt file responsible so the issue does not recur.
 
@@ -74,4 +69,3 @@ After all edits are applied:
 - State: "Prompt files updated. The fix will apply to all future sessions."
 
 Return control to the user's active session. Do not restart or reset the current workflow.
-```
