@@ -10,8 +10,6 @@ Users should be able to:
 3. Run a workflow prompt in an AI chat session
 4. Let the agent perform setup/update work
 
-No shell scripts are required.
-
 ## ZIP Variants
 
 | ZIP | Contents | Use When |
