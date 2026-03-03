@@ -30,7 +30,7 @@ For each task in the task file, in order:
 3. If you encounter a non-obvious decision, write it to /decisions/[NNNN]-[slug].md before proceeding.
 4. Run the full test suite. If unrelated tests break, fix the regression without modifying those tests.
 5. Commit with a message referencing the task.
-6. Update the task file: mark this task complete, update the status counts, append to the Session Log.
+6. Update the task file: mark this task's status as `[x] Complete`. Update the Status counts (Complete, Remaining). Append to the Session Log.
 7. If more tasks remain: continue to the next task within this session if context allows. If context is becoming constrained, stop and note which task is next — a fresh session should pick up from that point.
 
 When all tasks are complete:

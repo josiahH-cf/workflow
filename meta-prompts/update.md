@@ -170,6 +170,7 @@ Report the update results:
 7. Confirm no template placeholder values were introduced into customized files.
 8. Confirm `.claude/settings.json` does not contain `bypassPermissions` or `allowDangerouslySkipPermissions`.
 9. Confirm local preference files (`.claude/settings.local.json`, `.vscode/settings.json`) were not overwritten unless explicitly approved.
+10. Check current YOLO configuration: report whether `.claude/settings.local.json` and `.vscode/settings.json` have YOLO mode enabled, and which option (A/B/C/D) is active. If the configuration appears incomplete or inconsistent, offer to re-run the YOLO setup from initialization Step 4.
 
 State: "Scaffolding update complete. All generated files (slash commands, templates, lifecycle docs) have been updated. Your project customizations (AGENTS.md, tool configs) are preserved."
 ```

@@ -17,14 +17,13 @@
 
 ## Testing
 
-- Commit tests separately before implementation
+- See AGENTS.md for commit and task-completion rules
 - Use a subagent for test verification when the test suite is large
 
 ## Implementation
 
 - One task per session
 - Orient first: read the task file, relevant source files, and test file before writing
-- Commit after each task passes its tests
 - Follow existing patterns — read before writing
 - When uncertain, write the decision to `/decisions/` before proceeding
 
@@ -36,8 +35,9 @@
 
 ## Personal Overrides
 
-- Use `/CLAUDE.local.md` for personal preferences (gitignored)
-- Do not put project rules in CLAUDE.local.md
+- Use `/CLAUDE.local.md` (project root, gitignored) for personal behavioral preferences
+- Use `.claude/settings.local.json` (inside `.claude/`, gitignored) for permission-mode overrides (YOLO)
+- Do not put project rules in either local file
 
 ## File References
 

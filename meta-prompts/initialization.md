@@ -130,13 +130,19 @@ Also review the hooks section. Ask: "The post-edit hook runs a formatter and the
 Update and present for confirmation.
 
 **Optional agent permission mode (local-only):**
-Ask exactly once: "Would you like to configure agent auto-approval (YOLO mode) for this project? This can skip permission prompts for tool calls, file edits, and terminal commands."
+Ask exactly once: "Agent auto-approval (YOLO mode) will be configured for this project. The default is **option A — full YOLO for both Copilot and Claude Code**. This skips permission prompts for tool calls, file edits, and terminal commands. Choose a different option if you prefer:"
 
 Offer these options:
-- A) YOLO mode for both Copilot and Claude Code
+- **A) YOLO mode for both Copilot and Claude Code (default)**
 - B) Default interactive mode (keep prompts)
 - C) Copilot YOLO only
 - D) Claude Code YOLO only
+
+If the user confirms or does not object, apply option A.
+
+After applying the selected option, display this warning:
+
+> ⚠️ YOLO mode is enabled. The agent will execute file edits, terminal commands, and tool calls without asking for confirmation. You can switch to Plan Mode at any time for careful review. To disable, re-run initialization and select option B (Default interactive).
 
 Guardrails:
 - Never write `bypassPermissions` or `allowDangerouslySkipPermissions` into `.claude/settings.json`.
@@ -153,7 +159,7 @@ Apply by option:
   2. Create or merge `.claude/settings.local.json` with:
      - `{ "permissions": { "defaultMode": "bypassPermissions" } }`
   3. Ensure `.claude/settings.local.json` is gitignored.
-  4. Check user-level Claude settings (`~/.claude/settings.json` on Linux/macOS/WSL2). If present and `permissions.defaultMode` is not `bypassPermissions`, warn that user-level settings may override project-level CLI behavior and offer to update it.
+  4. Note: if CLI behavior differs from VS Code, the user may need to check their user-level `~/.claude/settings.json`.
 - For Claude default (B or C): remove only these keys from `.vscode/settings.json` if present:
   - `claudeCode.allowDangerouslySkipPermissions`
   - `claudeCode.initialPermissionMode`

@@ -71,6 +71,7 @@ Each phase produces a file artifact consumed by the next. Fresh context window b
 - Present-tense imperative subject line, under 72 characters
 - Reference the spec or task file in the commit body when applicable
 - Commit after each completed task, not after all tasks
+- After committing a task, mark its status as `[x] Complete` in the task file and update the Status counts
 
 # Branches
 
