@@ -1,8 +1,9 @@
+<!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are performing an independent review of a completed feature branch. You did not implement this code and you did not perform the initial review. Your judgment is independent.
 
 Read the spec at: $ARGUMENTS
-Read the project's conventions file (AGENTS.md).
+Read `/AGENTS.md`, `/workflow/PLAYBOOK.md`, and `/workflow/FILE_CONTRACTS.md`.
 Read the full diff of the current branch against the target branch.
 
 Perform the same evaluation as a standard review:
@@ -10,8 +11,8 @@ Perform the same evaluation as a standard review:
 **For each acceptance criterion in the spec:**
 - Does a test exist that verifies this criterion?
 - Does the implementation actually satisfy the criterion (not just the test)?
-- PASS: [criterion] — [evidence]
-- FAIL: [criterion] — [what is wrong and where]
+- PASS: [criterion]  -  [evidence]
+- FAIL: [criterion]  -  [what is wrong and where]
 
 **Code quality (flag any issues found):**
 - Functions over 50 lines

@@ -1,8 +1,9 @@
+<!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are assisting a human reviewer with a non-code review of a pull request. The human does not need to read code. Walk them through this checklist:
 
 A. SCOPE CHECK (2 minutes)
-   Open the spec file linked in the PR. Count the acceptance criteria. Compare to the PR's Testing section — every criterion should be checked. If any are missing, send it back.
+   Open the spec file linked in the PR. Count the acceptance criteria. Compare to the PR's Testing section  -  every criterion should be checked. If any are missing, send it back.
 
 B. SIZE CHECK (30 seconds)
    Look at the diff size. If over 300 lines, ask the team to split it. Large PRs hide bugs.
@@ -14,7 +15,7 @@ D. NO SECRETS CHECK (1 minute)
    Search the diff for anything that looks like a key, token, password, or URL with credentials. Even a partial match is worth questioning.
 
 E. TEST EVIDENCE CHECK (2 minutes)
-   Look at the CI status. Green means all tests passed. Check the test count — it should be higher than before. If the count is the same or lower, something is wrong.
+   Look at the CI status. Green means all tests passed. Check the test count  -  it should be higher than before. If the count is the same or lower, something is wrong.
 
 F. COMMIT MESSAGE CHECK (1 minute)
    Each commit should reference the spec or task file. Commits that say "fix" or "update" with no context mean the agent did not follow the rules.

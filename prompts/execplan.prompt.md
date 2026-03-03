@@ -4,19 +4,21 @@ agent: 'agent'
 ---
 <!-- generated-from-metaprompt -->
 
-[AGENTS.md](../../AGENTS.md)
+[AGENTS.md](../template/AGENTS.md)
+[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
+[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
 
 You are creating a milestone-based execution plan for a long-running implementation session.
 
 Read the spec at: ${input:specPath:Path to the spec file}
 Read the task file at: ${input:tasksPath:Path to the task file}
-Read the project's conventions file (AGENTS.md).
+Read `/AGENTS.md`, `/workflow/PLAYBOOK.md`, and `/workflow/FILE_CONTRACTS.md`.
 
 Produce an ExecPlan that restructures the tasks into milestones. Each milestone must leave all tests passing when complete.
 
 Write the output following this structure:
 
-# ExecPlan: [feature-name]
+# ExecPlan: [feature-id]-[slug]
 
 ## Purpose
 [One paragraph: what this accomplishes and why]
@@ -27,7 +29,8 @@ Write the output following this structure:
 ## Prerequisites
 - [ ] Tests green on the target branch
 - [ ] Dependencies installed and up to date
-- [ ] Spec exists at /specs/[feature-name].md
+- [ ] Spec exists at /specs/[feature-id]-[slug].md
+- [ ] Task file exists at /tasks/[feature-id]-[slug].md
 
 ## Milestones
 
@@ -55,11 +58,16 @@ Write the output following this structure:
 - [ ] Milestone 2
 [etc.]
 
+## Linkage
+- Feature ID: [issue-id]-[slug]
+- Spec: /specs/[feature-id]-[slug].md
+- Tasks: /tasks/[feature-id]-[slug].md
+
 ## Decision Log
-[empty — fill during implementation if non-obvious choices arise]
+[empty  -  fill during implementation if non-obvious choices arise]
 
 ## Surprises
-[empty — fill during implementation if anything unexpected is encountered]
+[empty  -  fill during implementation if anything unexpected is encountered]
 
 Rules:
 - Milestones must be ordered so each one leaves the codebase in a working state.

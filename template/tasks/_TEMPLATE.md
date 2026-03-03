@@ -1,39 +1,51 @@
-# Tasks: [feature-name]
+# Tasks: [feature-id]-[slug]
 
-**Spec:** /specs/[feature-name].md
+**Feature ID:** [issue-id]-[slug]
+**Spec:** /specs/[feature-id]-[slug].md
 
 ## Status
 
 - Total: [N]
 - Complete: [N]
 - Remaining: [N]
+- Blocked: [N]
 
 ## Task List
 
-### Task 1: [name]
+### T-1: [name]
 
 - **Files:** [list]
 - **Done when:** [one sentence]
-- **Criteria covered:** [which from spec]
+- **Criteria covered:** [AC-1, AC-2]
 - **Status:** [ ] Not started
 
-### Task 2: [name]
+### T-2: [name]
 
 - **Files:** [list]
 - **Done when:** [one sentence]
-- **Criteria covered:** [which]
+- **Criteria covered:** [AC-*]
 - **Status:** [ ] Not started
 
-### Task 3: [name]
+### T-3: [name]
 
 - **Files:** [list]
 - **Done when:** [one sentence]
-- **Criteria covered:** [which]
+- **Criteria covered:** [AC-*]
 - **Status:** [ ] Not started
 
 ## Test Strategy
 
-<!-- Which criterion is tested by which task -->
+<!-- Which criterion is tested by which test file or suite -->
+
+- AC-1: [test name/path]
+- AC-2: [test name/path]
+- AC-3: [test name/path]
+
+## Evidence Log
+
+<!-- Append after each task completion -->
+
+- [YYYY-MM-DD] T-[N]  -  commands run: [build/lint/test], result: [pass/fail], notes: [short note]
 
 ## Session Log
 

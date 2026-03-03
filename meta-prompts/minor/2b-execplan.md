@@ -1,6 +1,6 @@
 <!-- slash-command: execplan -->
 <!-- description: Convert a task plan into a milestone-based execution plan -->
-# Phase 2b — ExecPlan (Long-Run Variant)
+# Phase 2b  -  ExecPlan (Long-Run Variant)
 
 **Objective:** Convert a task plan into a milestone-based execution plan for long-running agent sessions.
 
@@ -12,19 +12,19 @@
 
 ---
 
-```
+```text
 You are creating a milestone-based execution plan for a long-running implementation session.
 
 Read the spec at: $SPEC_PATH
 Read the task file at: $TASKS_PATH
-Read the project's conventions file (AGENTS.md).
+Read `/AGENTS.md`, `/workflow/PLAYBOOK.md`, and `/workflow/FILE_CONTRACTS.md`.
 
 Produce an ExecPlan that restructures the tasks into milestones. Each milestone must leave all tests passing when complete.
 
 Write the output following this structure:
 
 ---
-# ExecPlan: [feature-name]
+# ExecPlan: [feature-id]-[slug]
 
 ## Purpose
 [One paragraph: what this accomplishes and why]
@@ -35,7 +35,8 @@ Write the output following this structure:
 ## Prerequisites
 - [ ] Tests green on the target branch
 - [ ] Dependencies installed and up to date
-- [ ] Spec exists at /specs/[feature-name].md
+- [ ] Spec exists at /specs/[feature-id]-[slug].md
+- [ ] Task file exists at /tasks/[feature-id]-[slug].md
 
 ## Milestones
 
@@ -63,11 +64,16 @@ Write the output following this structure:
 - [ ] Milestone 2
 [etc.]
 
+## Linkage
+- Feature ID: [issue-id]-[slug]
+- Spec: /specs/[feature-id]-[slug].md
+- Tasks: /tasks/[feature-id]-[slug].md
+
 ## Decision Log
-[empty — fill during implementation if non-obvious choices arise]
+[empty  -  fill during implementation if non-obvious choices arise]
 
 ## Surprises
-[empty — fill during implementation if anything unexpected is encountered]
+[empty  -  fill during implementation if anything unexpected is encountered]
 ---
 
 Rules:

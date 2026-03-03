@@ -1,85 +1,65 @@
 # Agent Workflow Scaffold
 
-Prompt-first scaffolding for AI-assisted development in VS Code or Cursor.
+Drop-in scaffold for agent-driven development with Claude, Copilot, and Codex.
 
-## Core Model
+## What this gives you
 
-Users should be able to:
-1. Download a scaffold ZIP release
-2. Place it in a project root
-3. Run a workflow prompt in an AI chat session
-4. Let the agent perform setup/update work
+- `AGENTS.md` as the canonical routing file
+- Workflow + governance docs for execution and policy
+- Templates for specs, tasks, and decisions
+- Tool adapters for Claude, Copilot, and Codex
+- CI and PR templates for validation
 
-## ZIP Variants
+## Quick start
 
-| ZIP | Contents | Use When |
-|-----|----------|----------|
-| `scaffold-template.zip` | Template files only (`AGENTS.md`, `.claude/`, `.github/`, `.codex/`, templates) | You want project scaffolding and Claude slash commands |
-| `scaffold-metaprompts.zip` | Copilot `.prompt.md` files only | Your project already has scaffolding and you only want Copilot `/` commands |
-| `scaffold-full.zip` | Template files + Copilot `.prompt.md` files | You want both scaffold and Copilot slash commands |
+1. Download a release ZIP (`scaffold-template.zip`, `scaffold-metaprompts.zip`, or `scaffold-full.zip`).
+2. Place it in your project root.
+3. Open an AI coding session at the project root.
+4. Run [`meta-prompts/initialization.md`](meta-prompts/initialization.md) for setup.
+5. Run [`meta-prompts/update.md`](meta-prompts/update.md) for updates.
+6. Confirm prompt installation, then type `/` in chat.
 
-## Quick Start (Outside User)
+## ZIP choices
 
-1. Download the ZIP variant you want from Releases.
-2. Place the ZIP in your project root.
-3. Open VS Code or Cursor and start an AI coding session at the project root.
-4. Paste and run:
-   - [`meta-prompts/initialization.md`](meta-prompts/initialization.md) for first-time setup
-   - [`meta-prompts/update.md`](meta-prompts/update.md) for updates to an already initialized project
-5. Confirm prompt installation when asked. The agent will copy `.prompt.md` files into your editor prompts directory.
-6. Type `/` in chat to confirm slash commands are available.
+| ZIP | Includes |
+| --- | --- |
+| `scaffold-template.zip` | Template scaffold (`AGENTS.md`, `.claude/`, `.github/`, `.codex/`, and templates) |
+| `scaffold-metaprompts.zip` | Copilot `.prompt.md` command files |
+| `scaffold-full.zip` | Template scaffold + Copilot prompt files |
 
-## Prompt Installation Targets
+## Scaffold layout
 
-The initialization/update prompts use these target directories:
+```text
+/template/
+  AGENTS.md                          # Canonical entrypoint and policy routing
+  /workflow/
+    LIFECYCLE.md                     # Lifecycle index
+    PLAYBOOK.md                      # Phase execution contract
+    FILE_CONTRACTS.md                # Artifact ownership + validation rules
+    FAILURE_ROUTING.md               # Retry/escalation paths
+  /governance/
+    CHANGE_PROTOCOL.md               # Safe instruction-change process
+    POLICY_TESTS.md                  # Policy checks mapped to validation
+    REGISTRY.md                      # Canonical policy file registry
+  /specs/_TEMPLATE.md                # Feature spec template
+  /tasks/_TEMPLATE.md                # Task plan + evidence template
+  /decisions/_TEMPLATE.md            # Decision record template
+  /CLAUDE.md                         # Claude adapter
+  /.github/copilot-instructions.md   # Copilot adapter
+  /.codex/config.toml                # Codex runtime config
+```
+
+Other scaffold files include `.claude/commands/`, issue/PR templates, and workflow YAML under `.github/`.
+
+## Command installation paths
+
 - Linux: `~/.config/Code/User/prompts/`
 - macOS: `~/Library/Application Support/Code/User/prompts/`
 - Windows: `%APPDATA%/Code/User/prompts/`
-- WSL2 with Windows VS Code: `/mnt/c/Users/[WindowsUser]/AppData/Roaming/Code/User/prompts/`
-- VS Code Insiders: replace `Code` with `Code - Insiders`
-- Cursor: replace `Code` with `Cursor`
+- WSL2 + Windows VS Code: `/mnt/c/Users/[WindowsUser]/AppData/Roaming/Code/User/prompts/`
+- VS Code Insiders: use `Code - Insiders` in the path
+- Cursor: use `Cursor` in the path
 
-## Commands
+## Maintainers
 
-### Claude Code
-
-Claude commands are included in scaffold template files under `.claude/commands/`.
-
-### GitHub Copilot
-
-Copilot commands are `.prompt.md` files under `prompts/`. Initialization/update prompts install them into the editor user prompts directory.
-
-### Codex
-
-Codex does not use slash commands. Use `AGENTS.md` + the meta-prompts directly.
-
-## Maintainer Workflow (Prompt-Only)
-
-Use [`meta-prompts/prompt-sync.md`](meta-prompts/prompt-sync.md) to synchronize:
-- `meta-prompts/major/*.md` + `meta-prompts/minor/*.md`
-- `template/.claude/commands/*.md`
-- `prompts/*.prompt.md`
-
-This keeps prompt artifacts aligned without scripts.
-
-## Repository Structure
-
-```
-/template/                          — Distributable scaffolding
-  .claude/commands/                 — Claude slash commands
-  .github/                          — Copilot instructions, PR template, CI, issue templates
-  .codex/                           — Codex configuration and ExecPlan template
-/prompts/                           — Copilot .prompt.md command files
-/meta-prompts/
-  initialization.md                 — First-time setup prompt
-  update.md                         — Update prompt
-  prompt-sync.md                    — Maintainer prompt sync workflow
-  major/                            — Consolidated session prompts
-  minor/                            — Per-phase prompts
-/.github/workflows/
-  release-template.yml              — Release workflow producing ZIP variants
-/workflow-diagram.svg               — Workflow lifecycle diagram
-/Principles for Development Using the Workflow.md
-/LICENSE
-/README.md
-```
+Use [`meta-prompts/prompt-sync.md`](meta-prompts/prompt-sync.md) to keep meta-prompts, Claude commands, and Copilot prompts aligned.
