@@ -4,22 +4,24 @@ agent: 'agent'
 ---
 <!-- generated-from-metaprompt -->
 
-[AGENTS.md](../../AGENTS.md)
+[AGENTS.md](../template/AGENTS.md)
+[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
+[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
 
 You are reviewing a completed feature branch. You did not write this code. Approach it with fresh eyes.
 
 Read the spec at: ${input:specOrFeature:Provide the spec path or feature description}
-Read the project's conventions file (AGENTS.md).
+Read `/AGENTS.md`, `/workflow/PLAYBOOK.md`, and `/workflow/FILE_CONTRACTS.md`.
 Read the full diff of the current branch against the target branch.
-Read the task file linked from the spec's feature name at /tasks/[feature-name].md.
+Read the task file linked from the spec's feature ID at /tasks/[feature-id]-[slug].md.
 
 Evaluate every item below. For each, report PASS or FAIL with specific evidence.
 
 **Acceptance criteria coverage:**
 For each criterion in the spec:
 - Does a test exist that specifically verifies this criterion?
-- PASS: [criterion] — test at [file:line] verifies this.
-- FAIL: [criterion] — no test found, or test does not verify the stated behavior.
+- PASS: [criterion]  -  test at [file:line] verifies this.
+- FAIL: [criterion]  -  no test found, or test does not verify the stated behavior.
 
 **Code quality checks:**
 1. No existing tests were modified to accommodate the new code.

@@ -1,10 +1,10 @@
 <!-- slash-command: test -->
 <!-- description: Write failing tests for acceptance criteria before implementation -->
-# Phase 3 — Test
+# Phase 3  -  Test
 
-**Objective:** Write and commit failing tests — one per acceptance criterion — before any implementation code exists.
+**Objective:** Write and commit failing tests  -  one per acceptance criterion  -  before any implementation code exists.
 
-**Trigger:** A task file exists at `/tasks/[feature-name].md`. Issue is labeled `status:planned`.
+**Trigger:** A task file exists at `/tasks/[feature-id]-[slug].md`. Issue is labeled `status:planned`.
 
 **Required input:** The path to the task file.
 
@@ -12,12 +12,12 @@
 
 ---
 
-```
+```text
 You are writing tests for a feature that does not exist yet. Do not write implementation code.
 
 Read the task file at: $ARGUMENTS
 Read the linked spec file referenced in that task file.
-Read the project's conventions file (AGENTS.md) for testing patterns.
+Read `/AGENTS.md`, `/workflow/PLAYBOOK.md`, and `/workflow/FILE_CONTRACTS.md`.
 Read existing test files in the relevant area to match the project's test style, naming, and structure.
 
 For each acceptance criterion in the spec, write at least one test that:
@@ -27,7 +27,7 @@ For each acceptance criterion in the spec, write at least one test that:
 
 Rules:
 - Every acceptance criterion must have at least one corresponding test. No criterion left untested.
-- Tests must fail. If a test passes before implementation, it is not testing new behavior — rewrite it.
+- Tests must fail. If a test passes before implementation, it is not testing new behavior  -  rewrite it.
 - Do not write any implementation code. Not even stubs, helpers, or fixtures that implement feature logic.
 - Follow the existing test patterns in this codebase exactly. Match file location, naming, imports, and structure.
 - All pre-existing tests must still pass. Your new tests are the only ones that should fail.
@@ -35,7 +35,7 @@ Rules:
 After writing tests:
 1. Run the full test suite.
 2. Confirm: new tests fail, all existing tests pass.
-3. Commit the test files with a message referencing the spec (example: "Add failing tests for [feature-name] per /specs/[feature-name].md").
+3. Commit the test files with a message referencing the spec (example: "Add failing tests for [feature-id]-[slug] per /specs/[feature-id]-[slug].md").
 
 After committing, state: "Failing tests committed. Label the issue status:tests-written. Next phase: Implement (Phase 4). Start in a fresh context window. Run one session per task."
 ```

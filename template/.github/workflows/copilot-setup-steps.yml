@@ -10,28 +10,64 @@ on:
       - .github/workflows/copilot-setup-steps.yml
 
 jobs:
-  copilot-setup-steps:
+  policy-and-quality-gates:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: read
+    env:
+      INSTALL_CMD: "echo 'Set INSTALL_CMD in workflow env'"
+      BUILD_CMD: "echo 'Set BUILD_CMD in workflow env'"
+      LINT_CMD: "echo 'Set LINT_CMD in workflow env'"
+      TEST_CMD: "echo 'Set TEST_CMD in workflow env'"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup language runtime
+      - name: Validate scaffold contract files exist
         run: |
-          # Replace with runtime setup (e.g., setup-node, setup-python)
-          # Or remove this step if no runtime setup is needed
-          echo "Replace with language runtime setup or remove step"
+          set -e
+          test -f AGENTS.md
+          test -f workflow/LIFECYCLE.md
+          test -f workflow/PLAYBOOK.md
+          test -f workflow/FILE_CONTRACTS.md
+          test -f workflow/FAILURE_ROUTING.md
+          test -f governance/CHANGE_PROTOCOL.md
+          test -f governance/POLICY_TESTS.md
+          test -f governance/REGISTRY.md
+
+      - name: Validate AGENTS placeholders are resolved
+        run: |
+          set -e
+          if grep -q "\[install step\]\|\[build step\]\|\[test step\]" AGENTS.md; then
+            echo "AGENTS.md still contains placeholder build commands"
+            exit 1
+          fi
+
+      - name: Validate spec and task templates include identity fields
+        run: |
+          set -e
+          grep -q "Feature ID" specs/_TEMPLATE.md
+          grep -q "AC-1" specs/_TEMPLATE.md
+          grep -q "Feature ID" tasks/_TEMPLATE.md
+          grep -q "T-1" tasks/_TEMPLATE.md
 
       - name: Install dependencies
         run: |
-          # Replace with install step from AGENTS.md
-          echo "Replace with your install step"
+          set -e
+          eval "$INSTALL_CMD"
 
-      - name: Validate environment
+      - name: Build project
         run: |
-          # Replace with build + lint + test steps from AGENTS.md
-          echo "Replace with your build step"
-          echo "Replace with your lint step"
-          echo "Replace with your test step"
+          set -e
+          eval "$BUILD_CMD"
+
+      - name: Lint project
+        run: |
+          set -e
+          eval "$LINT_CMD"
+
+      - name: Run tests
+        run: |
+          set -e
+          eval "$TEST_CMD"

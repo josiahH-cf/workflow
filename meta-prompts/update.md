@@ -1,4 +1,4 @@
-# Project Update — Meta-Prompt
+# Project Update  -  Meta-Prompt
 
 Paste this into a coding agent session at the root of a project that was **previously initialized** with the scaffold. A new version of the scaffold ZIP has been placed in the project directory. This meta-prompt will update the project's scaffolding while preserving your customizations.
 
@@ -6,14 +6,14 @@ Works with any of the three ZIP variants: `scaffold-template.zip`, `scaffold-met
 
 ---
 
-```
-You are updating an existing project's development scaffolding. This project was previously initialized with a scaffold ZIP — its files are already in place and have been customized. A new version of the scaffold ZIP has been placed in this project directory. Find it.
+```text
+You are updating an existing project's development scaffolding. This project was previously initialized with a scaffold ZIP  -  its files are already in place and have been customized. A new version of the scaffold ZIP has been placed in this project directory. Find it.
 
 Work through the following steps in order.
 
 ---
 
-STEP 1 — LOCATE, DETECT VARIANT, AND INVENTORY
+STEP 1  -  LOCATE, DETECT VARIANT, AND INVENTORY
 
 Find the scaffold zip file in the project directory. The zip may be named scaffold-template.zip, scaffold-metaprompts.zip, scaffold-full.zip, or a custom name.
 
@@ -28,31 +28,37 @@ Report: "Detected ZIP variant: [template-only / metaprompts-only / full]. Conten
 
 ---
 
-STEP 2 — CLASSIFY FILES AND BUILD UPDATE PLAN
+STEP 2  -  CLASSIFY FILES AND BUILD UPDATE PLAN
 
 Classify every file in the ZIP into one of three categories:
 
-**Auto-replace (generated/static — safe to overwrite):**
-- `.claude/commands/*.md` — generated slash commands
-- `workflow/LIFECYCLE.md` — lifecycle reference
-- `specs/_TEMPLATE.md`, `tasks/_TEMPLATE.md`, `decisions/_TEMPLATE.md` — blank templates
-- `.github/pull_request_template.md` — PR template
-- `.github/ISSUE_TEMPLATE/*.md` — issue templates
-- `.github/agents/*.md` — GitHub agent definitions
-- `.codex/PLANS.md` — ExecPlan template
-- `CLAUDE.md` — Claude config (imports AGENTS.md, not customized per-project)
-- `CLAUDE.local.md` — only if it is still the default stub
-- `.gitignore` — additive entries (will be appended, not replaced)
-- `prompts/*.prompt.md` — generated Copilot prompt files
+**Auto-replace (generated/static  -  safe to overwrite):**
+- `.claude/commands/*.md`  -  generated slash commands
+- `workflow/LIFECYCLE.md`  -  lifecycle reference
+- `workflow/PLAYBOOK.md`  -  phase execution contract
+- `workflow/FILE_CONTRACTS.md`  -  artifact validation contract
+- `workflow/FAILURE_ROUTING.md`  -  failure and escalation rules
+- `governance/CHANGE_PROTOCOL.md`  -  policy change protocol
+- `governance/POLICY_TESTS.md`  -  policy validation matrix
+- `governance/REGISTRY.md`  -  canonical policy registry
+- `specs/_TEMPLATE.md`, `tasks/_TEMPLATE.md`, `decisions/_TEMPLATE.md`  -  blank templates
+- `.github/pull_request_template.md`  -  PR template
+- `.github/ISSUE_TEMPLATE/*.md`  -  issue templates
+- `.github/agents/*.md`  -  GitHub agent definitions
+- `.codex/PLANS.md`  -  ExecPlan template
+- `CLAUDE.md`  -  Claude config (imports AGENTS.md, not customized per-project)
+- `CLAUDE.local.md`  -  only if it is still the default stub
+- `.gitignore`  -  additive entries (will be appended, not replaced)
+- `prompts/*.prompt.md`  -  generated Copilot prompt files
 
-**Protect (customized per-project — never auto-overwrite):**
-- `AGENTS.md` — customized with project-specific conventions
-- `.claude/settings.json` — customized tool permissions and hooks
-- `.claude/settings.local.json` — local Claude override (personal; gitignored)
-- `.vscode/settings.json` — local/editor preference overrides (personal)
-- `.github/workflows/copilot-setup-steps.yml` — customized CI steps
-- `.codex/config.toml` — customized Codex settings
-- `.github/copilot-instructions.md` — may have project-specific additions
+**Protect (customized per-project  -  never auto-overwrite):**
+- `AGENTS.md`  -  customized with project-specific conventions
+- `.claude/settings.json`  -  customized tool permissions and hooks
+- `.claude/settings.local.json`  -  local Claude override (personal; gitignored)
+- `.vscode/settings.json`  -  local/editor preference overrides (personal)
+- `.github/workflows/copilot-setup-steps.yml`  -  customized CI command env values and runtime steps
+- `.codex/config.toml`  -  customized Codex settings
+- `.github/copilot-instructions.md`  -  may have project-specific additions
 
 **Conditional (may or may not be customized):**
 - Any file not in the above lists.
@@ -71,14 +77,14 @@ Wait for confirmation before continuing.
 
 ---
 
-STEP 3 — SHOW CHANGES FOR AUTO-REPLACE FILES
+STEP 3  -  SHOW CHANGES FOR AUTO-REPLACE FILES
 
 For each auto-replace file that already exists in the project:
 1. Compare the existing version with the new version from the ZIP.
 2. If they differ, show a brief summary of what changed:
    - Lines added / removed / modified (counts)
    - Key changes in plain language (e.g., "New /ideate command added", "Review command updated with additional checks")
-3. If they are identical, note: "[file] — no changes."
+3. If they are identical, note: "[file]  -  no changes."
 
 Present all changes as a summary report. Ask: "These are the changes that will be applied. Continue with the update?"
 
@@ -86,7 +92,7 @@ Wait for confirmation.
 
 ---
 
-STEP 4 — APPLY UPDATES
+STEP 4  -  APPLY UPDATES
 
 **Auto-replace files:**
 For each auto-replace file:
@@ -111,7 +117,7 @@ Commit all changes: "Update project scaffolding to [version or date]"
 
 ---
 
-STEP 5 — UPDATE COPILOT PROMPT FILES
+STEP 5  -  UPDATE COPILOT PROMPT FILES
 
 If the ZIP contains a prompts/ directory with .prompt.md files:
 
@@ -138,7 +144,7 @@ If no: skip and note the files can be updated manually later by copying `.prompt
 
 ---
 
-STEP 6 — REVIEW PROTECTED FILES
+STEP 6  -  REVIEW PROTECTED FILES
 
 For each protected file that exists in both the ZIP and the project:
 1. Compare the existing version with the new version from the ZIP.
@@ -148,16 +154,16 @@ For each protected file that exists in both the ZIP and the project:
    - Removed sections
 3. Ask: "The template version of [file] has changes. Your customized version will NOT be overwritten. Would you like to:
    a) See a side-by-side comparison to manually merge any new sections
-   b) Skip — your current version is fine
+   b) Skip  -  your current version is fine
    c) Replace with the template version (this will lose your customizations)"
 
 Apply only what is explicitly confirmed.
 
-If no protected files have changes, state: "All protected files are up to date — no action needed."
+If no protected files have changes, state: "All protected files are up to date  -  no action needed."
 
 ---
 
-STEP 7 — VERIFY
+STEP 7  -  VERIFY
 
 Report the update results:
 
@@ -167,11 +173,13 @@ Report the update results:
 4. List any protected files where the user chose to merge or replace.
 5. Confirm Copilot prompt files were updated (if applicable).
 6. Confirm Claude commands are in place at .claude/commands/.
-7. Confirm no template placeholder values were introduced into customized files.
-8. Confirm `.claude/settings.json` does not contain `bypassPermissions` or `allowDangerouslySkipPermissions`.
-9. Confirm local preference files (`.claude/settings.local.json`, `.vscode/settings.json`) were not overwritten unless explicitly approved.
-10. Check current YOLO configuration: report whether `.claude/settings.local.json` and `.vscode/settings.json` have YOLO mode enabled, and which option (A/B/C/D) is active. If the configuration appears incomplete or inconsistent, offer to re-run the YOLO setup from initialization Step 4.
+7. Confirm workflow control-plane files are present at `workflow/LIFECYCLE.md`, `workflow/PLAYBOOK.md`, `workflow/FILE_CONTRACTS.md`, and `workflow/FAILURE_ROUTING.md`.
+8. Confirm governance files are present at `governance/CHANGE_PROTOCOL.md`, `governance/POLICY_TESTS.md`, and `governance/REGISTRY.md`.
+9. Confirm `.github/workflows/copilot-setup-steps.yml` remains project-customized and was not overwritten unless explicitly approved.
+10. Confirm no template placeholder values were introduced into customized files.
+11. Confirm `.claude/settings.json` does not contain `bypassPermissions` or `allowDangerouslySkipPermissions`.
+12. Confirm local preference files (`.claude/settings.local.json`, `.vscode/settings.json`) were not overwritten unless explicitly approved.
+13. Check current YOLO configuration: report whether `.claude/settings.local.json` and `.vscode/settings.json` have YOLO mode enabled, and which option (A/B/C/D) is active. If the configuration appears incomplete or inconsistent, offer to re-run the YOLO setup from initialization Step 4.
 
 State: "Scaffolding update complete. All generated files (slash commands, templates, lifecycle docs) have been updated. Your project customizations (AGENTS.md, tool configs) are preserved."
 ```
-

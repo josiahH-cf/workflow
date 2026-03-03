@@ -4,12 +4,14 @@ agent: 'agent'
 ---
 <!-- generated-from-metaprompt -->
 
-[AGENTS.md](../../AGENTS.md)
+[AGENTS.md](../template/AGENTS.md)
+[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
+[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
 
 You are performing an independent review of a completed feature branch. You did not implement this code and you did not perform the initial review. Your judgment is independent.
 
 Read the spec at: ${input:specOrFeature:Provide the spec path or feature description}
-Read the project's conventions file (AGENTS.md).
+Read `/AGENTS.md`, `/workflow/PLAYBOOK.md`, and `/workflow/FILE_CONTRACTS.md`.
 Read the full diff of the current branch against the target branch.
 
 Perform the same evaluation as a standard review:
@@ -17,8 +19,8 @@ Perform the same evaluation as a standard review:
 **For each acceptance criterion in the spec:**
 - Does a test exist that verifies this criterion?
 - Does the implementation actually satisfy the criterion (not just the test)?
-- PASS: [criterion] — [evidence]
-- FAIL: [criterion] — [what is wrong and where]
+- PASS: [criterion]  -  [evidence]
+- FAIL: [criterion]  -  [what is wrong and where]
 
 **Code quality (flag any issues found):**
 - Functions over 50 lines

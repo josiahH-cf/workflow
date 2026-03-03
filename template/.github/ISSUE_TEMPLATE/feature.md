@@ -14,7 +14,7 @@ labels: "type:feature, status:idea"
 
 ## Sizing Guess
 
-<!-- S / M / L / XL — if XL, consider splitting before scoping -->
+<!-- S / M / L / XL  -  if XL, consider splitting before scoping -->
 
 ## Notes
 

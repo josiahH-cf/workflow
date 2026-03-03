@@ -18,7 +18,7 @@ Produce the PR with this structure:
 [One sentence: what this PR does]
 
 ## Why
-Spec: /specs/[feature-name].md
+Spec: /specs/[feature-id]-[slug].md
 
 ## Changes
 [List the logical changes, grouped by area. Keep it scannable.]
@@ -39,15 +39,19 @@ Spec: /specs/[feature-name].md
 - [x] Rollback path is documented below
 
 ## Verification
-[How a reviewer can verify beyond reading the diff — specific steps or commands]
+[How a reviewer can verify beyond reading the diff  -  specific steps or commands]
+
+## Criteria Coverage
+- AC-1 -> [test/suite]
+- AC-2 -> [test/suite]
 
 ## Rollback
 [Special steps beyond git revert, or "Standard revert." if none]
 
 Rules:
 - If the diff exceeds 300 lines, state this clearly and recommend splitting before opening the PR.
-- Check every box honestly. If any box cannot be checked, do not check it — leave it unchecked and explain why.
+- Check every box honestly. If any box cannot be checked, do not check it  -  leave it unchecked and explain why.
 - The PR description must be understandable by a non-developer reviewer using the non-code checklist.
 - Open the PR against the target branch using the project's standard method.
 
-After creating the PR, state: "PR opened. Next phase: Human review and merge (Phase 7). A human reviewer should use the non-code checklist — no code reading required, approximately 10 minutes."
+After creating the PR, state: "PR opened. Next phase: Human review and merge (Phase 7). A human reviewer should use the non-code checklist  -  no code reading required, approximately 10 minutes."

@@ -1,19 +1,19 @@
-# Project Initialization — Meta-Prompt
+# Project Initialization  -  Meta-Prompt
 
 Paste this into a coding agent session at the root of any project where a scaffold zip has been placed. Works with any of the three ZIP variants: `scaffold-template.zip`, `scaffold-metaprompts.zip`, or `scaffold-full.zip`.
 
-> **Updating an existing project?** Use the [Update Meta-Prompt](update.md) instead — it preserves your customizations while updating generated files.
+> **Updating an existing project?** Use the [Update Meta-Prompt](update.md) instead  -  it preserves your customizations while updating generated files.
 
 ---
 
-```
+```text
 You are initializing a project with a standard development scaffolding. A zip archive has been placed somewhere in this project directory. Find it.
 
 Work through the following steps in order.
 
 ---
 
-STEP 1 — LOCATE, DETECT VARIANT, AND EXTRACT
+STEP 1  -  LOCATE, DETECT VARIANT, AND EXTRACT
 
 Find the scaffold zip file in the project directory. The zip may be named scaffold-template.zip, scaffold-metaprompts.zip, scaffold-full.zip, or a custom name.
 
@@ -30,7 +30,7 @@ List every file the zip contains with its intended destination path relative to 
 
 ---
 
-STEP 2 — PLACE TEMPLATE FILES, RESOLVE CONFLICTS
+STEP 2  -  PLACE TEMPLATE FILES, RESOLVE CONFLICTS
 
 If the ZIP contains template content (AGENTS.md, .claude/, .github/, etc.):
 
@@ -51,7 +51,7 @@ If the ZIP does NOT contain template content (metaprompts-only variant), skip th
 
 ---
 
-STEP 2b — INSTALL COPILOT PROMPT FILES
+STEP 2b  -  INSTALL COPILOT PROMPT FILES
 
 If the ZIP contains a prompts/ directory with .prompt.md files:
 
@@ -61,10 +61,10 @@ If yes:
 1. Detect the prompts directory based on OS/editor:
    - Linux: ~/.config/Code/User/prompts/
    - macOS: ~/Library/Application Support/Code/User/prompts/
-  - Windows: $APPDATA/Code/User/prompts/
-  - WSL2 with Windows VS Code: /mnt/c/Users/[WindowsUser]/AppData/Roaming/Code/User/prompts/
-  - VS Code Insiders: replace `Code` with `Code - Insiders`
-  - Cursor: replace `Code` with `Cursor`
+   - Windows: $APPDATA/Code/User/prompts/
+   - WSL2 with Windows VS Code: /mnt/c/Users/[WindowsUser]/AppData/Roaming/Code/User/prompts/
+   - VS Code Insiders: replace `Code` with `Code - Insiders`
+   - Cursor: replace `Code` with `Cursor`
    Create the directory if it does not exist, then copy all .prompt.md files from the prompts/ directory.
 2. If multiple editor prompt directories exist, ask which one to target before copying.
 3. List all installed prompt files and their slash command names (filename without .prompt.md extension).
@@ -77,9 +77,9 @@ Note: The Claude slash commands (.claude/commands/) are included in the template
 
 ---
 
-STEP 3 — CUSTOMIZE PROJECT CONVENTIONS
+STEP 3  -  CUSTOMIZE PROJECT CONVENTIONS
 
-If template content was NOT placed (metaprompts-only variant), skip Steps 3 and 4 entirely — jump to Step 5.
+If template content was NOT placed (metaprompts-only variant), skip Steps 3 and 4 entirely  -  jump to Step 5.
 
 Open the placed AGENTS.md file. It contains placeholder values that must be filled in for this project. Walk through each placeholder interactively:
 
@@ -87,7 +87,7 @@ Open the placed AGENTS.md file. It contains placeholder values that must be fill
 Ask: "What is the project name and a one-line description? What is the primary language or framework?"
 
 **Build section:**
-Ask: "What are your project's build steps? I need each of the following — provide the actual values or say 'not applicable' for any that don't apply:"
+Ask: "What are your project's build steps? I need each of the following  -  provide the actual values or say 'not applicable' for any that don't apply:"
 - Install
 - Build
 - Test (all)
@@ -104,6 +104,9 @@ Ask: "What naming conventions does this project use?"
 - Functions and variables: (e.g., camelCase, snake_case)
 - Files and directories: (e.g., kebab-case, PascalCase)
 
+**Workflow/Governance routing check:**
+Ask: "AGENTS.md routes to `/workflow/*.md` and `/governance/*.md`. Do you want to keep the default control-plane docs as-is, or should we tailor any sections now?"
+
 After receiving answers for each section, update AGENTS.md with the provided values. Present the completed file for review.
 
 Ask: "Does this look correct? Anything to adjust?"
@@ -113,15 +116,16 @@ Commit: "Customize AGENTS.md for this project"
 
 ---
 
-STEP 4 — CUSTOMIZE REMAINING CONFIGURATION
+STEP 4  -  CUSTOMIZE REMAINING CONFIGURATION
 
 Walk through each of the following files, but only the ones that were placed (skip any that were not placed or were kept as existing versions during conflict resolution):
 
 **.github/workflows/copilot-setup-steps.yml:**
-This file contains placeholder setup steps. Using the build steps just provided for AGENTS.md, fill in the actual values for:
-- Language runtime setup
-- Install step
-- Build, lint, and test validation steps
+This file now validates scaffold contracts and runs project commands via environment variables. Using the build steps from AGENTS.md, set:
+- `INSTALL_CMD`
+- `BUILD_CMD`
+- `LINT_CMD`
+- `TEST_CMD`
 Present the updated file. Ask: "Does this match your CI environment? Adjust anything?"
 
 **.claude/settings.json:**
@@ -130,7 +134,7 @@ Also review the hooks section. Ask: "The post-edit hook runs a formatter and the
 Update and present for confirmation.
 
 **Optional agent permission mode (local-only):**
-Ask exactly once: "Agent auto-approval (YOLO mode) will be configured for this project. The default is **option A — full YOLO for both Copilot and Claude Code**. This skips permission prompts for tool calls, file edits, and terminal commands. Choose a different option if you prefer:"
+Ask exactly once: "Agent auto-approval (YOLO mode) will be configured for this project. The default is **option A  -  full YOLO for both Copilot and Claude Code**. This skips permission prompts for tool calls, file edits, and terminal commands. Choose a different option if you prefer:"
 
 Offer these options:
 - **A) YOLO mode for both Copilot and Claude Code (default)**
@@ -170,7 +174,7 @@ Git hygiene for all options:
 - Do not remove those ignore entries when reverting to default mode.
 
 **.codex/config.toml:**
-Ask: "Are you using Codex? If yes, review these settings — otherwise I'll leave the defaults and we can move on."
+Ask: "Are you using Codex? If yes, review these settings  -  otherwise I'll leave the defaults and we can move on."
 If yes, present the file and ask about model preference and sandbox configuration.
 If no, move on.
 
@@ -178,28 +182,38 @@ Commit each file as it is confirmed: "Configure [filename] for this project"
 
 ---
 
-STEP 5 — VERIFY
+STEP 5  -  VERIFY
 
 Run checks appropriate to what was installed:
 
 If template content was placed:
-1. Confirm all expected directories exist: specs/, tasks/, decisions/, workflow/
+1. Confirm all expected directories exist: specs/, tasks/, decisions/, workflow/, governance/
 2. Confirm AGENTS.md has no remaining placeholder brackets (no `[install step]`, `[project name]`, etc.)
 3. Confirm .gitignore includes the scaffolding entries (CLAUDE.local.md, .claude/plans/, .trees/, .vscode/, .claude/settings.local.json)
 4. Confirm all template files (specs/_TEMPLATE.md, tasks/_TEMPLATE.md, decisions/_TEMPLATE.md) are in place
-5. List any files that still contain placeholder values and ask: "These files still have placeholder values. Would you like to fill them in now, or leave them as templates?"
-6. If optional agent permission mode was configured, confirm:
+5. Confirm workflow control-plane files are in place:
+  - `workflow/LIFECYCLE.md`
+  - `workflow/PLAYBOOK.md`
+  - `workflow/FILE_CONTRACTS.md`
+  - `workflow/FAILURE_ROUTING.md`
+6. Confirm governance files are in place:
+  - `governance/CHANGE_PROTOCOL.md`
+  - `governance/POLICY_TESTS.md`
+  - `governance/REGISTRY.md`
+7. Confirm `.github/workflows/copilot-setup-steps.yml` has command env values populated for this project.
+8. List any files that still contain placeholder values and ask: "These files still have placeholder values. Would you like to fill them in now, or leave them as templates?"
+9. If optional agent permission mode was configured, confirm:
   - `.vscode/settings.json` is valid JSON and preserved existing keys
   - `.claude/settings.local.json` is valid JSON when present
   - `.claude/settings.json` does not contain `bypassPermissions` or `allowDangerouslySkipPermissions`
   - Applied mode is accurately reported: Full YOLO / Copilot YOLO / Claude YOLO / Default interactive
 
 If Copilot prompt files were installed:
-7. List the installed .prompt.md files and confirm they are in the correct VS Code prompts directory.
-8. List the available slash commands by name.
+10. List the installed .prompt.md files and confirm they are in the correct VS Code prompts directory.
+11. List the available slash commands by name.
 
 If Claude commands were placed (template content included .claude/commands/):
-9. List the Claude slash commands available in .claude/commands/.
+12. List the Claude slash commands available in .claude/commands/.
 
 Report what was set up based on the detected variant:
 

@@ -1,6 +1,6 @@
 <!-- slash-command: review -->
 <!-- description: Verify implementation against spec with PASS/FAIL report -->
-# Phase 5 — Review (Self-Verify)
+# Phase 5  -  Review (Self-Verify)
 
 **Objective:** Verify the implementation against the spec. Produce a PASS/FAIL report per acceptance criterion.
 
@@ -12,21 +12,21 @@
 
 ---
 
-```
+```text
 You are reviewing a completed feature branch. You did not write this code. Approach it with fresh eyes.
 
 Read the spec at: $ARGUMENTS
-Read the project's conventions file (AGENTS.md).
+Read `/AGENTS.md`, `/workflow/PLAYBOOK.md`, and `/workflow/FILE_CONTRACTS.md`.
 Read the full diff of the current branch against the target branch.
-Read the task file linked from the spec's feature name at /tasks/[feature-name].md.
+Read the task file linked from the spec's feature ID at /tasks/[feature-id]-[slug].md.
 
 Evaluate every item below. For each, report PASS or FAIL with specific evidence.
 
 **Acceptance criteria coverage:**
 For each criterion in the spec:
 - Does a test exist that specifically verifies this criterion?
-- PASS: [criterion] — test at [file:line] verifies this.
-- FAIL: [criterion] — no test found, or test does not verify the stated behavior.
+- PASS: [criterion]  -  test at [file:line] verifies this.
+- FAIL: [criterion]  -  no test found, or test does not verify the stated behavior.
 
 **Code quality checks:**
 1. No existing tests were modified to accommodate the new code.
@@ -59,6 +59,6 @@ If ANY check fails:
 
 **Output:** A PASS/FAIL report per acceptance criterion and code quality check.
 
-**Branch — FAIL:** Go back to Phase 4 in a fresh context window to fix specific failures.
+**Branch  -  FAIL:** Go back to Phase 4 in a fresh context window to fix specific failures.
 
 **Next phase (on PASS):** Phase 5b (Cross-Review) if a different agent is available. Otherwise, Phase 6 (PR Create).

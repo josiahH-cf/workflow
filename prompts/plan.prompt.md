@@ -4,12 +4,14 @@ agent: 'agent'
 ---
 <!-- generated-from-metaprompt -->
 
-[AGENTS.md](../../AGENTS.md)
+[AGENTS.md](../template/AGENTS.md)
+[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
+[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
 
 You are planning implementation tasks. Do not write code. Do not write tests.
 
 Read the spec at: ${input:filePath:Provide the path to the spec or task file}
-Read the project's conventions file (AGENTS.md) for relevant patterns.
+Read `/AGENTS.md`, then `/workflow/PLAYBOOK.md` and `/workflow/FILE_CONTRACTS.md`.
 
 Decompose the spec into 2–5 implementation tasks, ordered by dependency (tasks that others depend on come first).
 
@@ -20,11 +22,13 @@ For each task, provide:
 - **Criteria covered:** [which acceptance criteria from the spec this task addresses]
 - **Status:** [ ] Not started
 
-Write the output to /tasks/[feature-name].md with this structure:
+Write the output to /tasks/[feature-id]-[slug].md with this structure:
 
-# Tasks: [feature-name]
+# Tasks: [feature-id]-[slug]
 
-**Spec:** /specs/[feature-name].md
+**Feature ID:** [issue-id]-[slug]
+
+**Spec:** /specs/[feature-id]-[slug].md
 
 ## Status
 - Total: [N]
@@ -33,25 +37,28 @@ Write the output to /tasks/[feature-name].md with this structure:
 
 ## Task List
 
-### Task 1: [name]
+### T-1: [name]
 - **Files:** [list]
 - **Done when:** [one sentence]
-- **Criteria covered:** [which from spec]
+- **Criteria covered:** [AC-*]
 - **Status:** [ ] Not started
 
 [repeat for each task]
 
 ## Test Strategy
-[Map each acceptance criterion to the task that will test it. Every criterion must appear exactly once.]
+[Map each acceptance criterion to test coverage using AC-* IDs.]
+
+## Evidence Log
+[empty  -  append commands and results during implementation]
 
 ## Session Log
-[empty — will be filled during implementation]
+[empty  -  will be filled during implementation]
 
 Rules:
-- Maximum 5 tasks. If you need more, the spec should have been split during Phase 1. Do not proceed — recommend splitting and stop.
+- Maximum 5 tasks. If you need more, the spec should have been split during Phase 1. Do not proceed  -  recommend splitting and stop.
 - If any single task touches more than 8 files, split that task into smaller tasks. The total must still not exceed 5. If it would, recommend splitting the spec instead.
 - Every acceptance criterion must be covered by at least one task. No orphaned criteria.
-- Tasks must be completable independently in sequence — no circular dependencies.
+- Tasks must be completable independently in sequence  -  no circular dependencies.
 - Do not write code, tests, or modify any source files.
 
 After writing the task file, state: "Plan complete. Label the issue status:planned. Next phase: Test (Phase 3)."

@@ -1,8 +1,28 @@
-# Project
+# AGENTS
+
+Canonical entrypoint for all coding agents. Keep this file short and navigational.
+
+## Mission
+
+Ship small, reversible, test-validated changes from a written spec to merged PR with minimal manual intervention.
+
+## Policy Precedence
+
+When instructions conflict, use this order:
+
+1. Direct human request in the current session
+2. This file (`/AGENTS.md`)
+3. Workflow control plane (`/workflow/*.md`)
+4. Governance control plane (`/governance/*.md`)
+5. Tool adapters (`/CLAUDE.md`, `/.github/copilot-instructions.md`, `/.codex/config.toml`)
+
+Do not duplicate policy text across files. Link to canonical docs instead.
+
+## Project Profile
 
 <!-- Replace: project name, one-line description, primary language/framework -->
 
-# Build
+## Build Commands (Authoritative)
 
 <!-- Replace with actual build steps for your project -->
 
@@ -14,98 +34,38 @@
 - Format: `[format step]`
 - Type-check: `[type-check step, if applicable]`
 
-# Architecture
+## Architecture Snapshot
 
 <!-- Replace with 5–15 lines mapping key directories to responsibilities -->
 
-# Conventions
+## Naming Conventions
 
 - Functions and variables: [naming convention]
 - Files and directories: [naming convention]
-- Prefer explicit error handling over silent failures
-- No dead code — remove unused imports, variables, and functions
-- Every public function has a doc comment
-- No hardcoded secrets, URLs, or environment-specific values
 
-# Testing
+## Lifecycle Index
 
-- Write tests before implementation
-- Each acceptance criterion requires at least one test
-- Do not modify existing tests to accommodate new code — fix the implementation
-- Run the full test suite before committing
-- Tests must be deterministic — no flaky tests in the main suite
+- Lifecycle map: `/workflow/LIFECYCLE.md`
+- Phase execution contract: `/workflow/PLAYBOOK.md`
+- Artifact ownership and validation: `/workflow/FILE_CONTRACTS.md`
+- Failure routing and escalation: `/workflow/FAILURE_ROUTING.md`
 
-# Planning
+## Governance Index
 
-- Features with more than 3 implementation steps require a written plan
-- Plans go in `/tasks/[feature-name].md` or as an ExecPlan per `/.codex/PLANS.md`
-- Plans are living documents — update progress, decisions, and surprises as work proceeds
-- A plan that cannot fit in 5 tasks indicates the feature should be split. Call this out.
+- Policy change protocol: `/governance/CHANGE_PROTOCOL.md`
+- Policy test matrix: `/governance/POLICY_TESTS.md`
+- Canonical file registry: `/governance/REGISTRY.md`
 
-# Workflow Phases
+## Artifact References
 
-This project follows a structured feature lifecycle. The full reference is in `/workflow/LIFECYCLE.md`.
+- Specs: `/specs/[feature-id]-[slug].md`
+- Tasks: `/tasks/[feature-id]-[slug].md`
+- Decisions: `/decisions/[NNNN]-[slug].md`
+- ExecPlan template: `/.codex/PLANS.md`
 
-- **Phase 0 — Ideate:** Raw idea → structured GitHub Issue(s)
-- **Phase 1 — Scope:** Issue → locked spec with 3–7 testable acceptance criteria
-- **Phase 2 — Plan:** Spec → 2–5 ordered implementation tasks
-- **Phase 2b — ExecPlan:** Tasks → milestone-based execution plan (long-run only)
-- **Phase 3 — Test:** Write failing tests per acceptance criterion before implementation
-- **Phase 4 — Implement:** One task per session, make failing tests pass
-- **Phase 5 — Review:** PASS/FAIL report against spec (different agent/model preferred)
-- **Phase 5b — Cross-Review:** Independent verification by a different agent
-- **Phase 6 — PR Create:** Open PR with full description and checklists
-- **Phase 7 — Merge:** Human non-code review (~10 min), merge, cleanup
+## Non-Negotiables
 
-Each phase produces a file artifact consumed by the next. Fresh context window between phases.
-
-# Dependencies
-
-- Add dependencies only when standard library cannot solve the problem
-- Pin versions explicitly
-- Security audit new dependencies before adding
-
-# Commits
-
-- One logical change per commit
-- Present-tense imperative subject line, under 72 characters
-- Reference the spec or task file in the commit body when applicable
-- Commit after each completed task, not after all tasks
-- After committing a task, mark its status as `[x] Complete` in the task file and update the Status counts
-
-# Branches
-
-- Branch from the latest target branch immediately before starting work
-- One feature per branch
-- Delete after merge
-- Never commit directly to the target branch
-- Naming: `[type]/[issue-id]-[slug]` (e.g., `feat/42-user-auth`, `fix/87-null-check`)
-
-# Worktrees
-
-- Use git worktrees for concurrent features across agents
-- Worktree root: `.trees/[branch-name]/`
-- Each worktree is isolated: agents operate only within their assigned worktree
-- Artifacts (specs, tasks, decisions) live in the main worktree and are shared read-only
-- Never switch branches inside a worktree — create a new one
-
-# Pull Requests
-
-- Link to the spec file
-- Diff under 300 lines; if larger, split the feature
-- All CI checks pass before requesting review
-- PR description states: what changed, why, how to verify
-
-# Review
-
-- Reviewable in under 15 minutes
-- Tests cover every acceptance criterion
-- No unrelated changes in the diff
-- Cross-agent review encouraged: use a different model than the one that wrote the code
-
-# Security
-
-- No secrets in code or instruction files
-- Use environment variables for all credentials
-- Sanitize all external input
-- Log security-relevant events
+- Tests are written before implementation for each acceptance criterion.
+- Every implemented task produces evidence in the task file session log.
+- No out-of-scope file edits without a recorded decision.
+- No secrets in code or instruction files.

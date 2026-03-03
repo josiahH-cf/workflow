@@ -1,4 +1,6 @@
-# Feature: [name]
+# Feature: [feature-id]-[slug]
+
+**Feature ID:** [issue-id]-[slug]
 
 ## Description
 
@@ -8,13 +10,15 @@
 
 <!-- 3–7 testable statements, each verifiable by an automated test -->
 
-- [ ] [Criterion 1]
-- [ ] [Criterion 2]
-- [ ] [Criterion 3]
+- [ ] **AC-1:** [Criterion 1]
+- [ ] **AC-2:** [Criterion 2]
+- [ ] **AC-3:** [Criterion 3]
 
 ## Affected Areas
 
 <!-- Files, modules, or directories this touches -->
+
+- [path or module]
 
 ## Constraints
 
@@ -27,6 +31,14 @@
 ## Dependencies
 
 <!-- Other features, services, or data this depends on -->
+
+## Verification Map
+
+<!-- Map each criterion to intended test coverage -->
+
+- AC-1 → [test file or suite]
+- AC-2 → [test file or suite]
+- AC-3 → [test file or suite]
 
 ## Notes
 
