@@ -1,6 +1,6 @@
 # Phase 2: Trim Template + Merge Workflow Docs + Delete Archive
 
-> **Status**: NOT STARTED
+> **Status**: COMPLETE
 > **Prereqs**: Phase 1 complete
 > **Outcome**: Archive deleted. Diagram deleted. Platform files are opt-in. SPECS.md merged into FILE_CONTRACTS.md. Default install is leaner.
 

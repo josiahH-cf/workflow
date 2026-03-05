@@ -4,8 +4,6 @@ Drop-in scaffold for agent-driven development with Claude, Copilot, and Codex. I
 
 > **Start here:** Read this README, then [AGENTS.md](template/AGENTS.md), then browse the [example project](examples/sample-project/) to see what "done" looks like.
 
-![Feature Lifecycle](workflow-diagram.svg)
-
 ## Prerequisites
 
 | Requirement | Required? | Notes |
@@ -218,7 +216,6 @@ project/
 │   ├── ROUTING.md                   ← Agent routing, branches, concurrency
 │   ├── COMMANDS.md                  ← Build/test/lint commands
 │   ├── BOUNDARIES.md                ← ALWAYS/ASK/NEVER rules
-│   ├── SPECS.md                     ← Specification workflow + EARS guide
 │   └── CONCURRENCY.md              ← Multi-agent safety
 ├── governance/
 │   ├── CHANGE_PROTOCOL.md

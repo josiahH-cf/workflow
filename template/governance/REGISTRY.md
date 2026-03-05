@@ -15,7 +15,6 @@ This registry defines the authority and ownership of scaffold policy files.
 | `/workflow/ROUTING.md` | Agent routing, branch naming, concurrency | Human maintainer |
 | `/workflow/COMMANDS.md` | Build/test/lint commands, code conventions | Human maintainer |
 | `/workflow/BOUNDARIES.md` | Behavioral boundaries, bug tracking format | Human maintainer |
-| `/workflow/SPECS.md` | Specification workflow, artifact paths | Human maintainer |
 | `/workflow/CONCURRENCY.md` | Concurrency safety, drift detection, decomposition strategies | Human maintainer |
 | `/workflow/ORCHESTRATOR.md` | Autonomous loop contract (session bootstrap, phase transitions) | Human maintainer |
 | `/governance/CHANGE_PROTOCOL.md` | Policy mutation rules | Human maintainer |

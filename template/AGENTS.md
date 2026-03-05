@@ -58,7 +58,6 @@ The project lifecycle follows 8 phases plus a parallel Bug Track.
 | Concurrency safety, drift detection | `workflow/CONCURRENCY.md` |
 | Build/test/lint commands, code conventions | `workflow/COMMANDS.md` |
 | Boundaries (always/ask/never), bug tracking | `workflow/BOUNDARIES.md` |
-| Specification workflow, artifact paths | `workflow/SPECS.md` |
 | Lifecycle phases (detailed) | `workflow/LIFECYCLE.md` |
 | Phase execution gates | `workflow/PLAYBOOK.md` |
 | Artifact ownership & contracts | `workflow/FILE_CONTRACTS.md` |

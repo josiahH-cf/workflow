@@ -49,24 +49,16 @@ REQUIRED_FILES=(
     ".github/copilot-instructions.md"
     ".github/REVIEW_RUBRIC.md"
     ".github/pull_request_template.md"
-    ".github/agents/planner.agent.md"
-    ".github/agents/reviewer.agent.md"
-    ".github/agents/implementer.agent.md"
     ".github/workflows/copilot-setup-steps.yml"
     ".github/workflows/copilot-agent.yml"
     ".github/workflows/claude-review.yml"
     ".github/workflows/autofix.yml"
     ".github/workflows/agentic-triage.yml"
-    ".github/ISSUE_TEMPLATE/feature.yml"
-    ".github/ISSUE_TEMPLATE/bug.yml"
-    ".github/ISSUE_TEMPLATE/agent-task.yml"
     ".claude/settings.json"
-    ".codex/AGENTS.md"
     ".aiignore"
     "workflow/ROUTING.md"
     "workflow/COMMANDS.md"
     "workflow/BOUNDARIES.md"
-    "workflow/SPECS.md"
     "workflow/ORCHESTRATOR.md"
     "workflow/CONCURRENCY.md"
     "scripts/policy-check.sh"
@@ -95,7 +87,7 @@ if [[ -f "$TEMPLATE_DIR/AGENTS.md" ]]; then
         pass "AGENTS.md is $agents_lines lines (compact TOC hub)"
     fi
 
-    for ref in "ROUTING.md" "COMMANDS.md" "BOUNDARIES.md" "SPECS.md"; do
+    for ref in "ROUTING.md" "COMMANDS.md" "BOUNDARIES.md" "FILE_CONTRACTS.md"; do
         if grep -q "$ref" "$TEMPLATE_DIR/AGENTS.md"; then
             pass "AGENTS.md references $ref"
         else

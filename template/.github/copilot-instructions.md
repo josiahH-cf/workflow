@@ -48,6 +48,5 @@ See `workflow/ORCHESTRATOR.md` for the full loop contract.
 - Agent routing and branch naming: `workflow/ROUTING.md`
 - Build/test/lint commands: `workflow/COMMANDS.md`
 - Behavioral boundaries: `workflow/BOUNDARIES.md`
-- Specification workflow: `workflow/SPECS.md`
 - Concurrency safety: `workflow/CONCURRENCY.md`
 - Orchestrator loop: `workflow/ORCHESTRATOR.md`

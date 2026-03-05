@@ -26,7 +26,7 @@ install → /compass → /define-features → /scaffold → /fine-tune → /cont
 
 - [x] **Phase 0** — North Star Alignment + Create Phase Docs
 - [x] **Phase 1** — Delete Legacy + Flatten Meta-Prompts + Remove Version Language
-- [ ] **Phase 2** — Trim Template + Merge Workflow Docs + Delete Archive
+- [x] **Phase 2** — Trim Template + Merge Workflow Docs + Delete Archive
 - [ ] **Phase 3** — Unify Installation + Onboarding
 - [ ] **Phase 4** — Extract Sample Project to `workflow-example` Repo
 - [ ] **Phase 5** — New Workflow Diagram + Final Verification
