@@ -1,58 +1,49 @@
 <!-- role: derived | canonical-source: meta-prompts/minor/02-compass.md -->
-description: Conduct the Compass interview to establish project identity
-allowed-tools: Read, Bash(find:*), Bash(grep:*)
+<!-- generated-from-metaprompt -->
+# Phase 2 — Compass
 
-# Compass — Phase 2: Project Identity Interview
+**Objective:** Conduct an adaptive interview to establish the project's identity, goals, success criteria, and boundaries. This produces the constitution — the source of truth that all later phases reference.
 
-You are conducting the Compass interview. Your job is to understand what this project IS — its identity, goals, boundaries, and principles — through adaptive conversation with the developer.
+**Trigger:** Phase 1 complete (scaffold files in place) or `/compass` invoked manually.
 
-## What This Is
+**Entry commands:**
+- Claude: `/compass`
+- Copilot: `compass.prompt.md`
+- Codex: see `.codex/AGENTS.md`
 
-The Compass is an adaptive interview, not a scripted checklist. Follow the thread of the developer's answers. Ask follow-up questions based on what they say, not from a fixed list. The goal is to surface the project's identity naturally.
+---
 
-## What This Is NOT
+## What Happens
 
-- Not a requirements gathering session (no features, no architecture)
-- Not a technical interview (no libraries, no folder structures, no code)
-- Not a form to fill out (no scripted questions in fixed order)
+An adaptive interview (not a scripted checklist) covers:
 
-## Interview Protocol
+1. **Problem Statement** — What problem does this project solve?
+2. **Target User** — Who is the primary audience?
+3. **Definition of Success** — How do we know the project succeeds?
+4. **Core Capabilities** — What must the project do? (features at the capability level)
+5. **Out-of-Scope Boundaries** — What will this project explicitly NOT do?
+6. **Inviolable Principles** — What rules can never be broken?
+7. **Security Requirements** — What security standards apply?
+8. **Testing Requirements** — What testing standards apply?
 
-Start with the broadest question and narrow based on answers:
+The interview is adaptive — follow-up questions are driven by the developer's answers, not a fixed script.
 
-1. **Open:** "What are you building, and why does it matter?"
-2. **Follow the thread:** Based on their answer, explore:
-   - Who experiences the problem they described?
-   - What does success look like for those people?
-   - What is this project deliberately NOT? (boundaries are as important as capabilities)
-   - What principles should hold even when under pressure to ship?
-3. **Probe for gaps:** If the developer hasn't covered these naturally, ask:
-   - Security considerations — what data are we handling? What are the threats?
-   - Testing philosophy — how confident do we need to be before shipping?
-4. **Reflect back:** Before writing anything, summarize what you heard and ask "Did I miss anything? Is anything wrong?"
+## Gate
 
-## Key Rules
+- `.specify/constitution.md` exists with all 8 sections populated (no `[PROJECT-SPECIFIC]` placeholders)
+- `AGENTS.md → Overview` section is filled with project description
 
-- Ask ONE question at a time. Do not dump a list of questions.
-- Listen to the answer before choosing the next question.
-- If the developer gives a vague answer, probe deeper — don't accept "it should be fast" without understanding what "fast" means to them.
-- If the developer starts describing implementation details (frameworks, databases, APIs), gently redirect: "That's useful context — we'll capture that in Phase 4. For now, let's stay with what the project IS rather than how it's built."
-- Do not solicit implementation details: no libraries, no folder structures, no code, no API designs.
+## Output
 
-## Outputs
+- `.specify/constitution.md` — project identity document
+- `AGENTS.md → Overview` — one-paragraph project description
 
-When the interview is complete:
+## Editing the Constitution
 
-1. **Write `.specify/constitution.md`** — Fill in all 8 sections using the developer's answers. Use their language where possible. Every section should have substantive content, not just placeholders.
-2. **Update `AGENTS.md` Overview section** — Replace the `[PROJECT-SPECIFIC]` placeholder with a one-paragraph project description synthesized from the interview.
-3. **Confirm with the developer** — Present the constitution and ask for approval before finalizing.
+Use `/compass-edit` (Claude) to modify the constitution after initial creation. This requires explicit developer approval and shows a diff of changes.
 
-## After Completion
+## See Also
 
-- The constitution is **read-only** during normal workflow
-- To modify it later, use `/compass-edit`
-- All downstream phases (Define Features, Scaffold, Code, etc.) reference this document as the source of truth
-
-## Resuming
-
-If this interview is interrupted, read `.specify/constitution.md` to see what's been filled in so far, and continue from the first empty section.
+- Constitution template: `.specify/constitution.md`
+- Edit gate: `.claude/commands/compass-edit.md`
+- v1 equivalent: Phase 0 (Ideate) — v2 absorbs ideation into the Compass interview

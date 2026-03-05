@@ -1,71 +1,48 @@
 <!-- role: derived | canonical-source: meta-prompts/minor/05-fine-tune-plan.md -->
-description: Create ordered feature specs with model assignments, branches, and acceptance criteria
+<!-- generated-from-metaprompt -->
+# Phase 5 — Fine-tune Plan
 
-# Fine-tune Plan — Phase 5: Spec Finalization
+**Objective:** Finalize the build plan: order task breakdowns, write acceptance criteria, assign models, and create branch names.
 
-You are finalizing feature specs into execution-ready work items with model assignments, branch names, and ordered task breakdowns.
+**Trigger:** Phase 4 complete (architecture plan exists, AGENTS.md populated).
 
-## Prerequisites
+**Entry commands:**
+- Claude: `/fine-tune`
+- Copilot: `fine-tune.prompt.md`
 
-- `.specify/constitution.md` must exist (project identity)
-- Feature specs must exist in `/specs/` with Technical Approach filled (from Phase 4)
-- `AGENTS.md` must have Core Commands and Code Conventions filled (from Phase 4)
-- If prerequisites are missing, tell the developer which phase to run first
+---
 
-## What This Does
+## What Happens
 
-For each feature spec:
+1. For each feature spec, create or update `/tasks/[feature-id]-[slug].md` as the authoritative execution artifact
+2. Produce an ordered list of tasks sized for one commit
+3. Write acceptance criteria using EARS + GWT formats:
+   - **EARS:** `When [trigger], the system shall [response]`
+   - **GWT:** `Given [context], When [action], Then [outcome]`
+4. Each criterion is a machine-parseable checkbox: `- [ ] criterion`
+5. Assign models using `AGENTS.md → Agent Routing Matrix`
+6. Name branches using `AGENTS.md → Branch Naming`: `model/type-short-description`
+7. Note which model will review each task (different from implementer)
 
-1. **Create ordered task breakdown** — Break the feature into 2–5 implementation tasks, ordered by dependency
-2. **Write acceptance criteria** — Each task gets specific, testable ACs in EARS + GWT format with verification commands
-3. **Assign models** — Using the Agent Routing Matrix in `AGENTS.md`, assign each task to the appropriate model
-4. **Create branch names** — Each task gets a branch: `model/type-short-description`
-5. **Set scope boundaries** — Each task lists exactly which files it will touch
-6. **Order for execution** — Tasks are numbered in the order they should be implemented (dependency-aware)
+## Gate
 
-## Protocol
+- Every active feature spec has a matching task file in `/tasks/`
+- Task breakdowns exist with ordered tasks
+- All ACs use EARS/GWT format and are machine-parseable checkboxes
+- Model assignments present for every task
+- Branch names follow convention
+- Second-model review assignments documented
 
-1. **Read all feature specs** — understand scope, ACs, technical approach
-2. **Read AGENTS.md** — get routing matrix, branch naming rules, conventions
-3. **Break each feature into tasks** — each task should be:
-   - Completable in a single agent session
-   - Independently testable
-   - Mapped to specific acceptance criteria (T-1 covers AC-1, etc.)
-4. **Assign models per routing matrix** — use task characteristics to determine:
-   - Complex logic → Claude
-   - UI/frontend → Copilot
-   - Batch/migration → Codex
-5. **Name branches** — `model/type-short-description` format
-6. **Present specs to developer** for review
+## Output
 
-## Second-Model Review
+- Updated feature specs with ordered tasks and ACs
+- Updated `/tasks/[feature-id]-[slug].md` files with task status scaffold, AC mappings, and branch/model assignment
+- Model assignments and branch names recorded
+- Summary table for developer approval
 
-Before finalizing, each spec should be reviewed by a different model than the one that created it. This catches errors, omissions, and scope issues.
+## See Also
 
-- If you (Claude) created the specs, note: _"These specs should be reviewed by a second agent (Copilot or human) before execution begins."_
-- Flag this as a manual step — present the specs and instruct the developer to request a review
-
-## Key Rules
-
-- Every task must map to at least one acceptance criterion
-- Every acceptance criterion must have a verification command
-- Branch names must follow the `model/type-short-description` format from AGENTS.md
-- Model assignment must reference the routing matrix, not arbitrary choice
-- If a task is too large for one session, split it further
-
-## Outputs
-
-For each feature spec, update:
-
-1. **Task Breakdown section** — ordered tasks with descriptions, model assignments, branch names, AC coverage
-2. **Model Assignment section** — table mapping tasks to models with reasoning
-3. **Acceptance Criteria section** — finalized with verification commands
-
-Also:
-
-4. **Create branches** in the repository (or instruct the developer to create them)
-5. **Present the complete execution plan** — ordered list of all tasks across all features, showing the build sequence
-
-## After Completion
-
-The execution plan is the input to Phase 6 (Code). The `/continue` command can auto-advance from here — it reads the fine-tuned specs and begins implementation in task order.
+- AC template: `.specify/acceptance-criteria-template.md`
+- Routing matrix: `AGENTS.md → Agent Routing Matrix`
+- Branch naming: `AGENTS.md → Branch Naming`
+- v1 equivalent: Phase 2 (Plan) — v2 adds model assignment and EARS/GWT requirements

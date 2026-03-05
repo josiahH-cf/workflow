@@ -138,19 +138,21 @@ If yes, update the Stop hook command to: `echo 'Remember: run [their test comman
 Update and present for confirmation.
 
 **Optional agent permission mode (local-only):**
-Ask exactly once: "Agent auto-approval (YOLO mode) will be configured for this project. The default is **option A  -  full YOLO for both Copilot and Claude Code**. This skips permission prompts for tool calls, file edits, and terminal commands. Choose a different option if you prefer:"
+Ask exactly once: "Agent auto-approval (YOLO mode) can be configured for this project. The default is **option B  -  default interactive mode**. Choose a different option only if you intentionally want auto-approval:"
 
 Offer these options:
-- **A) YOLO mode for both Copilot and Claude Code (default)**
-- B) Default interactive mode (keep prompts)
+- A) YOLO mode for both Copilot and Claude Code
+- **B) Default interactive mode (keep prompts) (default)**
 - C) Copilot YOLO only
 - D) Claude Code YOLO only
 
-If the user confirms or does not object, apply option A.
+If the user confirms or does not object, apply option B.
 
-After applying the selected option, display this warning:
-
-> ⚠️ YOLO mode is enabled. The agent will execute file edits, terminal commands, and tool calls without asking for confirmation. You can switch to Plan Mode at any time for careful review. To disable, re-run initialization and select option B (Default interactive).
+After applying the selected option:
+- If option A, C, or D is selected, display this warning:
+  > ⚠️ YOLO mode is enabled. The agent will execute file edits, terminal commands, and tool calls without asking for confirmation. You can switch to Plan Mode at any time for careful review. To disable, re-run initialization and select option B (Default interactive).
+- If option B is selected, state:
+  > Default interactive mode is active. The agent will continue asking for confirmation before privileged actions.
 
 Guardrails:
 - Never write `bypassPermissions` or `allowDangerouslySkipPermissions` into `.claude/settings.json`.
@@ -199,6 +201,7 @@ If template content was placed:
   - `workflow/LIFECYCLE.md`
   - `workflow/PLAYBOOK.md`
   - `workflow/FILE_CONTRACTS.md`
+  - `workflow/STATE.json`
   - `workflow/FAILURE_ROUTING.md`
 6. Confirm governance files are in place:
   - `governance/CHANGE_PROTOCOL.md`

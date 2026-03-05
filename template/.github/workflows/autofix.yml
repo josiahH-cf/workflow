@@ -51,7 +51,7 @@ jobs:
       - name: Create autofix PR
         if: success()
         run: |
-          BRANCH="codex/chore-autofix-$(date +%s)"
+          BRANCH="claude/chore-autofix-$(date +%s)"
           git checkout -b "$BRANCH"
           git add -u
           git diff --name-only --diff-filter=A HEAD | grep -v '\.env' | xargs -r git add

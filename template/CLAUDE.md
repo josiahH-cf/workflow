@@ -37,7 +37,7 @@ This file is an adapter for Claude-specific session mechanics and command refere
 
 ## Development Principles
 
-See [`/Principles for Development Using the Workflow.md`](/Principles for Development Using the Workflow.md) for guidance on context discipline, commit habits, worktree usage, and session hygiene. Key rules:
+Use these baseline principles for context discipline, commit habits, worktree usage, and session hygiene:
 
 - Start every feature in a fresh session; compact at 60% context
 - Never keep plans only in chat — write to `/specs/` or `/tasks/`

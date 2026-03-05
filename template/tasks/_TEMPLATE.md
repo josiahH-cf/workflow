@@ -17,6 +17,8 @@
 - **Files:** [list]
 - **Done when:** [one sentence]
 - **Criteria covered:** [AC-1, AC-2]
+- **Model:** [claude|copilot|codex]
+- **Branch:** [model/type-short-description]
 - **Status:** [ ] Not started
 
 ### T-2: [name]
@@ -24,6 +26,8 @@
 - **Files:** [list]
 - **Done when:** [one sentence]
 - **Criteria covered:** [AC-*]
+- **Model:** [claude|copilot|codex]
+- **Branch:** [model/type-short-description]
 - **Status:** [ ] Not started
 
 ### T-3: [name]
@@ -31,6 +35,8 @@
 - **Files:** [list]
 - **Done when:** [one sentence]
 - **Criteria covered:** [AC-*]
+- **Model:** [claude|copilot|codex]
+- **Branch:** [model/type-short-description]
 - **Status:** [ ] Not started
 
 ## Test Strategy

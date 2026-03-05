@@ -3,11 +3,7 @@ name: "Copilot Setup Steps"
 on:
   workflow_dispatch:
   push:
-    paths:
-      - .github/workflows/copilot-setup-steps.yml
   pull_request:
-    paths:
-      - .github/workflows/copilot-setup-steps.yml
 
 jobs:
   policy-and-quality-gates:
@@ -24,70 +20,51 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Validate scaffold contract files exist
+      - name: Run scaffold policy checks
         run: |
-          set -e
-          test -f AGENTS.md
-          test -f workflow/LIFECYCLE.md
-          test -f workflow/PLAYBOOK.md
-          test -f workflow/FILE_CONTRACTS.md
-          test -f workflow/FAILURE_ROUTING.md
-          test -f governance/CHANGE_PROTOCOL.md
-          test -f governance/POLICY_TESTS.md
-          test -f governance/REGISTRY.md
-
-      - name: Validate specification files exist
-        run: |
-          set -e
-          test -f .specify/constitution.md
-          test -f .specify/spec-template.md
-          test -f .specify/acceptance-criteria-template.md
-          # Constitution must not contain only placeholders
-          if grep -c '\[PROJECT-SPECIFIC\]' .specify/constitution.md | grep -q '^8$'; then
-            echo ".specify/constitution.md is entirely placeholders — run /compass first"
-            exit 1
-          fi
-
-      - name: Validate AGENTS placeholders are resolved
-        run: |
-          set -e
-          if grep -q "\[install step\]\|\[build step\]\|\[test step\]" AGENTS.md; then
-            echo "AGENTS.md still contains placeholder build commands"
+          set -euo pipefail
+          chmod +x template/scripts/policy-check.sh || true
+          if [ -f scripts/policy-check.sh ]; then
+            scripts/policy-check.sh
+          elif [ -f template/scripts/policy-check.sh ]; then
+            template/scripts/policy-check.sh
+          else
+            echo "policy-check.sh not found"
             exit 1
           fi
 
       - name: Validate spec and task templates include identity fields
         run: |
-          set -e
+          set -euo pipefail
           if [ -f specs/_TEMPLATE.md ]; then
             grep -q "Feature ID" specs/_TEMPLATE.md
             grep -q "AC-1" specs/_TEMPLATE.md
           else
-            echo "specs/_TEMPLATE.md not found — skipping (create it when defining first feature)"
+            echo "specs/_TEMPLATE.md not found — skipping"
           fi
           if [ -f tasks/_TEMPLATE.md ]; then
             grep -q "Feature ID" tasks/_TEMPLATE.md
             grep -q "T-1" tasks/_TEMPLATE.md
           else
-            echo "tasks/_TEMPLATE.md not found — skipping (create it when defining first feature)"
+            echo "tasks/_TEMPLATE.md not found — skipping"
           fi
 
       - name: Install dependencies
         run: |
-          set -e
+          set -euo pipefail
           eval "$INSTALL_CMD"
 
       - name: Build project
         run: |
-          set -e
+          set -euo pipefail
           eval "$BUILD_CMD"
 
       - name: Lint project
         run: |
-          set -e
+          set -euo pipefail
           eval "$LINT_CMD"
 
       - name: Run tests
         run: |
-          set -e
+          set -euo pipefail
           eval "$TEST_CMD"

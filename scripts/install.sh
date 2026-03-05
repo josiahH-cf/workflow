@@ -8,6 +8,7 @@ set -euo pipefail
 #
 # Options:
 #   --with-prompts    Also copy Copilot .prompt.md files to the target
+#   --with-meta-prompts Also copy meta-prompts/ into the target project root
 #   --prompts-dir DIR Override the Copilot prompts destination (default: auto-detect)
 #   --force           Overwrite existing files without prompting
 #   --dry-run         Show what would be copied without doing it
@@ -19,6 +20,7 @@ TEMPLATE_DIR="$REPO_ROOT/template"
 PROMPTS_DIR="$REPO_ROOT/prompts"
 
 WITH_PROMPTS=false
+WITH_META_PROMPTS=false
 PROMPTS_DEST=""
 FORCE=false
 DRY_RUN=false
@@ -74,6 +76,7 @@ copy_file() {
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --with-prompts) WITH_PROMPTS=true; shift ;;
+        --with-meta-prompts) WITH_META_PROMPTS=true; shift ;;
         --prompts-dir)  PROMPTS_DEST="$2"; shift 2 ;;
         --force)        FORCE=true; shift ;;
         --dry-run)      DRY_RUN=true; shift ;;
@@ -89,8 +92,18 @@ if [[ -z "$TARGET" ]]; then
     exit 1
 fi
 
-# Resolve target to absolute path
-TARGET="$(cd "$TARGET" 2>/dev/null && pwd || mkdir -p "$TARGET" && cd "$TARGET" && pwd)"
+# Resolve target to absolute path without shell-chain side effects
+if [[ -e "$TARGET" && ! -d "$TARGET" ]]; then
+    echo "Error: target exists but is not a directory: $TARGET" >&2
+    exit 1
+fi
+
+if [[ -d "$TARGET" ]]; then
+    TARGET="$(cd "$TARGET" && pwd)"
+else
+    mkdir -p "$TARGET"
+    TARGET="$(cd "$TARGET" && pwd)"
+fi
 
 echo "Installing scaffold into: $TARGET"
 echo ""
@@ -100,7 +113,7 @@ file_count=0
 while IFS= read -r -d '' src; do
     rel="${src#$TEMPLATE_DIR/}"
     copy_file "$src" "$TARGET/$rel"
-    ((file_count++))
+    file_count=$((file_count + 1))
 done < <(find "$TEMPLATE_DIR" -type f -print0)
 
 echo ""
@@ -118,14 +131,40 @@ if [[ "$WITH_PROMPTS" == true ]]; then
     for src in "$PROMPTS_DIR"/*.prompt.md; do
         [[ -f "$src" ]] || continue
         copy_file "$src" "$PROMPTS_DEST/$(basename "$src")"
-        ((prompt_count++))
+        prompt_count=$((prompt_count + 1))
     done
     echo ""
     echo "Copied $prompt_count prompt files."
 fi
 
+# Copy meta-prompts if requested
+if [[ "$WITH_META_PROMPTS" == true ]]; then
+    META_PROMPTS_DIR="$REPO_ROOT/meta-prompts"
+    echo ""
+    echo "Installing meta-prompts to: $TARGET/meta-prompts"
+    echo ""
+    meta_count=0
+    while IFS= read -r -d '' src; do
+        rel="${src#$META_PROMPTS_DIR/}"
+        copy_file "$src" "$TARGET/meta-prompts/$rel"
+        meta_count=$((meta_count + 1))
+    done < <(find "$META_PROMPTS_DIR" -type f -print0)
+    echo ""
+    echo "Copied $meta_count meta-prompt files."
+fi
+
 echo ""
 echo "Done. Next steps:"
 echo "  1. cd $TARGET"
-echo "  2. Open an AI session and run the initialization meta-prompt"
-echo "  3. Or use /continue (Claude) to start the Compass interview"
+HAS_META_PROMPTS=false
+if [[ "$WITH_META_PROMPTS" == true ]] || [[ -f "$TARGET/meta-prompts/initialization.md" ]]; then
+    HAS_META_PROMPTS=true
+fi
+
+if [[ "$HAS_META_PROMPTS" == true ]]; then
+    echo "  2. Open an AI session and run meta-prompts/initialization.md"
+    echo "  3. Or use /compass, then /continue"
+else
+    echo "  2. Open an AI session and run /compass to create constitution.md"
+    echo "  3. Then run /continue to auto-advance phases"
+fi

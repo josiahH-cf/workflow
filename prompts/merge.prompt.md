@@ -1,9 +1,15 @@
 ---
+mode: agent
 description: 'Human non-code review checklist and merge guidance'
-agent: 'agent'
+tools:
+  - read_file
+  - create_file
+  - replace_string_in_file
+  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/7-merge.md -->
 <!-- generated-from-metaprompt -->
+
 
 You are assisting a human reviewer with a non-code review of a pull request. The human does not need to read code. Walk them through this checklist:
 

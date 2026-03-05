@@ -38,6 +38,7 @@ REQUIRED_FILES=(
     "workflow/LIFECYCLE.md"
     "workflow/PLAYBOOK.md"
     "workflow/FILE_CONTRACTS.md"
+    "workflow/STATE.json"
     "workflow/FAILURE_ROUTING.md"
     "governance/CHANGE_PROTOCOL.md"
     "governance/POLICY_TESTS.md"
@@ -54,6 +55,7 @@ REQUIRED_FILES=(
     ".github/workflows/autofix.yml"
     ".claude/settings.json"
     ".codex/AGENTS.md"
+    "scripts/policy-check.sh"
     "scripts/setup-worktree.sh"
 )
 
@@ -195,6 +197,15 @@ fi
 codex_config="$TEMPLATE_DIR/.codex/config.toml"
 if [[ -f "$codex_config" ]]; then
     pass "Codex config.toml exists"
+fi
+
+state_file="$TEMPLATE_DIR/workflow/STATE.json"
+if [[ -f "$state_file" ]]; then
+    if python3 -c "import json; json.load(open('$state_file'))" 2>/dev/null; then
+        pass "workflow/STATE.json is valid JSON"
+    else
+        fail "workflow/STATE.json is invalid JSON"
+    fi
 fi
 
 echo ""

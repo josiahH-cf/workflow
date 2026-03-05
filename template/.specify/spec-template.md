@@ -48,20 +48,10 @@ _Performance, security, compatibility, or other hard requirements._
 
 _Filled during Phase 4 (Scaffold Project). Leave blank until then._
 
-## Task Breakdown
+## Execution Linkage
 
-_Filled during Phase 5 (Fine-tune Plan). Each task has model assignment and branch name._
+_Execution planning is authoritative in `/tasks/[feature-id]-[slug].md`._
 
-| Task | Description | Model | Branch | AC Coverage |
-|------|-------------|-------|--------|-------------|
-| T-1 | _description_ | `[model]` | `model/type-slug` | AC-1 |
-| T-2 | _description_ | `[model]` | `model/type-slug` | AC-2 |
-
-## Model Assignment
-
-_Maps each task to a model per the routing rules in AGENTS.md._
-
-| Task | Assigned Model | Reason |
-|------|---------------|--------|
-| T-1 | `[model]` | _why this model for this task_ |
-| T-2 | `[model]` | _why this model for this task_ |
+- Task ordering: defined in the matching task file
+- Model assignment: defined per task in the task file
+- Branch naming: defined per task in the task file

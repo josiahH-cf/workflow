@@ -11,7 +11,7 @@ filled in.
 
 | Artifact | Path | Phase |
 |---|---|---|
-| Constitution | `.specify/constitution.md` | 1 - Scaffold / Import |
+| Constitution | `.specify/constitution.md` | 2 - Compass |
 | Feature Spec | `specs/001-task-crud.md` | 3 - Define Features |
 | Task Breakdown | `tasks/001-task-crud.md` | 5 - Fine-Tune Plan |
 | Decision Record | `decisions/0001-sqlite-storage.md` | 6 - Code |

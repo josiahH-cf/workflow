@@ -1,9 +1,15 @@
 ---
+mode: agent
 description: 'Turn a raw idea into structured GitHub Issues'
-agent: 'agent'
+tools:
+  - read_file
+  - create_file
+  - replace_string_in_file
+  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/0-ideate.md -->
 <!-- generated-from-metaprompt -->
+
 
 You are helping structure a raw idea into actionable GitHub Issues.
 

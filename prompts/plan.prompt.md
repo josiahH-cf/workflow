@@ -1,13 +1,16 @@
 ---
+mode: agent
 description: 'Decompose a locked spec into ordered implementation tasks'
-agent: 'agent'
+tools:
+  - read_file
+  - create_file
+  - replace_string_in_file
+  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/2-plan.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)
-[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
-[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
 
 You are planning implementation tasks. Do not write code. Do not write tests.
 
@@ -25,6 +28,7 @@ For each task, provide:
 
 Write the output to /tasks/[feature-id]-[slug].md with this structure:
 
+---
 # Tasks: [feature-id]-[slug]
 
 **Feature ID:** [issue-id]-[slug]
@@ -54,6 +58,7 @@ Write the output to /tasks/[feature-id]-[slug].md with this structure:
 
 ## Session Log
 [empty  -  will be filled during implementation]
+---
 
 Rules:
 - Maximum 5 tasks. If you need more, the spec should have been split during Phase 1. Do not proceed  -  recommend splitting and stop.

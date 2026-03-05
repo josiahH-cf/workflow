@@ -1,51 +1,56 @@
 ---
 mode: agent
-description: "Fix a logged bug — reproduce, diagnose, fix, verify, PR"
+description: 'Fix a logged bug through reproduce-diagnose-fix-verify-ship'
 tools:
   - read_file
   - create_file
   - replace_string_in_file
   - run_in_terminal
 ---
-<!-- role: canonical-source -->
+<!-- role: derived | canonical-source: meta-prompts/minor/07c-bugfix.md -->
+<!-- generated-from-metaprompt -->
 
-# Bugfix — Reproduce → Diagnose → Fix → Verify → PR
+[AGENTS.md](../template/AGENTS.md)
+[workflow/FAILURE_ROUTING.md](../template/workflow/FAILURE_ROUTING.md)
 
-Fix a logged bug following the structured loop.
+# Bugfix — Reproduce -> Diagnose -> Fix -> Verify -> PR
 
-Read the bug entry from the bug log (`bugs/LOG.md`).
-Read `AGENTS.md` (Boundaries, Bug Tracking, Branch Naming).
-Read `.specify/constitution.md` — verify the fix aligns with project principles.
+Fix a logged bug following the structured loop:
+reproduce -> diagnose -> fix -> verify -> ship.
+
+Read the bug entry referenced by `${input:bugRef:Path to bug log file or BUG-NNN}` (path to bug log or bug ID like `BUG-NNN`).
+Read `/AGENTS.md` (Boundaries, Bug Tracking, Branch Naming).
+Read `.specify/constitution.md` and verify the fix aligns with project principles.
 
 ## Step 1: Reproduce
 
-- Write a failing test that demonstrates the bug's "Expected vs Actual" behavior.
+- Write a failing test that demonstrates the bug's expected vs actual behavior.
 - The test must fail before the fix and pass after.
 - If the bug cannot be reproduced, document why and close as "cannot reproduce."
 
 ## Step 2: Diagnose
 
-- Read the code at the bug's Location field.
-- Identify the root cause — not just the symptom.
-- If the root cause spans multiple files or suggests a design issue, log a bug for the deeper problem and fix the immediate symptom only.
+- Read the code at the bug location.
+- Identify the root cause (not only the symptom).
+- If the root cause suggests a broader design issue, log a follow-up bug for that deeper issue and fix only the current bug here.
 
 ## Step 3: Fix
 
-- Fix the root cause. Minimal change — do not refactor surrounding code.
-- Do not introduce new functionality beyond what restores correct behavior.
-- If the fix requires a decision not covered by the spec, write to `/decisions/[NNNN]-[slug].md`.
+- Fix the root cause with the smallest safe change.
+- Do not add functionality beyond restoring intended behavior.
+- If a fix requires an unplanned architecture decision, record it in `/decisions/[NNNN]-[slug].md`.
 
 ## Step 4: Verify
 
-- Run the failing test — it must now pass.
-- Run the full test suite — no regressions.
+- Run the failing test and confirm it now passes.
+- Run the full test suite and confirm no regressions.
 - If regressions appear, fix them without modifying unrelated tests.
 
 ## Step 5: Ship
 
-- Branch: `model/bug-short-description` (per AGENTS.md branch naming).
+- Branch: `model/bug-short-description` (per AGENTS branch naming).
 - Commit message: `Fix BUG-NNN: [short description]`.
-- Update the bug log entry: set Status to `fixed`, add fix date and commit ref.
-- Create PR with bug reference and test evidence.
+- Update bug log status to `fixed` and add fix date + commit reference.
+- Create a PR with bug reference and test evidence.
 
 State: "BUG-NNN fixed. Test added. PR ready."

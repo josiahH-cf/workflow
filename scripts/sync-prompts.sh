@@ -20,21 +20,29 @@ COPILOT_PROMPTS="$REPO_ROOT/prompts"
 
 DRY_RUN=false
 CHECK_MODE=false
+SHOW_DIFF=false
 DRIFT_COUNT=0
 SYNC_COUNT=0
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --dry-run) DRY_RUN=true; shift ;;
-        --check)   CHECK_MODE=true; DRY_RUN=true; shift ;;
+        --check)   CHECK_MODE=true; DRY_RUN=true; SHOW_DIFF=true; shift ;;
         -h|--help) sed -n '3,9p' "$0" | sed 's/^# \?//'; exit 0 ;;
         *) echo "Unknown option: $1" >&2; exit 1 ;;
     esac
 done
 
 # Mapping: command-name -> meta-prompt-file (relative to meta-prompts/)
-# Commands without a meta-prompt are canonical themselves and skipped.
 declare -A COMMAND_TO_META=(
+    # Setup
+    ["initialization"]="initialization.md"
+    # Workflow controls
+    ["continue"]="minor/09-continue.md"
+    ["compass-edit"]="minor/02b-compass-edit.md"
+    # Bug track
+    ["bug"]="minor/07b-bug.md"
+    ["bugfix"]="minor/07c-bugfix.md"
     # V2 phases
     ["compass"]="minor/02-compass.md"
     ["define-features"]="minor/03-define-features.md"
@@ -102,6 +110,43 @@ generate_claude_cmd() {
     extract_operational_block "$meta_file"
 }
 
+apply_input_substitutions() {
+    local cmd_name="$1"
+    local content="$2"
+
+    case "$cmd_name" in
+        ideate)
+            echo "$content" | sed -e 's/\$ARGUMENTS/${input:idea:Describe the feature idea}/g'
+            ;;
+        scope|review|cross-review)
+            echo "$content" | sed -e 's/\$ARGUMENTS/${input:specOrFeature:Provide the spec path or feature description}/g'
+            ;;
+        plan|test|implement)
+            echo "$content" | sed -e 's/\$ARGUMENTS/${input:filePath:Provide the path to the spec or task file}/g'
+            ;;
+        execplan)
+            echo "$content" | sed \
+                -e 's/\$SPEC_PATH/${input:specPath:Path to the spec file}/g' \
+                -e 's/\$TASKS_PATH/${input:tasksPath:Path to the task file}/g'
+            ;;
+        pr-create)
+            echo "$content" | sed \
+                -e 's/\$SPEC_PATH/${input:specPath:Path to the spec file}/g' \
+                -e 's/\$TARGET_BRANCH/${input:targetBranch:Target branch name (e.g., main)}/g'
+            ;;
+        bugfix)
+            echo "$content" | sed -e 's/\$ARGUMENTS/${input:bugRef:Path to bug log file or BUG-NNN}/g'
+            ;;
+        *)
+            echo "$content" | sed \
+                -e 's/\$ARGUMENTS/${input:filePath:Provide the path to the spec or task file}/g' \
+                -e 's/\$SPEC_PATH/${input:specPath:Path to the spec file}/g' \
+                -e 's/\$TASKS_PATH/${input:tasksPath:Path to the task file}/g' \
+                -e 's/\$TARGET_BRANCH/${input:targetBranch:Target branch name (e.g., main)}/g'
+            ;;
+    esac
+}
+
 # Generate the Copilot prompt file content
 generate_copilot_prompt() {
     local cmd_name="$1"
@@ -159,12 +204,8 @@ generate_copilot_prompt() {
 
     echo ""
 
-    # Apply input substitutions
-    echo "$op_content" | sed \
-        -e 's/\$ARGUMENTS/${input:filePath:Provide the path to the spec or task file}/g' \
-        -e 's/\$SPEC_PATH/${input:specPath:Path to the spec file}/g' \
-        -e 's/\$TASKS_PATH/${input:tasksPath:Path to the task file}/g' \
-        -e 's/\$TARGET_BRANCH/${input:targetBranch:Target branch name (e.g., main)}/g'
+    # Apply command-specific input substitutions
+    apply_input_substitutions "$cmd_name" "$op_content"
 }
 
 # Check if a file would change
@@ -174,7 +215,7 @@ check_drift() {
 
     if [[ ! -f "$target" ]]; then
         echo "  [new] $target"
-        ((DRIFT_COUNT++))
+        DRIFT_COUNT=$((DRIFT_COUNT + 1))
         return
     fi
 
@@ -182,7 +223,15 @@ check_drift() {
     current="$(cat "$target")"
     if [[ "$current" != "$new_content" ]]; then
         echo "  [drift] $target"
-        ((DRIFT_COUNT++))
+        if [[ "$SHOW_DIFF" == true ]]; then
+            local tmp
+            tmp="$(mktemp)"
+            printf '%s' "$new_content" > "$tmp"
+            echo "    --- diff (current vs generated)"
+            diff -u "$target" "$tmp" || true
+            rm -f "$tmp"
+        fi
+        DRIFT_COUNT=$((DRIFT_COUNT + 1))
     else
         echo "  [ok] $target"
     fi
@@ -199,7 +248,7 @@ sync_file() {
         mkdir -p "$(dirname "$target")"
         echo "$content" > "$target"
         echo "  [sync] $target"
-        ((SYNC_COUNT++))
+        SYNC_COUNT=$((SYNC_COUNT + 1))
     fi
 }
 

@@ -1,5 +1,4 @@
 <!-- role: derived | canonical-source: meta-prompts/major/02-build.md -->
-<!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are building a planned feature. The task file for this session is provided. Read it now, along with the linked spec.
 

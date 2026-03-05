@@ -1,5 +1,4 @@
 <!-- role: derived | canonical-source: meta-prompts/minor/1-scope.md -->
-<!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are scoping a new feature. Do not write code. Do not create implementation files.
 
@@ -14,7 +13,7 @@ Explore the codebase to understand:
 
 Then produce a spec file at /specs/[feature-id]-[slug].md with exactly this structure:
 
-```text
+---
 # Feature: [feature-id]-[slug]
 
 **Feature ID:** [issue-id]-[slug]
@@ -42,7 +41,7 @@ Then produce a spec file at /specs/[feature-id]-[slug].md with exactly this stru
 
 ## Notes
 [Non-obvious details the implementer should know  -  or "None"]
-```
+---
 
 Rules:
 - Acceptance criteria must be between 3 and 7. No more.

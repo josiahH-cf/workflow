@@ -3,9 +3,9 @@
 <!-- description: TDD implementation — make failing tests pass, one task at a time -->
 # Phase 6 — Code
 
-**Objective:** Implement features following TDD from fine-tuned specs. Tests exist first — make them pass.
+**Objective:** Implement features following TDD from fine-tuned specs and task files. Tests exist first — make them pass.
 
-**Trigger:** Phase 5 complete (fine-tuned specs with ACs, model assignments, branches exist).
+**Trigger:** Phase 5 complete (`/tasks/[feature-id]-[slug].md` exists with ordered tasks, model assignment, and branches).
 
 **Entry commands:**
 - Claude: `/implement`
@@ -15,16 +15,18 @@
 
 ## What Happens
 
-1. Orient: read task file, failing tests, source files
-2. Verify constitution alignment before implementing
-3. Implement one task at a time — make failing tests pass
-4. Follow existing code patterns
-5. Log bugs via `/bug` — don't silently work around them
-6. Update spec before any unplanned decision
-7. Commit per task on the assigned branch
+1. Confirm `/test pre` has created failing tests for this feature
+2. Orient: read task file, failing tests, source files
+3. Verify constitution alignment before implementing
+4. Implement one task at a time — make failing tests pass
+5. Follow existing code patterns
+6. Log bugs via `/bug` — don't silently work around them
+7. Update spec before any unplanned decision
+8. Commit per task on the assigned branch
 
 ## Gate
 
+- Pre-implementation tests exist for every AC (from `/test pre`)
 - All tasks in current feature's task file marked Complete
 - Full test suite passes
 - No unresolved blocking bugs

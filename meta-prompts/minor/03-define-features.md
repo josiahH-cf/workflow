@@ -31,6 +31,7 @@
 
 - Feature specs in `/specs/[feature-id]-[slug].md`
 - Feature priority order
+- Task planning is deferred to `/tasks/[feature-id]-[slug].md` in Phase 5
 
 ## See Also
 

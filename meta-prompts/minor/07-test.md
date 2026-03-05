@@ -3,9 +3,9 @@
 <!-- description: Run tests against ACs, log bugs, verify behavior -->
 # Phase 7 — Test & Mark Changes
 
-**Objective:** Verify implementation against acceptance criteria, log failures as bugs, and confirm behavior matches spec.
+**Objective:** Verify feature behavior against acceptance criteria in explicit test modes (`pre` and `post`), log failures as bugs, and confirm behavior matches spec.
 
-**Trigger:** Phase 6 complete (implementation exists on feature branch).
+**Trigger:** `pre` mode runs before Phase 6 implementation. `post` mode runs after Phase 6 implementation.
 
 **Entry commands:**
 - Claude: `/test`
@@ -15,14 +15,14 @@
 
 ## What Happens
 
-### Pre-Implementation (Test Writing)
+### Pre-Implementation Mode (`/test pre`)
 1. Read spec ACs and existing test patterns
 2. Write at least one test per AC using EARS/GWT format
 3. Tests must fail before implementation exists
 4. Include UI/visual tests where applicable
 5. Commit failing tests
 
-### Post-Implementation (Verification)
+### Post-Implementation Mode (`/test post`)
 1. Run full test suite
 2. Compare results against each AC — mark pass/fail
 3. Log failures as bugs via `/bug`
@@ -31,7 +31,8 @@
 
 ## Gate
 
-- All acceptance criteria verified (pass or documented failure)
+- `pre` mode: failing tests exist for every AC
+- `post` mode: all acceptance criteria verified (pass or documented failure)
 - Bug log reviewed — no blocking bugs remain
 - No regressions in existing tests
 

@@ -47,14 +47,14 @@ The project lifecycle follows 8 phases plus a parallel Bug Track. Each phase has
 - **Purpose:** Create ordered, model-assigned feature specs with branches and acceptance criteria
 - **Entry:** Claude: `/fine-tune` · Copilot: `fine-tune.prompt.md`
 - **Gate:** Scaffold plan exists
-- **Output:** Ordered specs with ACs, model assignments, branch names. Second-model review completed.
+- **Output:** Updated feature specs + authoritative `/tasks/[feature-id]-[slug].md` files with ordered tasks, AC mappings, model assignments, and branch names.
 - **Next:** Phase 6
 
 ### Phase 6 — Code
 
 - **Purpose:** Implement features following TDD from the spec
 - **Entry:** Claude: `/implement` · Copilot: `implement.prompt.md`
-- **Gate:** Fine-tuned spec with ACs exists for the assigned feature
+- **Gate:** Fine-tuned spec + matching task file exists, and pre-implementation tests have been authored (`/test pre`)
 - **Output:** Passing code on a feature branch, tests written before implementation
 - **Next:** Phase 7
 
@@ -64,7 +64,9 @@ The project lifecycle follows 8 phases plus a parallel Bug Track. Each phase has
 - **Entry:** Claude: `/test` · Copilot: `test.prompt.md`
 - **Gate:** Implementation exists on feature branch
 - **Output:** Test results, bug log entries, updated spec if behavior deviated
-- **Note:** `/test` has two modes — run in **pre-implementation mode** (before `/implement`) to author failing tests, and **post-implementation mode** (after `/implement`) to verify all ACs pass.
+- **Note:** `/test` has explicit modes:
+  - `pre` mode (before `/implement`): write failing tests for every AC.
+  - `post` mode (after `/implement`): verify all ACs pass and log failures as bugs.
 - **Next:** Phase 7b (or back to Phase 6 if failures)
 
 
@@ -154,8 +156,9 @@ All work flows from specifications:
 
 1. Read `.specify/constitution.md` before any implementation — it is the project's identity
 2. Check `/specs/` for the current feature spec (copy `.specify/spec-template.md` when creating new specs)
-3. Write acceptance criteria using `.specify/acceptance-criteria-template.md` as reference
-4. Verify all acceptance criteria pass before creating a PR
+3. Create or update `/tasks/[feature-id]-[slug].md` during Phase 5 — this is the authoritative execution artifact.
+4. Write acceptance criteria using `.specify/acceptance-criteria-template.md` as reference
+5. Verify all acceptance criteria pass before creating a PR
 
 Spec artifacts:
 
@@ -165,6 +168,7 @@ Spec artifacts:
 - Per-feature specs: `/specs/[feature-id]-[slug].md`
 - Task breakdowns: `/tasks/[feature-id]-[slug].md`
 - Decisions: `/decisions/[NNNN]-[slug].md`
+- Orchestration state: `/workflow/STATE.json`
 
 ## Concurrency Rules
 
@@ -226,3 +230,4 @@ Fix-as-you-go: yes | no
 - Policy changes: `/governance/CHANGE_PROTOCOL.md`
 - Policy tests: `/governance/POLICY_TESTS.md`
 - File registry: `/governance/REGISTRY.md`
+- Orchestrator state: `/workflow/STATE.json`

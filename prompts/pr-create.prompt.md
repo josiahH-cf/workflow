@@ -1,9 +1,15 @@
 ---
+mode: agent
 description: 'Create a pull request with full description and checklists'
-agent: 'agent'
+tools:
+  - read_file
+  - create_file
+  - replace_string_in_file
+  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/6-pr-create.md -->
 <!-- generated-from-metaprompt -->
+
 
 You are creating a pull request for a completed, reviewed feature branch.
 
@@ -13,6 +19,7 @@ Read the project's PR template at /.github/pull_request_template.md if it exists
 
 Produce the PR with this structure:
 
+---
 **Title:** [concise imperative summary of the change]
 
 ## What
@@ -48,6 +55,7 @@ Spec: /specs/[feature-id]-[slug].md
 
 ## Rollback
 [Special steps beyond git revert, or "Standard revert." if none]
+---
 
 Rules:
 - If the diff exceeds 300 lines, state this clearly and recommend splitting before opening the PR.

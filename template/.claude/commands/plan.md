@@ -1,5 +1,4 @@
 <!-- role: derived | canonical-source: meta-prompts/minor/2-plan.md -->
-<!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are planning implementation tasks. Do not write code. Do not write tests.
 
@@ -17,7 +16,7 @@ For each task, provide:
 
 Write the output to /tasks/[feature-id]-[slug].md with this structure:
 
-```text
+---
 # Tasks: [feature-id]-[slug]
 
 **Feature ID:** [issue-id]-[slug]
@@ -47,7 +46,7 @@ Write the output to /tasks/[feature-id]-[slug].md with this structure:
 
 ## Session Log
 [empty  -  will be filled during implementation]
-```
+---
 
 Rules:
 - Maximum 5 tasks. If you need more, the spec should have been split during Phase 1. Do not proceed  -  recommend splitting and stop.

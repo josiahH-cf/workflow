@@ -25,6 +25,7 @@
 - All scaffold files placed
 - AGENTS.md has no unresolved placeholder brackets (except `[PROJECT-SPECIFIC]` in Overview, Core Commands, Code Conventions — those are filled by later phases)
 - `.specify/` directory exists with 3 template files
+- `/workflow/STATE.json` exists and is valid JSON
 
 ## Output
 

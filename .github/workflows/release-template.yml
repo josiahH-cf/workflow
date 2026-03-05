@@ -90,10 +90,12 @@ jobs:
       - name: Create scaffold-full.zip (templates + prompt files)
         run: |
           mkdir -p _full-staging
+          shopt -s dotglob nullglob
           cp -r template/* _full-staging/
-          cp -r template/.* _full-staging/ 2>/dev/null || true
+          shopt -u dotglob nullglob
           mkdir -p _full-staging/prompts
           cp prompts/*.prompt.md _full-staging/prompts/
+          cp -r meta-prompts _full-staging/meta-prompts
           cd _full-staging
           zip -r ../scaffold-full.zip . -x "**/.DS_Store"
           cd ..

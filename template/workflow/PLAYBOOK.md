@@ -17,9 +17,9 @@ This document defines how an agent executes work from spec to merged PR.
 | Compass | Scaffold files placed | `.specify/constitution.md` populated | All 8 sections have content (no placeholders) |
 | Define Features | Constitution | Feature specs with Compass mapping | At least one feature spec exists |
 | Scaffold Project | Feature specs | AGENTS.md Code Conventions + Core Commands | Neither section contains `[PROJECT-SPECIFIC]` |
-| Fine-tune Plan | Architecture plan | Ordered tasks, ACs, model assignments | EARS/GWT ACs present, branch names assigned |
-| Code | Fine-tuned specs | Passing code on feature branch | All tasks marked Complete, tests pass |
-| Test | Implementation | Verified ACs, bug log reviewed | No blocking bugs, all ACs pass |
+| Fine-tune Plan | Architecture plan | `/tasks/[feature-id]-[slug].md` files + ordered AC/task/model/branch mappings | Every active spec has a matching task file; all ACs mapped to tasks |
+| Code | Fine-tuned specs + task files + pre-tests | Passing code on feature branch | All tasks marked Complete, tests pass |
+| Test | Implementation | Verified ACs, bug log reviewed | No blocking bugs, all ACs pass in `/test post` mode |
 | Maintain | Shipped features | README, CONTRIBUTING, security baseline | Documentation exists and reflects current state |
 
 ## Feature-Level Phase Contract
@@ -28,9 +28,10 @@ This document defines how an agent executes work from spec to merged PR.
 | ----- | -------------- | --------------- | --------------- |
 | Scope | Issue or request | `/specs/[feature-id]-[slug].md` | 3–7 testable acceptance criteria with IDs |
 | Plan | Spec | `/tasks/[feature-id]-[slug].md` | Every criterion mapped to one or more tasks |
-| Test | Task file + spec | Failing tests committed | At least one failing test per criterion |
+| Test (`pre`) | Task file + spec | Failing tests committed | At least one failing test per criterion |
 | Implement | Failing tests + task file | Passing code commits | Task statuses updated with evidence |
-| Review | Spec + task file + diff | PASS/FAIL review report | All criteria have passing test evidence |
+| Test (`post`) | Implemented feature + task file + spec | AC verification report + bug entries | All ACs verified or logged as bugs |
+| Review | Spec + task file + diff + post-test report | PASS/FAIL review report | All criteria have passing test evidence |
 | PR | Review PASS | Open PR with required checklist | CI and policy checks green |
 | Merge | Approved PR | Merged branch + cleanup | Human merge approval or repo policy approval |
 
@@ -48,3 +49,4 @@ A feature is done only when all are true:
 - Start each phase in a fresh session when context quality drops.
 - Prefer file artifacts over chat memory for continuity.
 - If compacting repeatedly, split the feature and continue in a new branch.
+- Persist orchestration state transitions in `/workflow/STATE.json` when using `/continue`.

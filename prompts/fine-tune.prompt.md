@@ -1,6 +1,6 @@
 ---
 mode: agent
-description: "Order specs for execution, assign models, create branches"
+description: 'Create ordered specs with ACs, model assignments, and branches'
 tools:
   - read_file
   - create_file
@@ -8,53 +8,53 @@ tools:
   - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/05-fine-tune-plan.md -->
+<!-- generated-from-metaprompt -->
 
-# Fine-Tune — Phase 5: Execution Plan Finalization
+[AGENTS.md](../template/AGENTS.md)
 
-Finalize the build plan: order task breakdowns, write acceptance criteria, assign models, and name branches.
+# Phase 5 — Fine-tune Plan
 
-## Prerequisites
+**Objective:** Finalize the build plan: order task breakdowns, write acceptance criteria, assign models, and create branch names.
 
-- `.specify/constitution.md` must exist
-- Feature specs in `/specs/` with Technical Approach filled in
-- `AGENTS.md` Core Commands and Code Conventions populated
+**Trigger:** Phase 4 complete (architecture plan exists, AGENTS.md populated).
 
-## Steps
+**Entry commands:**
+- Claude: `/fine-tune`
+- Copilot: `fine-tune.prompt.md`
 
-### 1. Order Task Breakdowns
+---
 
-For each feature spec, produce an ordered list of tasks sized for one commit.
+## What Happens
 
-### 2. Write Acceptance Criteria
+1. For each feature spec, create or update `/tasks/[feature-id]-[slug].md` as the authoritative execution artifact
+2. Produce an ordered list of tasks sized for one commit
+3. Write acceptance criteria using EARS + GWT formats:
+   - **EARS:** `When [trigger], the system shall [response]`
+   - **GWT:** `Given [context], When [action], Then [outcome]`
+4. Each criterion is a machine-parseable checkbox: `- [ ] criterion`
+5. Assign models using `AGENTS.md → Agent Routing Matrix`
+6. Name branches using `AGENTS.md → Branch Naming`: `model/type-short-description`
+7. Note which model will review each task (different from implementer)
 
-Use the EARS + GWT format from `.specify/acceptance-criteria-template.md`:
+## Gate
 
-**EARS** — `When [trigger], the system shall [response]`
-**GWT** — `Given [context], When [action], Then [outcome]`
+- Every active feature spec has a matching task file in `/tasks/`
+- Task breakdowns exist with ordered tasks
+- All ACs use EARS/GWT format and are machine-parseable checkboxes
+- Model assignments present for every task
+- Branch names follow convention
+- Second-model review assignments documented
 
-Every criterion must be a machine-parseable checkbox: `- [ ] criterion`.
-
-### 3. Assign Models
-
-Reference `AGENTS.md → Agent Routing Matrix` to assign each task:
-- **Claude** — complex reasoning, multi-file refactors
-- **Copilot** — UI iteration, single-file edits, chat-driven work
-- **Codex** — batch/CI tasks, unattended operations
-
-### 4. Name Branches
-
-Apply `AGENTS.md → Branch Naming`:
-```
-model/type-short-description
-```
-Example: `claude/feat-auth-flow`, `codex/chore-lint-fix`
-
-### 5. Second-Model Review
-
-Each task should note which model will review it (different from the implementer).
-
-## Outputs
+## Output
 
 - Updated feature specs with ordered tasks and ACs
+- Updated `/tasks/[feature-id]-[slug].md` files with task status scaffold, AC mappings, and branch/model assignment
 - Model assignments and branch names recorded
 - Summary table for developer approval
+
+## See Also
+
+- AC template: `.specify/acceptance-criteria-template.md`
+- Routing matrix: `AGENTS.md → Agent Routing Matrix`
+- Branch naming: `AGENTS.md → Branch Naming`
+- v1 equivalent: Phase 2 (Plan) — v2 adds model assignment and EARS/GWT requirements

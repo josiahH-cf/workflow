@@ -9,8 +9,12 @@ Map policy requirements to validation signals.
 | Spec has Feature ID and AC IDs | Pattern check in spec file | `/specs/*.md` |
 | Task file maps tasks to AC IDs | Pattern check in task file | `/tasks/*.md` |
 | Task status counts are coherent | Status/checklist consistency check | `/tasks/*.md` |
+| Every spec has matching task file | Filename/feature-id parity check | `/specs/*.md`, `/tasks/*.md` |
 | PR includes verification and rollback | PR template checklist complete | `/.github/pull_request_template.md` |
-| Build, lint, test commands are defined | No placeholder commands in AGENTS | `/AGENTS.md` |
+| Constitution placeholders resolved after Compass | Fail if `[PROJECT-SPECIFIC]` remains in constitution for phase >= `3-define-features` | `/.specify/constitution.md`, `/workflow/STATE.json` |
+| AGENTS placeholders resolved after Scaffold Project | Fail if `[PROJECT-SPECIFIC]` remains in AGENTS for phase >= `5-fine-tune-plan` | `/AGENTS.md`, `/workflow/STATE.json` |
+| Build, lint, test commands are defined | No placeholder commands in AGENTS and no default CI command markers by phase >= `5-fine-tune-plan` | `/AGENTS.md`, `/.github/workflows/copilot-setup-steps.yml`, `/workflow/STATE.json` |
+| Continue state is valid | `workflow/STATE.json` parses and points to existing task file | `/workflow/STATE.json` |
 | Adapter files do not redefine canon | Adapter references AGENTS/workflow docs | `/CLAUDE.md`, `/.github/copilot-instructions.md` |
 
 ## CI Mapping

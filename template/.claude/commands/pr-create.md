@@ -1,5 +1,4 @@
 <!-- role: derived | canonical-source: meta-prompts/minor/6-pr-create.md -->
-<!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are creating a pull request for a completed, reviewed feature branch.
 
@@ -9,7 +8,7 @@ Read the project's PR template at /.github/pull_request_template.md if it exists
 
 Produce the PR with this structure:
 
-```text
+---
 **Title:** [concise imperative summary of the change]
 
 ## What
@@ -45,7 +44,7 @@ Spec: /specs/[feature-id]-[slug].md
 
 ## Rollback
 [Special steps beyond git revert, or "Standard revert." if none]
-```
+---
 
 Rules:
 - If the diff exceeds 300 lines, state this clearly and recommend splitting before opening the PR.

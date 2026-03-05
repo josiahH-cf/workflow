@@ -1,6 +1,6 @@
 ---
 mode: agent
-description: "Translate the Compass into a concrete feature set"
+description: 'Translate constitution into concrete features with priorities'
 tools:
   - read_file
   - create_file
@@ -8,37 +8,43 @@ tools:
   - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/03-define-features.md -->
+<!-- generated-from-metaprompt -->
 
-# Define Features — Phase 3: Feature Definition
 
-Translate the project constitution into a concrete, prioritized feature set through adaptive conversation.
+# Phase 3 — Define Features
 
-## Prerequisites
+**Objective:** Translate the Compass constitution into a concrete, prioritized feature set. Each feature maps to a constitution capability.
 
-- `.specify/constitution.md` must exist and be complete
-- If missing, direct developer to run Compass first
+**Trigger:** Phase 2 complete (constitution populated).
 
-## Interview Protocol
+**Entry commands:**
+- Claude: `/define-features`
+- Copilot: `define-features.prompt.md`
 
-**Adaptive interview** — bridge "what the project IS" to "what it DOES."
+---
 
-1. **Read the constitution** — internalize Problem Statement, Core Capabilities, Out-of-Scope
-2. **Map capabilities to features:** For each Core Capability, ask: "How would a user interact with this?"
-3. **Identify features:** Each must be traceable to a Core Capability, describable in one sentence, independently deliverable
-4. **Check boundaries:** Verify features don't conflict with Out-of-Scope items
-5. **Prioritize:** Essential for launch vs. deferrable
-6. **Handle unmapped features:** If a feature doesn't map to any capability → suggest `/compass-edit` or defer
+## What Happens
 
-### Rules
+1. Read `.specify/constitution.md` (all capabilities)
+2. Interview the developer to define features that deliver those capabilities
+3. For each feature, produce: name, description, Compass capability mapping, priority, scope flag
+4. Features that don't map to a constitution capability → explicit deferral or Compass reconsideration
+5. No implementation details — this is feature definition, not architecture
 
-- Ask ONE question at a time
-- No implementation details — no libraries, folder structures, or code
-- Every feature must map to a constitution capability
-- Multiple passes expected
+## Gate
 
-## Outputs
+- At least one feature spec exists in `/specs/` with Compass mapping
+- Every constitution capability has at least one feature mapping
+- No orphan features (every feature traces to a capability)
 
-1. Create feature specs using `.specify/spec-template.md` → save to `/specs/[feature-id]-[slug].md`
-2. Fill: What and Why, User Stories, Acceptance Criteria, Non-Goals
-3. Leave Technical Approach, Task Breakdown, Model Assignment blank (Phases 4–5)
-4. Present feature list for review and confirm
+## Output
+
+- Feature specs in `/specs/[feature-id]-[slug].md`
+- Feature priority order
+- Task planning is deferred to `/tasks/[feature-id]-[slug].md` in Phase 5
+
+## See Also
+
+- Constitution: `.specify/constitution.md`
+- Spec template: `.specify/spec-template.md`
+- v1 equivalent: Phase 1 (Scope) — v2 adds Compass mapping requirement

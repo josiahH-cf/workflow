@@ -1,6 +1,6 @@
 ---
 mode: agent
-description: "Reason about project architecture and produce a technical plan"
+description: 'Reason about technical architecture — produce a plan, not code'
 tools:
   - read_file
   - create_file
@@ -8,37 +8,55 @@ tools:
   - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/04-scaffold-project.md -->
+<!-- generated-from-metaprompt -->
 
-# Scaffold — Phase 4: Project Architecture Planning
+[AGENTS.md](../template/AGENTS.md)
 
-Reason about the technical architecture needed to deliver features. Produce a **plan, not code**.
+# Phase 4 — Scaffold Project
 
-## Prerequisites
+**Objective:** Reason about the technical architecture needed to deliver the defined features. Produce a plan, NOT code.
 
-- `.specify/constitution.md` must exist
-- Feature specs must exist in `/specs/`
+**Trigger:** Phase 3 complete (feature specs exist).
 
-## What to Reason About
+**Entry commands:**
+- Claude: `/scaffold`
+- Copilot: `scaffold.prompt.md`
 
-1. **Folder/module structure** — How should the codebase be organized?
-2. **Dependencies** — What libraries, frameworks, services are needed?
-3. **Install steps** — How does a developer set up from scratch?
-4. **Target environments** — Browser, server, CLI, mobile?
-5. **API surfaces** — Interfaces between modules or services
-6. **Data models** — Core entities and relationships
-7. **Gaps and unknowns** — What can't we answer yet?
+---
 
-### Rules
+## What Happens
 
-- **Do not write code or create project files** — produce a plan only
-- List gaps explicitly — never silently skip unknowns
-- Present options for tradeoffs
-- Mark items needing developer input as `[DECISION NEEDED]`
+1. Read constitution and all feature specs
+2. Reason about 7 dimensions:
+   - Folder/module structure
+   - Dependencies and frameworks
+   - Install and setup steps
+   - Target environments
+   - API surfaces between modules
+   - Data models and entities
+   - Gaps and unknowns
+3. Present options for tradeoffs — don't decide unilaterally
+4. Mark items needing developer input as `[DECISION NEEDED]`
+5. List gaps explicitly — never skip unknowns
+
+## Gate
+
+- `AGENTS.md → Code Conventions` section populated (not placeholder)
+- `AGENTS.md → Core Commands` section populated with project-specific commands
+- Folder structure documented
+- Decisions logged in `/decisions/`
+
+## Output
+
+- Updated `AGENTS.md` (Code Conventions, Core Commands)
+- Technical approach documented in feature specs
+- Decision records in `/decisions/`
+
+## Rules
+
+- **No application code is written in this phase.** Planning outputs may update AGENTS/spec/decision artifacts only.
 - Multiple passes expected — iterate with the developer
 
-## Outputs
+## See Also
 
-1. Update `AGENTS.md` Code Conventions and Core Commands sections
-2. Fill Technical Approach in each feature spec
-3. Log decisions to `/decisions/`
-4. Present plan for developer approval
+- v1 equivalent: Part of Phase 2 (Plan) — v2 separates architecture reasoning from task breakdown

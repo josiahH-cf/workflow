@@ -1,12 +1,21 @@
 ---
+mode: agent
 description: 'Fix an issue with the current workflow prompt mid-session'
-agent: 'agent'
+tools:
+  - read_file
+  - create_file
+  - replace_string_in_file
+  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/fix-prompt.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)
 
+---
+description: 'Fix an issue with the current workflow prompt mid-session'
+agent: 'agent'
+---
 
 You are a prompt editor. The user has encountered an issue during an active workflow session and wants to correct the prompt file responsible so the issue does not recur.
 

@@ -40,6 +40,13 @@
 - AC-2 → [test file or suite]
 - AC-3 → [test file or suite]
 
+## Execution Linkage
+
+<!-- Execution planning is authoritative in /tasks/[feature-id]-[slug].md -->
+
+- Task file: /tasks/[feature-id]-[slug].md
+- Task ordering, model assignment, and branch naming live in the task file
+
 ## Notes
 
 <!-- Non-obvious details the implementer should know -->

@@ -12,7 +12,7 @@ Your job is to keep these three sources consistent:
 - Claude command files: /template/.claude/commands/*.md
 - Copilot prompt files: /prompts/*.prompt.md
 
-This repository is prompt-first. Do not use shell scripts. Do all work through file reads/edits.
+Canonical maintainer path is script-based sync (`./scripts/sync-prompts.sh`). If script execution is unavailable, you may apply the same logic manually by editing files.
 
 STEP 1  -  INVENTORY
 1. List all slash-command names from meta-prompts by reading:
@@ -26,25 +26,26 @@ STEP 1  -  INVENTORY
    V2 Cross-Platform Command Map:
    | Phase | Claude Command | Copilot Prompt | Meta-Prompt (minor) |
    |-------|---------------|----------------|-------------------|
+   | 1 | initialization.md | initialization.prompt.md | initialization.md |
    | 2 | compass.md | compass.prompt.md | 02-compass.md |
-   | 2 | compass-edit.md | compass-edit.prompt.md | — |
+   | 2 | compass-edit.md | compass-edit.prompt.md | 02b-compass-edit.md |
    | 3 | define-features.md | define-features.prompt.md | 03-define-features.md |
    | 4 | scaffold.md | scaffold.prompt.md | 04-scaffold-project.md |
    | 5 | fine-tune.md | fine-tune.prompt.md | 05-fine-tune-plan.md |
    | 6 | implement.md | implement.prompt.md | 06-code.md |
    | 7 | test.md | test.prompt.md | 07-test.md |
+   | 7 | bug.md | bug.prompt.md | 07b-bug.md |
+   | 7 | bugfix.md | bugfix.prompt.md | 07c-bugfix.md |
    | 8 | maintain.md | maintain.prompt.md | 08-maintain.md |
-   | — | bug.md | bug.prompt.md | — |
-   | — | bugfix.md | bugfix.prompt.md | — |
-   | — | continue.md | continue.prompt.md | — |
-   | V1 | review.md | review.prompt.md | — |
-   | V1 | cross-review.md | cross-review.prompt.md | — |
-   | V1 | pr-create.md | pr-create.prompt.md | — |
-   | V1 | merge.md | merge.prompt.md | — |
+   | Orchestrator | continue.md | continue.prompt.md | 09-continue.md |
    | V1 | ideate.md | ideate.prompt.md | 0-ideate.md |
    | V1 | scope.md | scope.prompt.md | 1-scope.md |
    | V1 | plan.md | plan.prompt.md | 2-plan.md |
    | V1 | execplan.md | execplan.prompt.md | 2b-execplan.md |
+   | V1 | review.md | review.prompt.md | 5-review.md |
+   | V1 | cross-review.md | cross-review.prompt.md | 5b-cross-review.md |
+   | V1 | pr-create.md | pr-create.prompt.md | 6-pr-create.md |
+   | V1 | merge.md | merge.prompt.md | 7-merge.md |
    | V1 | fix-prompt.md | fix-prompt.prompt.md | fix-prompt.md |
 
 4. Report parity:
@@ -60,9 +61,12 @@ Before regenerating, for each file that will be updated:
    - "MANUAL EDIT DETECTED: [file] — last synced content differs from current. Overwrite? (yes/skip)"
 4. Only overwrite files that are confirmed as auto-generated or explicitly approved.
 
-STEP 3  -  REGENERATE BY EDITING FILES
+STEP 3  -  REGENERATE (SCRIPT-FIRST)
+Run `./scripts/sync-prompts.sh` to regenerate derived files. If script execution is unavailable, regenerate manually using the rules below.
+
+Manual regeneration rules:
 For each command:
-1. Read the operational fenced block from the meta-prompt and use it as the base content.
+1. Read the operational text from the meta-prompt and use it as the base content (fenced block when present, otherwise body content).
 2. Update /template/.claude/commands/[command].md:
    - Keep marker: <!-- generated-from-metaprompt -->
    - Write only the operational command content.
@@ -82,6 +86,7 @@ For each command:
      - ideate: $ARGUMENTS -> ${input:idea:Describe the feature idea}
      - scope/review/cross-review: $ARGUMENTS -> ${input:specOrFeature:Provide the spec path or feature description}
      - plan/test/implement: $ARGUMENTS -> ${input:filePath:Provide the path to the spec or task file}
+     - bugfix: $ARGUMENTS -> ${input:bugRef:Path to bug log file or BUG-NNN}
      - execplan: $SPEC_PATH -> ${input:specPath:Path to the spec file}
                  $TASKS_PATH -> ${input:tasksPath:Path to the task file}
      - pr-create: $SPEC_PATH -> ${input:specPath:Path to the spec file}
@@ -108,5 +113,5 @@ Return a concise report:
 - Manual edits detected and how they were handled
 - Any unresolved ambiguity requiring user input
 
-Do not run shell scripts. Do not introduce script-based workflow text.
+Prefer script-based sync; use manual sync only when scripts are unavailable. Do not introduce command semantics that are not present in canonical meta-prompts.
 ```

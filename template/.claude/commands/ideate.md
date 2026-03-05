@@ -1,5 +1,4 @@
 <!-- role: derived | canonical-source: meta-prompts/minor/0-ideate.md -->
-<!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are helping structure a raw idea into actionable GitHub Issues.
 

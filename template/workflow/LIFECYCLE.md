@@ -16,13 +16,13 @@ The project lifecycle follows 8 phases plus a parallel Bug Track. These are one-
 | 2. Compass | Scaffold in place | Adaptive interview (`/compass`) | `.specify/constitution.md`, AGENTS.md Overview |
 | 3. Define Features | Constitution | Feature interview (`/define-features`) | Feature specs with Compass mapping |
 | 4. Scaffold Project | Feature specs | Architecture reasoning (`/scaffold`) | AGENTS.md Code Conventions + Core Commands |
-| 5. Fine-tune Plan | Architecture plan | Spec finalization (`/fine-tune`) | Ordered tasks, ACs, model assignments, branches |
-| 6. Code | Fine-tuned specs | TDD implementation (`/implement`) | Passing code on feature branches |
-| 7. Test | Implementation | AC verification (`/test`) | Test results, bug log entries |
+| 5. Fine-tune Plan | Architecture plan | Spec + task finalization (`/fine-tune`) | Updated specs + `/tasks/[feature-id]-[slug].md` with task/model/branch mappings |
+| 6. Code | Fine-tuned specs + task files + pre-tests | TDD implementation (`/implement`) | Passing code on feature branches |
+| 7. Test | Feature branch state | `pre` mode: failing tests, `post` mode: AC verification (`/test`) | Test results, bug log entries |
 | 8. Maintain | Shipped features | Documentation + compliance (`/maintain`) | README, CONTRIBUTING, compliance report |
 | Bug Track | Any phase | Bug logging (`/bug`) + fixing (`/bugfix`) | Bug log entries, fix PRs |
 
-Use `/continue` to auto-advance through phases based on exit criteria.
+Use `/continue` to auto-advance through phases based on exit criteria and persisted orchestrator state in `/workflow/STATE.json`.
 
 ## Feature-Level Phases (Per-Feature Lifecycle)
 
@@ -65,3 +65,4 @@ When creating multiple features, write all issues first (labeled `status:idea`),
 - Spec and task files must share the same feature ID
 - Criteria IDs in spec: `AC-1..N`
 - Task IDs in tasks file: `T-1..N`
+- Orchestration state file: `/workflow/STATE.json`

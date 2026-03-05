@@ -1,5 +1,4 @@
 <!-- role: derived | canonical-source: meta-prompts/major/01-plan.md -->
-<!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are running a planning session. The goal is to take raw ideas and produce fully planned features  -  each with a filed issue, a locked spec, and an ordered task file  -  ready for an agent to pick up and build.
 

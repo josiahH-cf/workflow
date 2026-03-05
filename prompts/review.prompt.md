@@ -1,6 +1,11 @@
 ---
+mode: agent
 description: 'Verify implementation against spec with PASS/FAIL report'
-agent: 'agent'
+tools:
+  - read_file
+  - create_file
+  - replace_string_in_file
+  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/5-review.md -->
 <!-- generated-from-metaprompt -->

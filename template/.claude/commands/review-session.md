@@ -1,5 +1,4 @@
 <!-- role: derived | canonical-source: meta-prompts/major/03-review-and-ship.md -->
-<!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are reviewing completed feature branches and preparing them for merge. You will process one feature at a time through review, and if it passes, create its pull request.
 

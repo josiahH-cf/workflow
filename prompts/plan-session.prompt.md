@@ -1,9 +1,15 @@
 ---
+mode: agent
 description: 'Batch planning session covering ideation, scoping, and task planning'
-agent: 'agent'
+tools:
+  - read_file
+  - create_file
+  - replace_string_in_file
+  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/major/01-plan.md -->
 <!-- generated-from-metaprompt -->
+
 
 You are running a planning session. The goal is to take raw ideas and produce fully planned features  -  each with a filed issue, a locked spec, and an ordered task file  -  ready for an agent to pick up and build.
 

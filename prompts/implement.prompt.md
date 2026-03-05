@@ -1,6 +1,6 @@
 ---
 mode: agent
-description: "Implement one task using TDD — make failing tests pass, aligned to constitution"
+description: 'TDD implementation — make failing tests pass, one task at a time'
 tools:
   - read_file
   - create_file
@@ -8,44 +8,58 @@ tools:
   - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/06-code.md -->
+<!-- generated-from-metaprompt -->
 
-# Implement — Phase 6: TDD Implementation
+[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
+[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
+[workflow/FAILURE_ROUTING.md](../template/workflow/FAILURE_ROUTING.md)
 
-Implement one task from a fine-tuned feature spec. TDD: tests exist first — make them pass.
+# Phase 6 — Code
 
-## Setup
+**Objective:** Implement features following TDD from fine-tuned specs and task files. Tests exist first — make them pass.
 
-Read the task file at: ${input:filePath:Provide the path to the spec or task file}
-Read `.specify/constitution.md` — verify the task traces to a constitution capability.
-Read `AGENTS.md` (Boundaries, Core Commands, Code Conventions, Specification Workflow).
+**Trigger:** Phase 5 complete (`/tasks/[feature-id]-[slug].md` exists with ordered tasks, model assignment, and branches).
 
-## Orient Before Writing
+**Entry commands:**
+- Claude: `/implement`
+- Copilot: `implement.prompt.md`
 
-1. Identify the next task marked "Not started" in the task file.
-2. Read the failing test(s) that cover this task's acceptance criteria.
-3. Read the source files this task will modify.
-4. Confirm you understand what the tests expect before writing any code.
-5. Check `.specify/constitution.md` — does this task align with a stated capability? If not, stop and clarify.
+---
+
+## What Happens
+
+1. Confirm `/test pre` has created failing tests for this feature
+2. Orient: read task file, failing tests, source files
+3. Verify constitution alignment before implementing
+4. Implement one task at a time — make failing tests pass
+5. Follow existing code patterns
+6. Log bugs via `/bug` — don't silently work around them
+7. Update spec before any unplanned decision
+8. Commit per task on the assigned branch
+
+## Gate
+
+- Pre-implementation tests exist for every AC (from `/test pre`)
+- All tasks in current feature's task file marked Complete
+- Full test suite passes
+- No unresolved blocking bugs
+
+## Output
+
+- Passing code on feature branch
+- Updated task file with completion status
+- Decision records for any unplanned decisions
+- Bug log entries for any discovered bugs
 
 ## Rules
 
-- **TDD** — tests already exist and are failing. Your job: make them pass.
-- Implement ONLY this one task. Not the next one.
-- Follow existing code patterns. Read surrounding code before writing.
-- Do not modify existing tests. If a test seems wrong, the implementation is wrong — not the test.
-- Do not add functionality beyond what this task specifies.
-- Do not change files outside the scope listed in this task's "Files" field.
-- **Update the spec before any unplanned decision.** Write to `/decisions/[NNNN]-[slug].md` AND update the spec.
-- Bugs discovered during implementation: log them via bug tracking. Do not silently work around bugs.
+- TDD — tests exist before implementation
+- One task per commit
+- Do not modify existing tests
+- Do not add functionality beyond spec
+- Update spec before unplanned decisions
 
-## After Implementation
+## See Also
 
-1. Run the full test suite — not just this task's tests.
-2. If unrelated tests break, fix the regression without modifying those tests.
-3. Commit on the assigned branch (format: `model/type-short-description`).
-4. Update the task file: mark this task `[x] Complete`. Update Status counts.
-
-## Next Step
-
-- If MORE tasks remain → "Task N complete. M remaining. Run implement again with the same task file."
-- If ALL tasks complete → "All tasks complete. Next: test for verification, then review."
+- Bug logging: `/bug` command
+- v1 equivalent: Phase 4 (Implement) — v2 adds constitution alignment check and bug-logging requirement

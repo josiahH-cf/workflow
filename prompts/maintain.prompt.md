@@ -1,6 +1,6 @@
 ---
 mode: agent
-description: "Maintain project health — documentation, compliance, standards"
+description: 'Documentation, compliance, and standards enforcement'
 tools:
   - read_file
   - create_file
@@ -8,39 +8,58 @@ tools:
   - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/08-maintain.md -->
+<!-- generated-from-metaprompt -->
 
-# Maintain — Phase 8: Project Health
+[AGENTS.md](../template/AGENTS.md)
+[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
+[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
 
-Maintain project health: documentation, compliance, and standards enforcement.
+# Phase 8 — Maintain
 
-Read `AGENTS.md` (all sections — especially Code Conventions, Boundaries, Specification Workflow).
-Read `.specify/constitution.md`.
+**Objective:** Produce and maintain project documentation, enforce standards, and ensure compliance.
 
-## Mode: Initial Setup
+**Trigger:** Feature shipped (post-Phase 7) or periodic maintenance trigger.
 
-Run when a project first reaches a shippable state (post-Phase 7).
+**Entry commands:**
+- Claude: `/maintain`
+- Copilot: `maintain.prompt.md`
 
-1. **README** — Generate/update from constitution + feature specs. Include: project description, setup (from AGENTS.md Core Commands), usage examples, architecture overview.
-2. **CONTRIBUTING** — Generate from AGENTS.md conventions: branch naming, commit format, PR requirements, testing expectations.
-3. **Release notes** — Summarize implemented features with spec references.
-4. **Security baseline** — Check for: secrets in code, dependency vulnerabilities, insecure patterns. Log findings as bugs if needed.
+---
 
-## Mode: Ongoing
+## What Happens
 
-Run periodically or when triggered.
+### Initial Setup (first run after shipping)
+1. Generate README from constitution + feature specs
+2. Generate CONTRIBUTING from AGENTS.md conventions
+3. Produce release notes from implemented features
+4. Run security baseline check
 
-1. **Compliance check** — All specs have tests, all tests pass, no orphan branches, bug log reviewed.
-2. **Documentation drift** — Compare README/CONTRIBUTING against current state. Update if diverged.
-3. **Dependency audit** — Check for outdated or vulnerable dependencies.
-4. **Auto-corrections** — Fix lint warnings, format drift, stale TODOs.
-5. **Issue review** — Scan bug log for stale entries. Flag or close.
+### Ongoing (periodic)
+1. Compliance check — all specs have tests, all tests pass
+2. Documentation drift — README/CONTRIBUTING vs current state
+3. Dependency audit — outdated or vulnerable
+4. Auto-corrections — lint, format, stale TODOs
+5. Bug log review — stale entries flagged or closed
 
-## Rules
+## Gate
 
-- Do not change application logic — maintenance only.
-- Log issues via bug tracking.
-- Commit maintenance changes separately from feature work.
+- README exists and reflects current project state
+- CONTRIBUTING exists with branch naming, commit format, PR requirements
+- Security baseline checked
+- No stale compliance issues
 
 ## Output
 
-State which mode was run and summarize findings.
+- Updated documentation
+- Compliance report
+- Bug log entries for any findings
+
+## Rules
+
+- Do not change application logic — maintenance only
+- Commit maintenance changes separately from feature work
+
+## See Also
+
+- Bug tracking parallel workflow: `AGENTS.md → Bug Track`
+- v1 equivalent: No direct equivalent — v2 adds explicit maintenance phase

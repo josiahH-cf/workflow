@@ -43,7 +43,7 @@
 
 ## Rules
 
-- **No code is written in this phase.** Plan only.
+- **No application code is written in this phase.** Planning outputs may update AGENTS/spec/decision artifacts only.
 - Multiple passes expected — iterate with the developer
 
 ## See Also

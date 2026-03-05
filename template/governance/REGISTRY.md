@@ -10,6 +10,7 @@ This registry defines the authority and ownership of scaffold policy files.
 | `/workflow/LIFECYCLE.md` | Lifecycle index (project-level + feature-level phases) | Human maintainer |
 | `/workflow/PLAYBOOK.md` | Phase execution contract (project + feature gates) | Human maintainer |
 | `/workflow/FILE_CONTRACTS.md` | Artifact schema and linkage | Human maintainer |
+| `/workflow/STATE.json` | Machine-readable orchestration state for `/continue` | Orchestrator agent |
 | `/workflow/FAILURE_ROUTING.md` | Failure matrix and escalation | Human maintainer |
 | `/governance/CHANGE_PROTOCOL.md` | Policy mutation rules | Human maintainer |
 | `/governance/POLICY_TESTS.md` | Validation requirements | Human maintainer |
@@ -33,9 +34,12 @@ Adapters may add tool-specific mechanics but must not redefine canonical workflo
 
 - `/.github/agents/planner.agent.md` — Planning specialist (never writes code)
 - `/.github/agents/reviewer.agent.md` — Review specialist (scores against rubric)
-- `/.github/agents/reviewer.md` — Legacy v1 reviewer (preserved)
 
 ## CI/CD Files
 
 - `/.github/workflows/copilot-setup-steps.yml` — CI validation + spec-existence check
 - `/.github/workflows/autofix.yml` — Autofix on CI failure (workflow_run trigger)
+
+## Archived Legacy Artifacts (Non-Canonical)
+
+- `/archive/template-legacy/agents/reviewer.v1.md` — Legacy v1 reviewer definition (historical reference only)

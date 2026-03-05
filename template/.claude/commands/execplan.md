@@ -1,5 +1,4 @@
 <!-- role: derived | canonical-source: meta-prompts/minor/2b-execplan.md -->
-<!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are creating a milestone-based execution plan for a long-running implementation session.
 
@@ -11,6 +10,7 @@ Produce an ExecPlan that restructures the tasks into milestones. Each milestone 
 
 Write the output following this structure:
 
+---
 # ExecPlan: [feature-id]-[slug]
 
 ## Purpose
@@ -61,6 +61,7 @@ Write the output following this structure:
 
 ## Surprises
 [empty  -  fill during implementation if anything unexpected is encountered]
+---
 
 Rules:
 - Milestones must be ordered so each one leaves the codebase in a working state.

@@ -22,33 +22,33 @@ You do **not** need all three AI platforms. Pick the one(s) you use:
 
 ## Quick start
 
-### Option A: Install script
+### Path A: Fastest first success (recommended)
 
 ```bash
 # From the scaffold repo root:
-./scripts/install.sh /path/to/your/project
+./scripts/install.sh --with-meta-prompts /path/to/your/project
 
-# With Copilot prompts:
-./scripts/install.sh --with-prompts /path/to/your/project
+# If you want Copilot slash prompts too:
+./scripts/install.sh --with-meta-prompts --with-prompts /path/to/your/project
 ```
 
-### Option B: Manual setup
+Then in your target project root:
+1. Run `meta-prompts/initialization.md` if present, otherwise run `/compass`
+2. Run `/define-features`, `/scaffold`, `/fine-tune`
+3. Run `/continue` to execute `test pre -> implement -> test post -> review/ship`
+
+See [quickstart-first-success](docs/quickstart-first-success.md) for the complete 15-minute path.
+
+### Path B: Manual setup
 
 1. Download a release ZIP (`scaffold-template.zip`, `scaffold-metaprompts.zip`, or `scaffold-full.zip`)
-2. Extract `template/` contents into your project root
+2. Extract into your project root
 3. (Optional) Copy `prompts/*.prompt.md` to your [VS Code prompts directory](#command-installation-paths)
+4. If `meta-prompts/` exists, run `meta-prompts/initialization.md`; otherwise start with `/compass`
 
-### Option C: GitHub template
+### GitHub template option
 
-Use the "Use this template" button on GitHub, then delete files you don't need.
-
-### After setup
-
-1. Open an AI coding session at your project root
-2. Run the initialization meta-prompt (see [How to run a meta-prompt](#how-to-run-a-meta-prompt))
-3. The Compass interview starts automatically — answer the questions
-4. After Compass + Define Features + plan approval (Phases 2–5), run **`/continue`** to let the agent build autonomously
-5. Come back, refresh context, run `/continue` again — the agent picks up where it left off
+Use the "Use this template" button on GitHub, then remove files you do not need.
 
 > `/continue` is the primary command. It detects your current phase, executes it, and auto-advances to the next. It pauses at stop gates (Compass interview, plan approval, blocking bugs) and tells you what input is needed.
 
@@ -135,6 +135,7 @@ Use `/continue` and it will invoke the right commands at the right time — you 
 
 `AGENTS.md` is the universal entrypoint read by every agent. It defines:
 - Which phase you're in and what to do next
+- Where orchestration state is stored (`workflow/STATE.json`)
 - Which model handles which task (Claude for reasoning, Copilot for UI, Codex for batch)
 - Branch naming: `model/type-short-description`
 - Boundaries: what's allowed, what needs approval, what's forbidden
@@ -172,7 +173,7 @@ When all features have been built and documented, your project will contain:
 | --- | --- |
 | `scaffold-template.zip` | Template scaffold (`AGENTS.md`, `.claude/`, `.github/`, `.codex/`, and templates) |
 | `scaffold-metaprompts.zip` | Copilot `.prompt.md` command files |
-| `scaffold-full.zip` | Template scaffold + Copilot prompt files |
+| `scaffold-full.zip` | Template scaffold + Copilot prompt files + `meta-prompts/` |
 
 ## Scaffold layout
 
@@ -188,6 +189,7 @@ When all features have been built and documented, your project will contain:
     LIFECYCLE.md                     # Lifecycle index (project + feature phases)
     PLAYBOOK.md                      # Phase execution contract + gates
     FILE_CONTRACTS.md                # Artifact ownership + validation rules
+    STATE.json                       # Machine-readable orchestration state for /continue
     FAILURE_ROUTING.md               # Retry/escalation paths
   /governance/
     CHANGE_PROTOCOL.md               # Safe instruction-change process
@@ -208,7 +210,7 @@ When all features have been built and documented, your project will contain:
       autofix.yml                   # Auto-fix on CI failure
   /.claude/
     settings.json                    # Hooks: format, protect, test reminder
-    /commands/                       # 12 v2 commands (compass through continue)
+    /commands/                       # Derived Claude slash commands (v2 + support commands)
   /.codex/
     AGENTS.md                        # Codex adapter -> AGENTS.md
     config.toml                      # Codex runtime config
@@ -225,6 +227,15 @@ When all features have been built and documented, your project will contain:
 - VS Code Insiders: use `Code - Insiders` in the path
 - Cursor: use `Cursor` in the path
 
+## Migration notes
+
+If you are updating an existing scaffold:
+
+1. Run `meta-prompts/update.md` from the target project root.
+2. Preserve customized files (`AGENTS.md`, `.specify/constitution.md`, `.claude/settings.json`, `.github/workflows/copilot-setup-steps.yml`).
+3. Regenerate derived prompt artifacts with `./scripts/sync-prompts.sh`.
+4. Verify policy state with `scripts/policy-check.sh` in the target project.
+
 ## Troubleshooting
 
 See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for common issues:
@@ -234,21 +245,26 @@ See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for common issues:
 - Session context pollution
 - CI failures and autofix
 
+## Further reading
+
+- [Documentation Index](docs/README.md)
+- [Workflow Principles](docs/reference/principles.md)
+
 ## Maintainers
 
 ### Prompt file architecture
 
-Each workflow phase has up to 3 parallel files that must stay in sync:
+Each command has up to 3 parallel files that must stay in sync:
 
 | Layer | Location | Purpose | Format |
 |-------|----------|---------|--------|
-| **Meta-prompt** (canonical) | `meta-prompts/minor/*.md` | Source of truth for phase logic | Markdown with fenced operational block |
+| **Meta-prompt** (canonical) | `meta-prompts/minor/*.md` | Source of truth for phase and support-command logic | Markdown |
 | **Claude command** (derived) | `template/.claude/commands/*.md` | Claude Code slash command | Plain operational content |
 | **Copilot prompt** (derived) | `prompts/*.prompt.md` | VS Code Copilot slash command | YAML frontmatter + operational content |
 
-Meta-prompts are canonical. Claude commands and Copilot prompts are derived. Use `scripts/sync-prompts.sh` to regenerate derived files, or run [`meta-prompts/prompt-sync.md`](meta-prompts/prompt-sync.md) in an AI session.
+Meta-prompts are canonical. Claude commands and Copilot prompts are derived. Canonical maintainer path: run `scripts/sync-prompts.sh` (or `--check` in CI). Use [`meta-prompts/prompt-sync.md`](meta-prompts/prompt-sync.md) only as a fallback when script execution is unavailable.
 
 ### Major vs minor meta-prompts
 
-- **`meta-prompts/minor/`** — One file per workflow phase. These are the canonical source for each phase's logic.
+- **`meta-prompts/minor/`** — Canonical sources for individual phase commands and support commands.
 - **`meta-prompts/major/`** — Session-oriented batch prompts that combine multiple phases into sustained deep-work sessions (plan-session, build-session, review-session). These are convenience wrappers, not canonical sources.

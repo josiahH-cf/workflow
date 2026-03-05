@@ -1,13 +1,16 @@
 ---
+mode: agent
 description: 'Convert a task plan into a milestone-based execution plan'
-agent: 'agent'
+tools:
+  - read_file
+  - create_file
+  - replace_string_in_file
+  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/minor/2b-execplan.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)
-[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
-[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
 
 You are creating a milestone-based execution plan for a long-running implementation session.
 
@@ -19,6 +22,7 @@ Produce an ExecPlan that restructures the tasks into milestones. Each milestone 
 
 Write the output following this structure:
 
+---
 # ExecPlan: [feature-id]-[slug]
 
 ## Purpose
@@ -69,6 +73,7 @@ Write the output following this structure:
 
 ## Surprises
 [empty  -  fill during implementation if anything unexpected is encountered]
+---
 
 Rules:
 - Milestones must be ordered so each one leaves the codebase in a working state.

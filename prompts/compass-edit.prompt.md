@@ -1,20 +1,19 @@
 ---
 mode: agent
-description: "Edit the project constitution (approval-gated) — only sanctioned way to modify it"
+description: 'Edit constitution with explicit developer approval'
 tools:
   - read_file
   - create_file
   - replace_string_in_file
+  - run_in_terminal
 ---
-<!-- role: canonical-source -->
+<!-- role: derived | canonical-source: meta-prompts/minor/02b-compass-edit.md -->
+<!-- generated-from-metaprompt -->
+
 
 # Compass Edit — Modify the Project Constitution
 
-The constitution (`.specify/constitution.md`) is read-only during normal workflow. This prompt is the only sanctioned way to modify it.
-
-## Prerequisites
-
-Read `AGENTS.md` for workflow context.
+The constitution (`.specify/constitution.md`) is read-only during normal workflow. This command is the only sanctioned way to modify it.
 
 ## When to Use
 
@@ -24,16 +23,16 @@ Read `AGENTS.md` for workflow context.
 
 ## Protocol
 
-1. **Read** the current constitution in full
-2. **Ask** the developer what they want to change and why
-3. **Present** the proposed changes as a diff (show old vs new for each section)
-4. **Wait for explicit approval** — do not write changes until the developer confirms
-5. **Write** the approved changes to `.specify/constitution.md`
-6. **Log** the change: what was modified, why, and when
+1. Read the current constitution in full.
+2. Ask the developer what they want to change and why.
+3. Present proposed changes as a diff (old vs new for each modified section).
+4. Wait for explicit approval before writing any edits.
+5. Write only approved edits to `.specify/constitution.md`.
+6. Log what changed, why, and when.
 
 ## Constraints
 
-- Only modify sections the developer explicitly approved
-- Do not add new sections — the 8-section structure is fixed
-- If the change affects downstream specs or features, warn the developer: "This change may affect [list of downstream artifacts]. You may need to re-run define-features to update feature specs."
-- Never modify the constitution silently or as a side effect of another command
+- Modify only sections explicitly approved by the developer.
+- Do not add sections; the 8-section structure is fixed.
+- If edits affect downstream specs or tasks, warn the developer and recommend rerunning `/define-features`.
+- Never modify the constitution silently or as a side effect of another command.

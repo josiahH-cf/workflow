@@ -1,5 +1,7 @@
 # V2 Workflow QA Report
 
+> Internal implementation artifact. Informational only; canonical behavior is defined by current files in `template/`, `prompts/`, and `scripts/`.
+
 **Date:** 2026-03-04
 **Scope:** Full validation of v2 8-phase agentic workflow implementation
 **Result:** **PASS** (10/11 checks passed, 1 informational note)
