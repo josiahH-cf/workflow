@@ -41,8 +41,11 @@ Adapters may add tool-specific mechanics but must not redefine canonical workflo
 
 ## CI/CD Files
 
-- `/.github/workflows/copilot-setup-steps.yml` — CI validation + spec-existence check
-- `/.github/workflows/autofix.yml` — Autofix on CI failure (workflow_run trigger)
+- `/.github/workflows/copilot-setup-steps.yml` — Environment setup for Copilot Coding Agent
+- `/.github/workflows/copilot-agent.yml` — Issue-to-PR automation via @copilot assignment
+- `/.github/workflows/claude-review.yml` — Mention-triggered PR review via @claude
+- `/.github/workflows/autofix.yml` — CI-failure auto-fix loop
+- `/.github/workflows/agentic-triage.yml` — Scheduled issue triage (read-only)
 
 ## Archived Legacy Artifacts (Non-Canonical)
 
