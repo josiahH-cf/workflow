@@ -46,17 +46,17 @@ Decisions             → record WHY non-obvious choices were made
 
 ### The 8-Phase Workflow
 
-```
-1. SCAFFOLD IMPORT   → Install files (install.sh)
-2. COMPASS           → Interview → constitution.md
-3. DEFINE FEATURES   → Map features to constitution capabilities
-4. SCAFFOLD PROJECT  → Architecture decisions (no code)
-5. FINE-TUNE PLAN    → Ordered specs, ACs, model assignments, branches
-6. CODE              → TDD implementation from spec
-7. TEST + REVIEW     → Verify ACs, review, ship (per feature)
-8. MAINTAIN          → Docs, compliance, release notes
-   BUG TRACK         → Parallel bug capture from any phase
-```
+See the [workflow diagram](docs/reference/workflow-diagram.md) for the full visual flow.
+
+1. **Scaffold Import** → Install files (`install.sh`)
+2. **Compass** → Interview → `constitution.md`
+3. **Define Features** → Map features to constitution capabilities
+4. **Scaffold Project** → Architecture decisions (no code)
+5. **Fine-tune Plan** → Ordered specs, ACs, model assignments, branches
+6. **Code** → TDD implementation from spec
+7. **Test + Review** → Verify ACs, review, ship (per feature)
+8. **Maintain** → Docs, compliance, release notes
+- **Bug Track** → Parallel bug capture from any phase
 
 Phases 2–3 require interviews. Phases 4–5 need architecture approval. Phases 6–8 run autonomously via `/continue`.
 
@@ -90,8 +90,3 @@ Run [`meta-prompts/update.md`](meta-prompts/update.md) from your target project 
 ## License
 
 MIT
-
-### Major vs minor meta-prompts
-
-- **`meta-prompts/minor/`** — Canonical sources for individual phase commands and support commands.
-- **`meta-prompts/major/`** — Session-oriented batch prompts that combine multiple phases into sustained deep-work sessions (plan-session, build-session, review-session). These are convenience wrappers, not canonical sources.

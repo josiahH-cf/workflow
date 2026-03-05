@@ -26,26 +26,21 @@ Use `/continue` to auto-advance through phases based on exit criteria and persis
 
 ## Feature-Level Phases (Per-Feature Lifecycle)
 
-> **Note on phase numbering:** Project-Level Phases (above) run once per project setup. Feature-Level Phases (below) run once per feature, nested within Project Phases 3–8. When `continue.md` refers to "Phase 6", it means the Project-Level Code phase. Inside Phase 6, the Feature-Level cycle (Scope → Plan → Test → Implement → Review → PR → Merge) applies to each feature. The two numbering systems are independent — a feature at Feature-Level Phase 4 (Implement) is still within Project-Level Phase 6 (Code).
+> **Note on phase numbering:** Project-Level Phases (above) run once per project setup. Feature-Level Phases (below) run once per feature, nested within Project Phases 6–7. When `continue.md` refers to "Phase 6", it means the Project-Level Code phase. Inside Phase 6, the Feature-Level cycle (Pre-test → Implement → Post-test → Review → Ship) applies to each feature.
 
 
 Every phase produces a named artifact; the next phase consumes it.
 
 | Phase | Input | Action | Output | Who |
 | ----- | ----- | ------ | ------ | --- |
-| 0. Ideate | Raw idea | Human writes GitHub Issue | Issue (labeled `status:idea`) | Human |
-| 1. Scope | Issue | Scoping process | `/specs/[feature-id]-[slug].md` + label → `status:scoped` | Any agent |
-| 2. Plan | Spec | Planning process | `/tasks/[feature-id]-[slug].md` + label → `status:planned` | Any agent |
-| 3. Test | Tasks | Test authoring process | Committed failing tests + label → `status:tests-written` | Any agent |
-| 4. Implement | Tests + Tasks | Implementation process (per task) | Passing code + label → `status:implemented` | Any agent |
-| 5. Review | Branch diff + Spec | Review process + cross-agent review | PASS/FAIL report with criterion evidence + label → `status:reviewed` | Different agent |
-| 6. PR | Review pass | PR creation process | Open PR | Any agent |
-| 7. Merge | Approved PR | Human merges | Merged + branch deleted + label → `status:done` | Human |
+| 1. Pre-test | Task file | Write failing tests for ACs | Committed failing tests | Any agent |
+| 2. Implement | Tests + Tasks | TDD implementation (per task) | Passing code on feature branch | Any agent |
+| 3. Post-test | Implementation | Verify all ACs pass | Test results, bug log | Any agent |
+| 4. Review | Branch diff + Spec | Review + optional cross-review | PASS/FAIL report with criterion evidence | Different agent |
+| 5. Ship | Review pass | Create PR, merge | Merged + branch deleted | Human approval |
 
 ## Label Conventions
 
-- `status:idea`  -  raw, unscoped
-- `status:scoped`  -  spec written, ready to plan
 - `status:planned`  -  tasks written, ready to build
 - `status:tests-written`  -  failing tests committed
 - `status:implemented`  -  all tasks complete, tests pass

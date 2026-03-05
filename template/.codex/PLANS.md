@@ -1,6 +1,6 @@
-# ExecPlan Template
+# Implementation Plan Template
 
-When a task requires more than 3 steps, create an ExecPlan following
+When a task requires more than 3 steps, create an implementation plan following
 this structure. The plan is a living document  -  update it as work proceeds.
 Treat the reader as having zero prior context.
 

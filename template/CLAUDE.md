@@ -84,12 +84,10 @@ Commands are organized by workflow phase. Run `/continue` to auto-advance throug
 - `/maintain` — Phase 8: Documentation, compliance, standards enforcement
 - `/continue` — Orchestrator: reads project state, determines phase, auto-advances, keeps building
 
-### Delivery Pipeline (existing)
+### Review & Ship
 
-- `/review` — Review completed feature branch
-- `/cross-review` — Independent cross-agent review
-- `/pr-create` — Create pull request
-- `/merge` — Assist with merge checklist
+- `/review-session` — Review completed feature branch, create PR, ship
+- `/cross-review` — Independent cross-agent review (optional)
 
 ## Precedence
 

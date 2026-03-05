@@ -54,7 +54,7 @@
 - Use GIVEN/WHEN/THEN (GWT) format for all acceptance criteria.
 - Each criterion must be independently verifiable by an automated test.
 - The GIVEN is the test setup, WHEN is the action, THEN is the assertion.
-- See `workflow/SPECS.md` for the full EARS notation guide.
+- See `workflow/FILE_CONTRACTS.md` for artifact validation contracts.
 
 ## Autonomous Loop Discipline
 

@@ -29,5 +29,5 @@ Codex participates in the same 8-phase workflow defined in AGENTS.md. Entry poin
 
 - Universal routing: `../AGENTS.md`
 - Constitution: `../.specify/constitution.md`
-- ExecPlan template: `PLANS.md` (this directory)
+- Implementation plan template: `PLANS.md` (this directory)
 - Sandbox config: `config.toml` (this directory)

@@ -34,7 +34,7 @@ This prevents context drift between sessions.
 | `6-code` | `pre` | `/test pre` |
 | `6-code` | `implement` | `/implement` |
 | `7-test` | `post` | `/test post` |
-| `7b-review-ship` | — | `/review` → `/cross-review` → `/pr-create` → `/merge` |
+| `7b-review-ship` | — | `/review-session` → `/cross-review` |
 | `8-maintain` | — | `/maintain` |
 
 ## Feature Cycling

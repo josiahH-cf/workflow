@@ -32,6 +32,7 @@ The project lifecycle follows 8 phases plus a parallel Bug Track.
 
 ### Phase 6 — Code
 - **Entry:** Claude: `/implement` · Copilot: `implement.prompt.md`
+- **Session mode:** `/build-session` — sustained multi-feature implementation session
 - **Gate:** Task file + pre-impl tests exist → **Output:** Passing code on feature branch → **Next:** Phase 7
 
 ### Phase 7 — Test
@@ -39,7 +40,8 @@ The project lifecycle follows 8 phases plus a parallel Bug Track.
 - **Gate:** Implementation on feature branch → **Output:** Test results, bug log → **Next:** Phase 7b
 
 ### Phase 7b — Review & Ship
-- **Entry:** `/review` → `/cross-review` → `/pr-create` → `/merge`
+- **Entry:** Claude: `/review-session` · Copilot: `review-session.prompt.md`
+- **Optional:** `/cross-review` — second-opinion review from a different agent
 - **Gate:** All ACs pass → **Output:** Approved PR merged → **Next:** Phase 8 or next feature
 
 ### Phase 8 — Maintain
@@ -49,6 +51,11 @@ The project lifecycle follows 8 phases plus a parallel Bug Track.
 ### Bug Track (Parallel)
 - **Entry:** Claude: `/bug` · Copilot: `bug.prompt.md` — invoke from any phase
 - **Fix flow:** `/bugfix` — reproduce → diagnose → fix → verify → PR
+
+### Orchestrator
+- **Entry:** Claude: `/continue` · Copilot: `continue.prompt.md`
+- Reads `workflow/STATE.json`, determines current phase, executes it, auto-advances
+- See `workflow/ORCHESTRATOR.md` for the loop contract
 
 ## Quick Reference
 

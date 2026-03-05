@@ -77,14 +77,9 @@ For each command:
      ---
    - Keep marker: <!-- generated-from-metaprompt -->
    - Apply input substitutions:
-     - ideate: $ARGUMENTS -> ${input:idea:Describe the feature idea}
-     - scope/review/cross-review: $ARGUMENTS -> ${input:specOrFeature:Provide the spec path or feature description}
-     - plan/test/implement: $ARGUMENTS -> ${input:filePath:Provide the path to the spec or task file}
+     - cross-review: $ARGUMENTS -> ${input:specOrFeature:Provide the spec path or feature description}
+     - test/implement: $ARGUMENTS -> ${input:filePath:Provide the path to the spec or task file}
      - bugfix: $ARGUMENTS -> ${input:bugRef:Path to bug log file or BUG-NNN}
-     - execplan: $SPEC_PATH -> ${input:specPath:Path to the spec file}
-                 $TASKS_PATH -> ${input:tasksPath:Path to the task file}
-     - pr-create: $SPEC_PATH -> ${input:specPath:Path to the spec file}
-                  $TARGET_BRANCH -> ${input:targetBranch:Target branch name (e.g., main)}
    - If AGENTS.md is directly referenced in the operational content, add [AGENTS.md](../template/AGENTS.md) at the top of the body.
    - If the command performs phase execution or review logic, also add:
      - [workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)

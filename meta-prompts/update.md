@@ -49,7 +49,7 @@ Classify every file in the ZIP into one of three categories:
 - `.github/agents/*.md`  -  GitHub agent definitions
 - `.github/REVIEW_RUBRIC.md`  -  review scoring rubric
 - `.github/workflows/autofix.yml`  -  CI autofix workflow
-- `.codex/PLANS.md`  -  ExecPlan template
+- `.codex/PLANS.md`  -  Implementation plan template
 - `.codex/AGENTS.md`  -  Codex adapter (references ../AGENTS.md)
 - `CLAUDE.md`  -  Claude config (imports AGENTS.md, not customized per-project)
 - `CLAUDE.local.md`  -  only if it is still the default stub
@@ -92,7 +92,7 @@ For each auto-replace file that already exists in the project:
 1. Compare the existing version with the new version from the ZIP.
 2. If they differ, show a brief summary of what changed:
    - Lines added / removed / modified (counts)
-   - Key changes in plain language (e.g., "New /ideate command added", "Review command updated with additional checks")
+   - Key changes in plain language (e.g., "New /build-session command added", "Review command updated with additional checks")
 3. If they are identical, note: "[file]  -  no changes."
 
 Present all changes as a summary report. Ask: "These are the changes that will be applied. Continue with the update?"

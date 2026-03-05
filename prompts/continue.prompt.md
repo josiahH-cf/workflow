@@ -78,7 +78,7 @@ When `projectPhase` is `6-code` or later and `currentTaskFile` is empty:
 | `6-code` + `testMode=pre` | Run `/test pre` with `currentTaskFile`; on success set `testMode=implement`. |
 | `6-code` + `testMode=implement` | Run `/implement` with `currentTaskFile` until tasks complete; then set `projectPhase=7-test`, `testMode=post`. |
 | `7-test` + `testMode=post` | Run `/test post`; if all ACs pass and no blocking bugs set `projectPhase=7b-review-ship`. |
-| `7b-review-ship` | Run `/review`, `/cross-review`, `/pr-create`, `/merge`; if incomplete task files remain set `projectPhase=6-code`, `testMode=pre`, and move to next feature; otherwise set `projectPhase=8-maintain`. |
+| `7b-review-ship` | Run `/review-session`, `/cross-review`; if incomplete task files remain set `projectPhase=6-code`, `testMode=pre`, and move to next feature; otherwise set `projectPhase=8-maintain`. |
 | `8-maintain` | Run `/maintain`; when docs/compliance complete set `projectPhase=done`. |
 
 Persist `workflow/STATE.json` after every transition.
