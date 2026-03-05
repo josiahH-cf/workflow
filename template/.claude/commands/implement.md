@@ -1,37 +1,40 @@
-<!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
-<!-- generated-from-metaprompt -->
-You are implementing one task from a planned feature. Only one.
+<!-- role: derived | canonical-source: meta-prompts/minor/06-code.md -->
+You are implementing one task from a fine-tuned feature spec. TDD: tests exist first — make them pass.
 
 Read the task file at: $ARGUMENTS
-Read `/AGENTS.md`, `/workflow/PLAYBOOK.md`, `/workflow/FILE_CONTRACTS.md`, and `/workflow/FAILURE_ROUTING.md`.
+Read `.specify/constitution.md` — verify the task traces to a constitution capability.
+Read `/AGENTS.md` (Boundaries, Core Commands, Code Conventions, Specification Workflow).
+Read `/workflow/PLAYBOOK.md` and `/workflow/FILE_CONTRACTS.md`.
 
-Orient before writing:
-1. Identify the next task in the task file that is marked "Not started" (T-*).
-2. Read the test file(s) that cover this task's acceptance criteria.
+## Orient Before Writing
+
+1. Identify the next task marked "Not started" in the task file.
+2. Read the failing test(s) that cover this task's acceptance criteria.
 3. Read the source files this task will modify.
 4. Confirm you understand what the tests expect before writing any code.
+5. Check `.specify/constitution.md` — does this task align with a stated capability? If not, stop and clarify.
 
-Implement ONLY this one task. Not the next one. Not a partial start on another.
+## Rules
 
-Rules:
-- Make the failing tests for this task pass.
-- Follow existing code patterns. Read the surrounding code before writing.
-- Do not modify any existing tests. If a test seems wrong, the implementation is wrong  -  not the test.
+- **TDD** — tests already exist and are failing. Your job: make them pass.
+- Implement ONLY this one task. Not the next one.
+- Follow existing code patterns. Read surrounding code before writing.
+- Do not modify existing tests. If a test seems wrong, the implementation is wrong — not the test.
 - Do not add functionality beyond what this task specifies. No bonus features, no preemptive refactors.
 - Do not change files outside the scope listed in this task's "Files" field.
-- If you encounter a non-obvious decision, write it to /decisions/[NNNN]-[slug].md before proceeding. Use the next available number.
+- **Update the spec before any unplanned decision.** If implementation requires something not in the spec, write it to `/decisions/[NNNN]-[slug].md` AND update the spec's notes section before proceeding.
+- Bugs discovered during implementation: run `/bug` to log them. Do not silently work around bugs.
 
-After implementation:
-1. Run the full test suite  -  not just this task's tests.
+## After Implementation
+
+1. Run the full test suite — not just this task's tests.
 2. If unrelated tests break, fix the regression without modifying those tests.
-3. Commit with a message referencing the task (example: "Implement [task name] for [feature-id]-[slug]  -  T-2").
-4. Update the task file: mark this task's status as [x] Complete. Update the Status counts (Complete, Remaining).
-5. Append to the Session Log: date, what was completed, any blockers or decisions made.
+3. Commit on the assigned branch (see task's Branch field — format: `model/type-short-description`).
+4. Commit message references the task: `Implement [task name] for [feature-id]-[slug] — T-N`.
+5. Update the task file: mark this task `[x] Complete`. Update Status counts.
+6. Append to Session Log: date, what was completed, any blockers or decisions.
 
-After committing, check the task file:
+## Next Step
 
-- If MORE tasks remain with status "Not started":
-  State: "Task [N] complete. [M] tasks remaining. End this session. Start a fresh context window and run Phase 4 again with the same task file path."
-
-- If ALL tasks are now complete:
-  State: "All tasks complete. Label the issue status:implemented. Next phase: Review (Phase 5). Start in a fresh context window. For best results, use a different agent or model for review."
+- If MORE tasks remain "Not started" → state: "Task N complete. M remaining. Run `/implement` again with the same task file."
+- If ALL tasks complete → state: "All tasks complete. Next: `/test` for verification, then review."

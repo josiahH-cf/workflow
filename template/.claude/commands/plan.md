@@ -1,3 +1,4 @@
+<!-- role: derived | canonical-source: meta-prompts/minor/2-plan.md -->
 <!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are planning implementation tasks. Do not write code. Do not write tests.

@@ -1,3 +1,4 @@
+<!-- role: derived | canonical-source: meta-prompts/minor/5-review.md -->
 <!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are reviewing a completed feature branch. You did not write this code. Approach it with fresh eyes.

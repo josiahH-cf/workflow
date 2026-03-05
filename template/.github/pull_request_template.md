@@ -56,3 +56,45 @@
 ## Rollback
 
 <!-- Special steps beyond git revert? If none, write "Standard revert." -->
+
+---
+
+## Spec Reference
+
+- Constitution alignment: <!-- Which constitution capability does this serve? -->
+- Feature spec: `/specs/[feature-id]-[slug].md`
+- Task breakdown: `/tasks/[feature-id]-[slug].md`
+
+## AC Evidence
+
+<!-- Map each acceptance criterion to its test and result -->
+
+| AC ID | Description | Test | Result |
+|-------|-------------|------|--------|
+| AC-1 | | | PASS/FAIL |
+| AC-2 | | | PASS/FAIL |
+
+## Model & Branch
+
+- Implementing model: <!-- claude / copilot / codex -->
+- Branch: <!-- model/type-short-description -->
+- Reviewing model: <!-- different from implementer -->
+
+## Review Checklist
+
+Per [REVIEW_RUBRIC.md](/.github/REVIEW_RUBRIC.md):
+
+- [ ] Correctness: All ACs met
+- [ ] Test Coverage: Every AC has a test
+- [ ] Security: No secrets, inputs validated, no injection vectors
+- [ ] Performance: No obvious perf issues
+- [ ] Style: Matches project conventions, linter clean
+- [ ] Documentation: Spec updated if behavior changed, decisions logged
+
+## Bug Log
+
+<!-- List any bugs discovered or fixed during this PR -->
+
+- [ ] No new bugs discovered
+- Bugs found: <!-- BUG-NNN references -->
+- Bugs fixed: <!-- BUG-NNN references -->

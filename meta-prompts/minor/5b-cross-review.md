@@ -1,3 +1,4 @@
+<!-- role: canonical-source -->
 <!-- slash-command: cross-review -->
 <!-- description: Independent review by a different agent or model -->
 # Phase 5b  -  Cross-Review

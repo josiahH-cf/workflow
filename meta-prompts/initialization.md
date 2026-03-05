@@ -4,6 +4,8 @@ Paste this into a coding agent session at the root of any project where a scaffo
 
 > **Updating an existing project?** Use the [Update Meta-Prompt](update.md) instead  -  it preserves your customizations while updating generated files.
 
+> **V2 Workflow:** This initialization covers Phase 1 (Scaffold Import) of the 8-phase agentic workflow. After initialization completes, Phase 2 (Compass) is auto-triggered to begin the project identity interview. The full lifecycle: Scaffold Import → Compass → Define Features → Scaffold Project → Fine-tune Plan → Code → Test → Maintain (+ parallel Bug Track). See `AGENTS.md → Workflow Phases` for details.
+
 ---
 
 ```text
@@ -130,7 +132,9 @@ Present the updated file. Ask: "Does this match your CI environment? Adjust anyt
 
 **.claude/settings.json:**
 Review the permissions list. Ask: "These tool permissions will be pre-approved for agent sessions. The current list covers common operations for git, npm, pip, python, node, and file management. Do these match your project's toolchain, or should any be added or removed?"
-Also review the hooks section. Ask: "The post-edit hook runs a formatter and the stop hook runs a linter. What are the actual format and lint steps for this project?" (Use the values from AGENTS.md if already provided.)
+Also review the hooks section. Ask: "The post-edit hook runs a formatter on save. What is the format command for this project?" (Use the values from AGENTS.md if already provided.)
+Ask: "The session-end Stop hook reminds you to run tests. The current reminder message is generic — would you like to customize it with your specific test command (e.g., `npm test`, `pytest`, `bun test`)?"
+If yes, update the Stop hook command to: `echo 'Remember: run [their test command] before ending this session.'`
 Update and present for confirmation.
 
 **Optional agent permission mode (local-only):**
@@ -225,4 +229,26 @@ For metaprompts-only:
 
 For full:
   State: "Project scaffolding is in place with all conventions configured. Claude slash commands and Copilot prompt files are both installed. The project is ready for development."
+
+---
+
+STEP 6  -  AUTO-INITIATE COMPASS (Phase 2)
+
+If template content was placed (scaffold includes AGENTS.md and .specify/):
+
+Check whether `.specify/constitution.md` exists and has all 8 sections populated (no `[PROJECT-SPECIFIC]` placeholders remaining).
+
+If constitution is NOT populated:
+  State: "Scaffolding complete. Now starting the Compass interview to establish your project's identity, goals, and boundaries."
+  Auto-trigger: execute the Compass command (`.claude/commands/compass.md` or equivalent). This begins an adaptive interview  -  not a scripted checklist. The compass will:
+  1. Ask about the problem being solved and target audience
+  2. Define success criteria
+  3. Establish core capabilities and out-of-scope boundaries
+  4. Set inviolable principles and security/testing requirements
+  5. Write outputs to `.specify/constitution.md` and `AGENTS.md → Overview`
+
+  After Compass completes, state: "Constitution established. Run `/define-features` to translate it into a feature set, or run `/continue` to let the agent advance through remaining phases automatically."
+
+If constitution IS already populated:
+  State: "Constitution already exists. Run `/continue` to resume the agentic workflow from the current phase."
 ```

@@ -1,46 +1,51 @@
 ---
-description: 'Implement one task to make failing tests pass'
-agent: 'agent'
+mode: agent
+description: "Implement one task using TDD — make failing tests pass, aligned to constitution"
+tools:
+  - read_file
+  - create_file
+  - replace_string_in_file
+  - run_in_terminal
 ---
-<!-- generated-from-metaprompt -->
+<!-- role: derived | canonical-source: meta-prompts/minor/06-code.md -->
 
-[AGENTS.md](../template/AGENTS.md)
-[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
-[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
-[workflow/FAILURE_ROUTING.md](../template/workflow/FAILURE_ROUTING.md)
+# Implement — Phase 6: TDD Implementation
 
-You are implementing one task from a planned feature. Only one.
+Implement one task from a fine-tuned feature spec. TDD: tests exist first — make them pass.
+
+## Setup
 
 Read the task file at: ${input:filePath:Provide the path to the spec or task file}
-Read `/AGENTS.md`, `/workflow/PLAYBOOK.md`, `/workflow/FILE_CONTRACTS.md`, and `/workflow/FAILURE_ROUTING.md`.
+Read `.specify/constitution.md` — verify the task traces to a constitution capability.
+Read `AGENTS.md` (Boundaries, Core Commands, Code Conventions, Specification Workflow).
 
-Orient before writing:
-1. Identify the next task in the task file that is marked "Not started" (T-*).
-2. Read the test file(s) that cover this task's acceptance criteria.
+## Orient Before Writing
+
+1. Identify the next task marked "Not started" in the task file.
+2. Read the failing test(s) that cover this task's acceptance criteria.
 3. Read the source files this task will modify.
 4. Confirm you understand what the tests expect before writing any code.
+5. Check `.specify/constitution.md` — does this task align with a stated capability? If not, stop and clarify.
 
-Implement ONLY this one task. Not the next one. Not a partial start on another.
+## Rules
 
-Rules:
-- Make the failing tests for this task pass.
-- Follow existing code patterns. Read the surrounding code before writing.
-- Do not modify any existing tests. If a test seems wrong, the implementation is wrong  -  not the test.
-- Do not add functionality beyond what this task specifies. No bonus features, no preemptive refactors.
+- **TDD** — tests already exist and are failing. Your job: make them pass.
+- Implement ONLY this one task. Not the next one.
+- Follow existing code patterns. Read surrounding code before writing.
+- Do not modify existing tests. If a test seems wrong, the implementation is wrong — not the test.
+- Do not add functionality beyond what this task specifies.
 - Do not change files outside the scope listed in this task's "Files" field.
-- If you encounter a non-obvious decision, write it to /decisions/[NNNN]-[slug].md before proceeding. Use the next available number.
+- **Update the spec before any unplanned decision.** Write to `/decisions/[NNNN]-[slug].md` AND update the spec.
+- Bugs discovered during implementation: log them via bug tracking. Do not silently work around bugs.
 
-After implementation:
-1. Run the full test suite  -  not just this task's tests.
+## After Implementation
+
+1. Run the full test suite — not just this task's tests.
 2. If unrelated tests break, fix the regression without modifying those tests.
-3. Commit with a message referencing the task (example: "Implement [task name] for [feature-id]-[slug]  -  T-2").
-4. Update the task file: mark this task's status as [x] Complete. Update the Status counts (Complete, Remaining).
-5. Append to the Session Log: date, what was completed, any blockers or decisions made.
+3. Commit on the assigned branch (format: `model/type-short-description`).
+4. Update the task file: mark this task `[x] Complete`. Update Status counts.
 
-After committing, check the task file:
+## Next Step
 
-- If MORE tasks remain with status "Not started":
-  State: "Task [N] complete. [M] tasks remaining. End this session. Start a fresh context window and run Phase 4 again with the same task file path."
-
-- If ALL tasks are now complete:
-  State: "All tasks complete. Label the issue status:implemented. Next phase: Review (Phase 5). Start in a fresh context window. For best results, use a different agent or model for review."
+- If MORE tasks remain → "Task N complete. M remaining. Run implement again with the same task file."
+- If ALL tasks complete → "All tasks complete. Next: test for verification, then review."

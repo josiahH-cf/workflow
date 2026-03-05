@@ -36,6 +36,18 @@ jobs:
           test -f governance/POLICY_TESTS.md
           test -f governance/REGISTRY.md
 
+      - name: Validate specification files exist
+        run: |
+          set -e
+          test -f .specify/constitution.md
+          test -f .specify/spec-template.md
+          test -f .specify/acceptance-criteria-template.md
+          # Constitution must not contain only placeholders
+          if grep -c '\[PROJECT-SPECIFIC\]' .specify/constitution.md | grep -q '^8$'; then
+            echo ".specify/constitution.md is entirely placeholders — run /compass first"
+            exit 1
+          fi
+
       - name: Validate AGENTS placeholders are resolved
         run: |
           set -e
@@ -47,10 +59,18 @@ jobs:
       - name: Validate spec and task templates include identity fields
         run: |
           set -e
-          grep -q "Feature ID" specs/_TEMPLATE.md
-          grep -q "AC-1" specs/_TEMPLATE.md
-          grep -q "Feature ID" tasks/_TEMPLATE.md
-          grep -q "T-1" tasks/_TEMPLATE.md
+          if [ -f specs/_TEMPLATE.md ]; then
+            grep -q "Feature ID" specs/_TEMPLATE.md
+            grep -q "AC-1" specs/_TEMPLATE.md
+          else
+            echo "specs/_TEMPLATE.md not found — skipping (create it when defining first feature)"
+          fi
+          if [ -f tasks/_TEMPLATE.md ]; then
+            grep -q "Feature ID" tasks/_TEMPLATE.md
+            grep -q "T-1" tasks/_TEMPLATE.md
+          else
+            echo "tasks/_TEMPLATE.md not found — skipping (create it when defining first feature)"
+          fi
 
       - name: Install dependencies
         run: |

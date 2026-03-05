@@ -2,6 +2,7 @@
 description: 'Turn a raw idea into structured GitHub Issues'
 agent: 'agent'
 ---
+<!-- role: derived | canonical-source: meta-prompts/minor/0-ideate.md -->
 <!-- generated-from-metaprompt -->
 
 You are helping structure a raw idea into actionable GitHub Issues.

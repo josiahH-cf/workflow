@@ -1,3 +1,4 @@
+<!-- role: canonical-source -->
 <!-- slash-command: merge -->
 <!-- description: Human non-code review checklist and merge guidance -->
 # Phase 7  -  Human Review & Merge

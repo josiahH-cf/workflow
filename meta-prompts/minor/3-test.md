@@ -1,3 +1,4 @@
+<!-- role: canonical-source -->
 <!-- slash-command: test -->
 <!-- description: Write failing tests for acceptance criteria before implementation -->
 # Phase 3  -  Test

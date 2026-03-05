@@ -2,6 +2,7 @@
 description: 'Explore the codebase and produce a locked spec with acceptance criteria'
 agent: 'agent'
 ---
+<!-- role: derived | canonical-source: meta-prompts/minor/1-scope.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)

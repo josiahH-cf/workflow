@@ -2,6 +2,7 @@
 description: 'Independent review by a different agent or model'
 agent: 'agent'
 ---
+<!-- role: derived | canonical-source: meta-prompts/minor/5b-cross-review.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)

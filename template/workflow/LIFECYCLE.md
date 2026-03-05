@@ -6,6 +6,29 @@ This file is the lifecycle index. For execution and validation rules, use:
 - `/workflow/FILE_CONTRACTS.md`
 - `/workflow/FAILURE_ROUTING.md`
 
+## Project-Level Phases (V2 Agentic Workflow)
+
+The project lifecycle follows 8 phases plus a parallel Bug Track. These are one-time or periodic phases that establish the project foundation.
+
+| Phase | Input | Action | Output |
+| ----- | ----- | ------ | ------ |
+| 1. Scaffold Import | Empty/new repo | Run `initialization.md` | Scaffold files placed |
+| 2. Compass | Scaffold in place | Adaptive interview (`/compass`) | `.specify/constitution.md`, AGENTS.md Overview |
+| 3. Define Features | Constitution | Feature interview (`/define-features`) | Feature specs with Compass mapping |
+| 4. Scaffold Project | Feature specs | Architecture reasoning (`/scaffold`) | AGENTS.md Code Conventions + Core Commands |
+| 5. Fine-tune Plan | Architecture plan | Spec finalization (`/fine-tune`) | Ordered tasks, ACs, model assignments, branches |
+| 6. Code | Fine-tuned specs | TDD implementation (`/implement`) | Passing code on feature branches |
+| 7. Test | Implementation | AC verification (`/test`) | Test results, bug log entries |
+| 8. Maintain | Shipped features | Documentation + compliance (`/maintain`) | README, CONTRIBUTING, compliance report |
+| Bug Track | Any phase | Bug logging (`/bug`) + fixing (`/bugfix`) | Bug log entries, fix PRs |
+
+Use `/continue` to auto-advance through phases based on exit criteria.
+
+## Feature-Level Phases (Per-Feature Lifecycle)
+
+> **Note on phase numbering:** Project-Level Phases (above) run once per project setup. Feature-Level Phases (below) run once per feature, nested within Project Phases 3–8. When `continue.md` refers to "Phase 6", it means the Project-Level Code phase. Inside Phase 6, the Feature-Level cycle (Scope → Plan → Test → Implement → Review → PR → Merge) applies to each feature. The two numbering systems are independent — a feature at Feature-Level Phase 4 (Implement) is still within Project-Level Phase 6 (Code).
+
+
 Every phase produces a named artifact; the next phase consumes it.
 
 | Phase | Input | Action | Output | Who |
@@ -34,13 +57,7 @@ Every phase produces a named artifact; the next phase consumes it.
 
 ## Bulk Issue Creation
 
-When creating multiple features at once:
-
-1. Write all issues first using the Issue Template  -  do not scope yet
-2. Label each `status:idea` and assign a `size:` label
-3. Scope them one at a time in separate agent sessions
-4. Each issue must be independently actionable  -  no implicit ordering between issues
-5. If issues depend on each other, note the dependency in the issue body and scope the dependency first
+When creating multiple features, write all issues first (labeled `status:idea`), then scope them one at a time. Each issue must be independently actionable; note explicit dependencies in the issue body.
 
 ## Feature Identity
 

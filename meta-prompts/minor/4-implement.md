@@ -1,3 +1,4 @@
+<!-- role: canonical-source -->
 <!-- slash-command: implement -->
 <!-- description: Implement one task to make failing tests pass -->
 # Phase 4  -  Implement

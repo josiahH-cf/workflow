@@ -1,6 +1,6 @@
 # Workflow Playbook
 
-This document defines how an agent executes one feature from scoped spec to merged PR.
+This document defines how an agent executes work from spec to merged PR.
 
 ## Global Rules
 
@@ -8,8 +8,21 @@ This document defines how an agent executes one feature from scoped spec to merg
 - Keep branch scope aligned to the spec's Affected Areas.
 - Record non-obvious decisions in `/decisions/` before continuing.
 - Move forward only when the current phase gate is satisfied.
+- Reference `.specify/constitution.md` for alignment on all design decisions.
 
-## Phase Contract
+## Project-Level Phase Gates (V2)
+
+| Phase | Required Input | Required Output | Gate to Advance |
+| ----- | -------------- | --------------- | --------------- |
+| Compass | Scaffold files placed | `.specify/constitution.md` populated | All 8 sections have content (no placeholders) |
+| Define Features | Constitution | Feature specs with Compass mapping | At least one feature spec exists |
+| Scaffold Project | Feature specs | AGENTS.md Code Conventions + Core Commands | Neither section contains `[PROJECT-SPECIFIC]` |
+| Fine-tune Plan | Architecture plan | Ordered tasks, ACs, model assignments | EARS/GWT ACs present, branch names assigned |
+| Code | Fine-tuned specs | Passing code on feature branch | All tasks marked Complete, tests pass |
+| Test | Implementation | Verified ACs, bug log reviewed | No blocking bugs, all ACs pass |
+| Maintain | Shipped features | README, CONTRIBUTING, security baseline | Documentation exists and reflects current state |
+
+## Feature-Level Phase Contract
 
 | Phase | Required Input | Required Output | Gate to Advance |
 | ----- | -------------- | --------------- | --------------- |

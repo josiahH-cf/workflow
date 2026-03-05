@@ -2,6 +2,7 @@
 description: 'Verify implementation against spec with PASS/FAIL report'
 agent: 'agent'
 ---
+<!-- role: derived | canonical-source: meta-prompts/minor/5-review.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)

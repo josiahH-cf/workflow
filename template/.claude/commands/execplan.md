@@ -1,3 +1,4 @@
+<!-- role: derived | canonical-source: meta-prompts/minor/2b-execplan.md -->
 <!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are creating a milestone-based execution plan for a long-running implementation session.

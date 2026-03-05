@@ -1,0 +1,70 @@
+# Prerequisites:
+# 1. Set ANTHROPIC_API_KEY as a repository secret:
+#    GitHub repo → Settings → Secrets and variables → Actions → New repository secret
+#    Name: ANTHROPIC_API_KEY  Value: your Anthropic API key
+# 2. Ensure the "Copilot Setup Steps" workflow exists and is running in CI.
+#
+name: "Autofix on CI Failure"
+
+on:
+  workflow_run:
+    workflows: ["Copilot Setup Steps"]
+    types:
+      - completed
+
+concurrency:
+  group: autofix-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: true
+
+jobs:
+  autofix:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.head_branch != 'main' &&
+      github.event.workflow_run.head_branch != 'master'
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout failing branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+          fetch-depth: 0
+
+      - name: Attempt autofix with Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          prompt: |
+            The CI workflow "Copilot Setup Steps" failed on branch ${{ github.event.workflow_run.head_branch }}.
+
+            Read the failing workflow run details. Diagnose the failure and attempt a fix.
+
+            Rules:
+            - Only fix what caused the CI failure
+            - Do not refactor or add features
+            - Run the failing checks locally to verify the fix
+            - If the fix requires a design decision, do NOT proceed — add a comment explaining what's needed
+          max_turns: 5
+
+      - name: Create autofix PR
+        if: success()
+        run: |
+          BRANCH="codex/chore-autofix-$(date +%s)"
+          git checkout -b "$BRANCH"
+          git add -u
+          git diff --name-only --diff-filter=A HEAD | grep -v '\.env' | xargs -r git add
+          if git diff --cached --quiet; then
+            echo "No changes to commit — autofix did not produce changes"
+            exit 0
+          fi
+          git commit -m "chore: autofix CI failure on ${{ github.event.workflow_run.head_branch }}"
+          git push origin "$BRANCH"
+          gh pr create \
+            --base "${{ github.event.workflow_run.head_branch }}" \
+            --head "$BRANCH" \
+            --title "Autofix: CI failure on ${{ github.event.workflow_run.head_branch }}" \
+            --body "Automated fix for CI failure in workflow run #${{ github.event.workflow_run.id }}. Review carefully before merging."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

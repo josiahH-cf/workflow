@@ -2,6 +2,7 @@
 description: 'Decompose a locked spec into ordered implementation tasks'
 agent: 'agent'
 ---
+<!-- role: derived | canonical-source: meta-prompts/minor/2-plan.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)

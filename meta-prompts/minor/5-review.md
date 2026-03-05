@@ -1,3 +1,4 @@
+<!-- role: canonical-source -->
 <!-- slash-command: review -->
 <!-- description: Verify implementation against spec with PASS/FAIL report -->
 # Phase 5  -  Review (Self-Verify)

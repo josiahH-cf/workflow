@@ -1,12 +1,17 @@
+<!-- role: canonical-source -->
 <!-- slash-command: build-session -->
 <!-- description: Autonomous build session for test-first development of one feature -->
 # Feature Lifecycle  -  Meta-Prompts
 
 Three session-oriented meta-prompts covering the full lifecycle. Each is designed for sustained deep work  -  batch issue creation, iterative development, or bulk review  -  rather than one-phase-at-a-time invocations.
 
+> **V2 Workflow Context:** This build session maps to Phases 6–7 (Code + Test) of the 8-phase agentic workflow. The `/continue` command can auto-invoke this flow. For new features, ensure Phase 5 (Fine-tune) is complete first — task files should have model assignments, branch names, and EARS/GWT acceptance criteria. See `AGENTS.md → Workflow Phases`.
+
 **Standing rules for all sessions:**
 
 - Follow `AGENTS.md` and workflow contracts in `/workflow/PLAYBOOK.md`, `/workflow/FILE_CONTRACTS.md`, and `/workflow/FAILURE_ROUTING.md`.
+- Reference `.specify/constitution.md` for alignment before every implementation decision.
+- Log bugs via `/bug` when discovered — do not silently work around issues.
 - Every artifact produced (spec, task file, test, implementation, review report) is committed or written to its canonical location before moving on.
 - Fresh context means: no prior conversation carried forward. When indicated, end the current session and begin a new one.
 

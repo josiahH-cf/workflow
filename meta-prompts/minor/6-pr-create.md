@@ -1,3 +1,4 @@
+<!-- role: canonical-source -->
 <!-- slash-command: pr-create -->
 <!-- description: Create a pull request with full description and checklists -->
 # Phase 6  -  PR Create
