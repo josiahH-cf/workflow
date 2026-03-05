@@ -1,6 +1,6 @@
 # Phase 3: Unify Installation + Onboarding
 
-> **Status**: NOT STARTED
+> **Status**: COMPLETE
 > **Prereqs**: Phase 2 complete
 > **Outcome**: Single install command works with no flags. README ≤ 100 lines. Clear platform-specific next steps.
 

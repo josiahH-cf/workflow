@@ -7,8 +7,7 @@ set -euo pipefail
 #   ./scripts/install.sh [OPTIONS] <target-directory>
 #
 # Options:
-#   --with-prompts           Also copy Copilot .prompt.md files to the target
-#   --with-meta-prompts      Also copy meta-prompts/ into the target project root
+#   --minimal                Install template only (no prompts or meta-prompts)
 #   --with-github-templates  Include GitHub Issue templates (.github/ISSUE_TEMPLATE/)
 #   --with-github-agents     Include GitHub Copilot agent files (.github/agents/)
 #   --with-codex             Include OpenAI Codex files (.codex/)
@@ -22,8 +21,7 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 TEMPLATE_DIR="$REPO_ROOT/template"
 PROMPTS_DIR="$REPO_ROOT/prompts"
 
-WITH_PROMPTS=false
-WITH_META_PROMPTS=false
+MINIMAL=false
 WITH_GITHUB_TEMPLATES=false
 WITH_GITHUB_AGENTS=false
 WITH_CODEX=false
@@ -40,14 +38,14 @@ usage() {
 detect_prompts_dir() {
     case "$(uname -s)" in
         Linux*)
-            if [[ -n "${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
-                # WSL2 — try to find Windows VS Code prompts dir
-                local win_user
-                win_user=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r' || true)
-                if [[ -n "$win_user" ]]; then
-                    echo "/mnt/c/Users/$win_user/AppData/Roaming/Code/User/prompts"
-                    return
-                fi
+            if [[ -n "${USERPROFILE:-}" ]]; then
+                echo "$USERPROFILE/AppData/Roaming/Code/User/prompts"
+                return
+            elif [ -f /proc/version ] && grep -qi microsoft /proc/version 2>/dev/null; then
+                # WSL2 fallback — require --prompts-dir
+                echo "WSL2 detected. Use --prompts-dir to specify VS Code prompts location." >&2
+                echo ""
+                return
             fi
             echo "${XDG_CONFIG_HOME:-$HOME/.config}/Code/User/prompts"
             ;;
@@ -81,8 +79,9 @@ copy_file() {
 # Parse arguments
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --with-prompts) WITH_PROMPTS=true; shift ;;
-        --with-meta-prompts) WITH_META_PROMPTS=true; shift ;;
+        --minimal)      MINIMAL=true; shift ;;
+        --with-prompts) shift ;;  # no-op, prompts are default now
+        --with-meta-prompts) shift ;;  # no-op, meta-prompts are default now
         --with-github-templates) WITH_GITHUB_TEMPLATES=true; shift ;;
         --with-github-agents) WITH_GITHUB_AGENTS=true; shift ;;
         --with-codex) WITH_CODEX=true; shift ;;
@@ -140,26 +139,28 @@ done < <(find "$TEMPLATE_DIR" -type f "${EXCLUDE_ARGS[@]}" -print0)
 echo ""
 echo "Copied $file_count template files."
 
-# Copy Copilot prompts if requested
-if [[ "$WITH_PROMPTS" == true ]]; then
+# Copy Copilot prompts (default unless --minimal)
+if [[ "$MINIMAL" != true ]]; then
     if [[ -z "$PROMPTS_DEST" ]]; then
         PROMPTS_DEST="$(detect_prompts_dir)"
     fi
-    echo ""
-    echo "Installing Copilot prompts to: $PROMPTS_DEST"
-    echo ""
-    prompt_count=0
-    for src in "$PROMPTS_DIR"/*.prompt.md; do
-        [[ -f "$src" ]] || continue
-        copy_file "$src" "$PROMPTS_DEST/$(basename "$src")"
-        prompt_count=$((prompt_count + 1))
-    done
-    echo ""
-    echo "Copied $prompt_count prompt files."
+    if [[ -n "$PROMPTS_DEST" ]]; then
+        echo ""
+        echo "Installing Copilot prompts to: $PROMPTS_DEST"
+        echo ""
+        prompt_count=0
+        for src in "$PROMPTS_DIR"/*.prompt.md; do
+            [[ -f "$src" ]] || continue
+            copy_file "$src" "$PROMPTS_DEST/$(basename "$src")"
+            prompt_count=$((prompt_count + 1))
+        done
+        echo ""
+        echo "Copied $prompt_count prompt files."
+    fi
 fi
 
-# Copy meta-prompts if requested
-if [[ "$WITH_META_PROMPTS" == true ]]; then
+# Copy meta-prompts (default unless --minimal)
+if [[ "$MINIMAL" != true ]]; then
     META_PROMPTS_DIR="$REPO_ROOT/meta-prompts"
     echo ""
     echo "Installing meta-prompts to: $TARGET/meta-prompts"
@@ -174,21 +175,31 @@ if [[ "$WITH_META_PROMPTS" == true ]]; then
     echo "Copied $meta_count meta-prompt files."
 fi
 
+# Post-install validation
 echo ""
-echo "Done. Next steps:"
-echo "  1. cd $TARGET"
-HAS_META_PROMPTS=false
-if [[ "$WITH_META_PROMPTS" == true ]] || [[ -f "$TARGET/meta-prompts/initialization.md" ]]; then
-    HAS_META_PROMPTS=true
+missing=0
+for f in AGENTS.md CLAUDE.md workflow/STATE.json workflow/LIFECYCLE.md; do
+    if [[ "$DRY_RUN" != true ]] && [[ ! -f "$TARGET/$f" ]]; then
+        echo "WARNING: Missing $f"
+        missing=$((missing + 1))
+    fi
+done
+if [[ "$missing" -eq 0 && "$DRY_RUN" != true ]]; then
+    echo "All critical files verified."
 fi
 
-if [[ "$HAS_META_PROMPTS" == true ]]; then
-    echo "  2. Open an AI session and run meta-prompts/initialization.md"
-    echo "  3. Or use /compass, then /continue"
-else
-    echo "  2. Open an AI session and run /compass to create constitution.md"
-    echo "  3. Then run /continue to auto-advance phases"
-fi
+# Platform-specific next steps
+echo ""
+echo "✓ Scaffold installed to $TARGET"
+echo ""
+echo "Next steps:"
+echo "  cd $TARGET"
+echo ""
+echo "  Copilot (VS Code):  Type /compass in Copilot Chat"
+echo "  Claude Code:         Run /compass"
+echo "  Codex:               Reference meta-prompts/02-compass.md"
+echo ""
+echo "Then: /define-features → /scaffold → /fine-tune → /continue"
 
 # Mention platform flags if none were passed
 PLATFORM_FLAGS=()

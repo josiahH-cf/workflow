@@ -24,13 +24,30 @@ teardown() {
   assert_output_contains "Copied $expected_count template files."
 }
 
-@test "install.sh copies template, prompts, and meta-prompts when requested" {
+@test "install.sh copies template, prompts, and meta-prompts by default" {
+  run bash "$WORKDIR/scripts/install.sh" --prompts-dir "$WORKDIR/prompt-dst" "$WORKDIR/target"
+
+  [ "$status" -eq 0 ]
+  [ -f "$WORKDIR/target/AGENTS.md" ]
+  [ -f "$WORKDIR/target/meta-prompts/initialization.md" ]
+  [ -f "$WORKDIR/prompt-dst/compass.prompt.md" ]
+}
+
+@test "install.sh --with-prompts --with-meta-prompts still works as no-ops" {
   run bash "$WORKDIR/scripts/install.sh" --with-prompts --prompts-dir "$WORKDIR/prompt-dst" --with-meta-prompts "$WORKDIR/target"
 
   [ "$status" -eq 0 ]
   [ -f "$WORKDIR/target/AGENTS.md" ]
   [ -f "$WORKDIR/target/meta-prompts/initialization.md" ]
   [ -f "$WORKDIR/prompt-dst/compass.prompt.md" ]
+}
+
+@test "install.sh --minimal skips prompts and meta-prompts" {
+  run bash "$WORKDIR/scripts/install.sh" --minimal "$WORKDIR/target"
+
+  [ "$status" -eq 0 ]
+  [ -f "$WORKDIR/target/AGENTS.md" ]
+  [ ! -d "$WORKDIR/target/meta-prompts" ]
 }
 
 @test "install.sh errors when target path is a file" {
@@ -43,7 +60,7 @@ teardown() {
 }
 
 @test "install.sh copies new workflow and template files" {
-  run bash "$WORKDIR/scripts/install.sh" "$WORKDIR/target"
+  run bash "$WORKDIR/scripts/install.sh" --prompts-dir "$WORKDIR/prompt-dst" "$WORKDIR/target"
   [ "$status" -eq 0 ]
 
   # Phase 1 files
@@ -57,14 +74,25 @@ teardown() {
   [ -f "$WORKDIR/target/workflow/CONCURRENCY.md" ]
   [ -f "$WORKDIR/target/scripts/clash-check.sh" ]
   [ -f "$WORKDIR/target/.aiignore" ]
+  # Meta-prompts installed by default
+  [ -f "$WORKDIR/target/meta-prompts/initialization.md" ]
   # Platform-specific files excluded by default
   [ ! -f "$WORKDIR/target/.github/ISSUE_TEMPLATE/feature.yml" ]
   [ ! -f "$WORKDIR/target/.github/agents/reviewer.agent.md" ]
   [ ! -f "$WORKDIR/target/.codex/AGENTS.md" ]
 }
 
+@test "install.sh shows platform-specific next steps" {
+  run bash "$WORKDIR/scripts/install.sh" --prompts-dir "$WORKDIR/prompt-dst" "$WORKDIR/target"
+  [ "$status" -eq 0 ]
+
+  assert_output_contains "Copilot (VS Code)"
+  assert_output_contains "Claude Code"
+  assert_output_contains "Codex"
+}
+
 @test "install.sh includes platform files with opt-in flags" {
-  run bash "$WORKDIR/scripts/install.sh" --with-github-templates --with-github-agents --with-codex "$WORKDIR/target"
+  run bash "$WORKDIR/scripts/install.sh" --minimal --with-github-templates --with-github-agents --with-codex "$WORKDIR/target"
   [ "$status" -eq 0 ]
 
   [ -f "$WORKDIR/target/.github/ISSUE_TEMPLATE/feature.yml" ]

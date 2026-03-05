@@ -12,8 +12,6 @@ Common issues and fixes for the Agent Workflow Scaffold.
 
 **Fix:** Start a fresh session. Ensure AGENTS.md is in the project root. Use `/continue` instead of manual commands — it loads the right context automatically.
 
-**If persistent:** Use `/fix-prompt` to diagnose which instruction the agent is misreading and edit the source meta-prompt.
-
 ---
 
 ### Wrong phase detected by /continue
