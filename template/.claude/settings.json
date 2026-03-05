@@ -41,13 +41,20 @@
     "PostToolUse": [
       {
         "matcher": "Edit|Write|MultiEdit",
-        "command": "# Shared policy file  -  do NOT add bypassPermissions here.\n# YOLO overrides live in .claude/settings.local.json (gitignored, ships with default).\n# Replace with your format step, e.g.:\n# npx prettier --write $FILEPATH"
+        "command": "if command -v npx >/dev/null 2>&1 && [ -f package.json ]; then npx prettier --write \"$FILEPATH\" 2>/dev/null || true; fi",
+        "timeout": 15000
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "command": "# Block edits to protected files\ncase \"$FILEPATH\" in\n  */.env|*/.env.*) echo 'BLOCKED: .env files are protected' && exit 1 ;;\n  */.git/*) echo 'BLOCKED: .git/ is protected' && exit 1 ;;\n  */.specify/constitution.md) echo 'BLOCKED: constitution.md is protected — use /compass-edit' && exit 1 ;;\nesac"
       }
     ],
     "Stop": [
       {
         "matcher": "",
-        "command": "# Replace with your lint step, e.g.:\n# npm run lint"
+        "command": "echo 'Remember: run your test suite before ending this session. Configure your test command in AGENTS.md Core Commands.'"
       }
     ]
   }

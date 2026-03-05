@@ -1,3 +1,4 @@
+<!-- role: canonical-source -->
 <!-- slash-command: fix-prompt -->
 <!-- description: Fix an issue with the current workflow prompt mid-session -->
 # Fix Prompt  -  Meta-Prompt

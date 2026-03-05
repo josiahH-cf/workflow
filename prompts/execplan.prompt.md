@@ -2,6 +2,7 @@
 description: 'Convert a task plan into a milestone-based execution plan'
 agent: 'agent'
 ---
+<!-- role: derived | canonical-source: meta-prompts/minor/2b-execplan.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)

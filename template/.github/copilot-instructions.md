@@ -1,5 +1,7 @@
 # Copilot Instructions
 
+> **Routing & conventions:** Follow the rules in ../AGENTS.md. If any instruction below conflicts with AGENTS.md, AGENTS.md takes precedence.
+
 ## Project Standards
 
 - Read `/AGENTS.md` before starting any task
@@ -8,9 +10,7 @@
 
 ## Completions
 
-- Match naming conventions and patterns in the file being edited
-- Prefer explicit types over inferred when the language supports both
-- Do not generate placeholder or TODO comments
+Follow naming conventions and patterns from `AGENTS.md` Code Conventions section.
 
 ## Code Review
 

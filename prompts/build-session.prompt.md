@@ -2,6 +2,7 @@
 description: 'Autonomous build session for test-first development of one feature'
 agent: 'agent'
 ---
+<!-- role: derived | canonical-source: meta-prompts/major/02-build.md -->
 <!-- generated-from-metaprompt -->
 
 You are building a planned feature. The task file for this session is provided. Read it now, along with the linked spec.

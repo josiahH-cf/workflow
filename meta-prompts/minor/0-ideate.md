@@ -1,3 +1,4 @@
+<!-- role: canonical-source -->
 <!-- slash-command: ideate -->
 <!-- description: Turn a raw idea into structured GitHub Issues -->
 # Phase 0  -  Ideate

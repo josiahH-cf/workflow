@@ -1,12 +1,16 @@
+<!-- role: canonical-source -->
 <!-- slash-command: review-session -->
 <!-- description: Batch review and PR creation for completed features -->
 # Feature Lifecycle  -  Meta-Prompts
 
 Three session-oriented meta-prompts covering the full lifecycle. Each is designed for sustained deep work  -  batch issue creation, iterative development, or bulk review  -  rather than one-phase-at-a-time invocations.
 
+> **V2 Workflow Context:** Reviews use the scoring rubric at `.github/REVIEW_RUBRIC.md` (6 categories: Correctness, Test Coverage, Security, Performance, Style, Documentation). PR creation uses the extended template with v2 sections (Spec Reference, AC Evidence, Model & Branch, Review Checklist, Bug Log). The Agent Routing Matrix in `AGENTS.md` recommends assigning a different model for review than the one that implemented. See `AGENTS.md → Workflow Phases`.
+
 **Standing rules for all sessions:**
 
 - Follow `AGENTS.md` and workflow contracts in `/workflow/PLAYBOOK.md`, `/workflow/FILE_CONTRACTS.md`, and `/workflow/FAILURE_ROUTING.md`.
+- Reference `.github/REVIEW_RUBRIC.md` for scoring criteria.
 - Every artifact produced (spec, task file, test, implementation, review report) is committed or written to its canonical location before moving on.
 - Fresh context means: no prior conversation carried forward. When indicated, end the current session and begin a new one.
 

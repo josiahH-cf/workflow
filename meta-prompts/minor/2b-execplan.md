@@ -1,3 +1,4 @@
+<!-- role: canonical-source -->
 <!-- slash-command: execplan -->
 <!-- description: Convert a task plan into a milestone-based execution plan -->
 # Phase 2b  -  ExecPlan (Long-Run Variant)

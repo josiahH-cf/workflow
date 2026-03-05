@@ -2,6 +2,7 @@
 description: 'Fix an issue with the current workflow prompt mid-session'
 agent: 'agent'
 ---
+<!-- role: derived | canonical-source: meta-prompts/minor/fix-prompt.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)

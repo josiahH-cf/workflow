@@ -1,3 +1,4 @@
+<!-- role: derived | canonical-source: meta-prompts/minor/fix-prompt.md -->
 <!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 

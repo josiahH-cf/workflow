@@ -1,3 +1,4 @@
+<!-- role: derived | canonical-source: meta-prompts/minor/1-scope.md -->
 <!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are scoping a new feature. Do not write code. Do not create implementation files.

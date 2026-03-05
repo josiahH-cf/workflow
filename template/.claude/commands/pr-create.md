@@ -1,3 +1,4 @@
+<!-- role: derived | canonical-source: meta-prompts/minor/6-pr-create.md -->
 <!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are creating a pull request for a completed, reviewed feature branch.

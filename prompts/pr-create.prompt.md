@@ -2,6 +2,7 @@
 description: 'Create a pull request with full description and checklists'
 agent: 'agent'
 ---
+<!-- role: derived | canonical-source: meta-prompts/minor/6-pr-create.md -->
 <!-- generated-from-metaprompt -->
 
 You are creating a pull request for a completed, reviewed feature branch.

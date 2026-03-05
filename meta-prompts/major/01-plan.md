@@ -1,12 +1,16 @@
+<!-- role: canonical-source -->
 <!-- slash-command: plan-session -->
 <!-- description: Batch planning session covering ideation, scoping, and task planning -->
 # Feature Lifecycle  -  Meta-Prompts
 
 Three session-oriented meta-prompts covering the full lifecycle. Each is designed for sustained deep work  -  batch issue creation, iterative development, or bulk review  -  rather than one-phase-at-a-time invocations.
 
+> **V2 Workflow Context:** These major meta-prompts complement the 8-phase agentic workflow (see `AGENTS.md → Workflow Phases`). Phases 2–5 (Compass → Fine-tune) handle project-level planning via adaptive interviews. These major meta-prompts handle feature-level planning (ideation, scoping, task planning) within an established project. Use `/compass` first to establish the constitution, then these sessions for individual features.
+
 **Standing rules for all sessions:**
 
 - Follow `AGENTS.md` and the workflow contracts in `/workflow/PLAYBOOK.md` and `/workflow/FILE_CONTRACTS.md`.
+- Reference `.specify/constitution.md` for alignment on all design decisions.
 - Every artifact produced (spec, task file, test, implementation, review report) is committed or written to its canonical location before moving on.
 - Fresh context means: no prior conversation carried forward. When indicated, end the current session and begin a new one.
 

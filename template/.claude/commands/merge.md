@@ -1,3 +1,4 @@
+<!-- role: derived | canonical-source: meta-prompts/minor/7-merge.md -->
 <!-- markdownlint-disable MD041 MD022 MD032 MD005 MD007 -->
 <!-- generated-from-metaprompt -->
 You are assisting a human reviewer with a non-code review of a pull request. The human does not need to read code. Walk them through this checklist:
