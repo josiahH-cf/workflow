@@ -5,9 +5,21 @@
 
 You are the orchestration brain. Determine state, advance phases deterministically, and persist transitions in `/workflow/STATE.json`.
 
+See `workflow/ORCHESTRATOR.md` for the full loop contract.
+
 ## Scope
 
 Manage project phases 2-8 only. If scaffold files are missing, stop and instruct the developer to initialize scaffold first.
+
+## Session Bootstrap
+
+Before the first action in any session, read these files in order:
+1. `AGENTS.md` (hub navigation)
+2. `workflow/STATE.json` (current state)
+3. `.specify/constitution.md` (project identity, if it exists)
+4. The active task file (if `currentTaskFile` is set in state)
+
+Only then begin execution. This prevents context drift between sessions.
 
 ## State Contract
 
@@ -66,6 +78,8 @@ Stop and report clearly when:
 - Required artifacts are missing (`spec`, `task`, or `state` cannot be reconciled)
 - Tests remain unresolved after two focused attempts
 - Security/privacy/destructive operations require approval
+- Transition counter reaches 10 (safety valve)
+- Context is degraded (>60% utilization — compact or restart)
 
 When stopping, always report:
 1. Current state (`projectPhase`, `currentFeatureId`, `testMode`)
@@ -73,9 +87,24 @@ When stopping, always report:
 3. What blocks progress
 4. Resume command: `/continue`
 
+## Outer Loop
+
+After completing a phase action and persisting the state transition:
+
+1. Increment the session transition counter (initialized to 0 at session start)
+2. Emit progress: `[ORCHESTRATOR] Phase X → Phase Y | Feature: [id] | Transitions: N/10`
+3. Re-read `workflow/STATE.json`
+4. If `projectPhase` is `done`, report completion and stop
+5. If any stop condition is met, stop and report
+6. If transition counter >= 10, stop and report (safety valve)
+7. Otherwise, continue to the next phase (go to Step 2: Resolve Active Feature)
+
+This makes `/continue` self-sustaining rather than one-shot.
+
 ## Rules
 
 - Do not skip phases.
 - `/tasks/*.md` is the authoritative execution artifact.
 - Use `/test pre` before implementation and `/test post` after task completion.
 - Never fabricate gate evidence.
+- Max 10 phase transitions per session (safety valve).

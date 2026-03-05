@@ -62,6 +62,7 @@ The project lifecycle follows 8 phases plus a parallel Bug Track.
 | Phase execution gates | `workflow/PLAYBOOK.md` |
 | Artifact ownership & contracts | `workflow/FILE_CONTRACTS.md` |
 | Failure routing & escalation | `workflow/FAILURE_ROUTING.md` |
+| Autonomous loop contract | `workflow/ORCHESTRATOR.md` |
 | Policy changes | `governance/CHANGE_PROTOCOL.md` |
 | Policy validation | `governance/POLICY_TESTS.md` |
 | File registry | `governance/REGISTRY.md` |
