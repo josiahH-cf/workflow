@@ -51,12 +51,27 @@ REQUIRED_FILES=(
     ".github/pull_request_template.md"
     ".github/agents/planner.agent.md"
     ".github/agents/reviewer.agent.md"
+    ".github/agents/implementer.agent.md"
     ".github/workflows/copilot-setup-steps.yml"
+    ".github/workflows/copilot-agent.yml"
+    ".github/workflows/claude-review.yml"
     ".github/workflows/autofix.yml"
+    ".github/workflows/agentic-triage.yml"
+    ".github/ISSUE_TEMPLATE/feature.yml"
+    ".github/ISSUE_TEMPLATE/bug.yml"
+    ".github/ISSUE_TEMPLATE/agent-task.yml"
     ".claude/settings.json"
     ".codex/AGENTS.md"
+    ".aiignore"
+    "workflow/ROUTING.md"
+    "workflow/COMMANDS.md"
+    "workflow/BOUNDARIES.md"
+    "workflow/SPECS.md"
+    "workflow/ORCHESTRATOR.md"
+    "workflow/CONCURRENCY.md"
     "scripts/policy-check.sh"
     "scripts/setup-worktree.sh"
+    "scripts/clash-check.sh"
 )
 
 for f in "${REQUIRED_FILES[@]}"; do
@@ -64,6 +79,58 @@ for f in "${REQUIRED_FILES[@]}"; do
         pass "$f exists"
     else
         fail "$f missing"
+    fi
+done
+
+echo ""
+
+# ─── Check 1b: AGENTS.md TOC validation ───
+echo "1b. AGENTS.md TOC hub validation"
+
+if [[ -f "$TEMPLATE_DIR/AGENTS.md" ]]; then
+    agents_lines=$(wc -l < "$TEMPLATE_DIR/AGENTS.md")
+    if (( agents_lines > 100 )); then
+        warn "AGENTS.md is $agents_lines lines (target: <80). Consider moving content to sub-files."
+    else
+        pass "AGENTS.md is $agents_lines lines (compact TOC hub)"
+    fi
+
+    for ref in "ROUTING.md" "COMMANDS.md" "BOUNDARIES.md" "SPECS.md"; do
+        if grep -q "$ref" "$TEMPLATE_DIR/AGENTS.md"; then
+            pass "AGENTS.md references $ref"
+        else
+            fail "AGENTS.md missing reference to $ref"
+        fi
+    done
+fi
+
+echo ""
+
+# ─── Check 1c: .aiignore sanity ───
+echo "1c. .aiignore validation"
+
+if [[ -s "$TEMPLATE_DIR/.aiignore" ]]; then
+    pass ".aiignore exists and is non-empty"
+else
+    fail ".aiignore is missing or empty"
+fi
+
+echo ""
+
+# ─── Check 1d: CI workflow YAML validity ───
+echo "1d. CI workflow YAML validity"
+
+for yml in "$TEMPLATE_DIR/.github/workflows/"*.yml; do
+    [[ -f "$yml" ]] || continue
+    basename_yml=$(basename "$yml")
+    if command -v python3 &>/dev/null; then
+        if python3 -c "import yaml; yaml.safe_load(open('$yml'))" 2>/dev/null; then
+            pass "$basename_yml is valid YAML"
+        else
+            fail "Invalid YAML: $basename_yml"
+        fi
+    else
+        pass "$basename_yml exists (YAML validation skipped — no python3)"
     fi
 done
 

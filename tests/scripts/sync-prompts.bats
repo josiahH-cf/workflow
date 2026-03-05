@@ -14,14 +14,14 @@ teardown() {
   run bash "$WORKDIR/scripts/sync-prompts.sh"
   [ "$status" -eq 0 ]
 
-  printf "manual drift\n" >> "$WORKDIR/template/.claude/commands/plan.md"
-  printf "manual drift\n" >> "$WORKDIR/prompts/plan.prompt.md"
+  printf "manual drift\n" >> "$WORKDIR/template/.claude/commands/compass.md"
+  printf "manual drift\n" >> "$WORKDIR/prompts/compass.prompt.md"
 
   run bash "$WORKDIR/scripts/sync-prompts.sh" --check
 
   [ "$status" -eq 1 ]
-  assert_output_contains "[drift] $WORKDIR/template/.claude/commands/plan.md"
-  assert_output_contains "[drift] $WORKDIR/prompts/plan.prompt.md"
+  assert_output_contains "[drift] $WORKDIR/template/.claude/commands/compass.md"
+  assert_output_contains "[drift] $WORKDIR/prompts/compass.prompt.md"
   assert_output_contains "--- diff (current vs generated)"
   assert_output_contains "FAIL: 2 file(s) out of sync"
 }
@@ -47,4 +47,16 @@ teardown() {
   [ "$status" -eq 1 ]
   assert_output_contains "[drift] $WORKDIR/template/.claude/commands/continue.md"
   assert_output_contains "[drift] $WORKDIR/prompts/continue.prompt.md"
+}
+
+@test "build-session meta-prompt exists" {
+  [ -f "$WORKDIR/meta-prompts/06b-build-session.md" ]
+}
+
+@test "sync-prompts.sh generates build-session prompt" {
+  run bash "$WORKDIR/scripts/sync-prompts.sh"
+  [ "$status" -eq 0 ]
+
+  [ -f "$WORKDIR/prompts/build-session.prompt.md" ]
+  [ -f "$WORKDIR/template/.claude/commands/build-session.md" ]
 }

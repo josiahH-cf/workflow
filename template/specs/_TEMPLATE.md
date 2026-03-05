@@ -8,11 +8,23 @@
 
 ## Acceptance Criteria
 
-<!-- 3–7 testable statements, each verifiable by an automated test -->
+<!-- 3–7 testable criteria using GIVEN/WHEN/THEN (GWT) format.
+     Each criterion must be independently verifiable by an automated test.
 
-- [ ] **AC-1:** [Criterion 1]
-- [ ] **AC-2:** [Criterion 2]
-- [ ] **AC-3:** [Criterion 3]
+     Format:
+       GIVEN [precondition or initial state],
+       WHEN [action or event],
+       THEN [expected outcome or observable result].
+
+     EARS extensions (optional):
+       WHILE [ongoing state], WHEN [trigger], THEN [outcome]  — for state-dependent behavior
+       WHERE [feature is supported], WHEN [action], THEN [outcome]  — for conditional features
+       IF [condition], THEN [outcome]  — for unconditional requirements
+-->
+
+- [ ] **AC-1:** GIVEN [precondition], WHEN [action], THEN [expected outcome]
+- [ ] **AC-2:** GIVEN [precondition], WHEN [action], THEN [expected outcome]
+- [ ] **AC-3:** GIVEN [precondition], WHEN [action], THEN [expected outcome]
 
 ## Affected Areas
 
@@ -34,11 +46,22 @@
 
 ## Verification Map
 
-<!-- Map each criterion to intended test coverage -->
+<!-- Map each criterion to its exact test location. Every AC must have a test. -->
 
-- AC-1 → [test file or suite]
-- AC-2 → [test file or suite]
-- AC-3 → [test file or suite]
+| AC | Test File | Test Function | Assertion |
+|----|-----------|---------------|-----------|
+| AC-1 | [path/to/test_file.py] | [test_function_name] | [what the test asserts] |
+| AC-2 | [path/to/test_file.py] | [test_function_name] | [what the test asserts] |
+| AC-3 | [path/to/test_file.py] | [test_function_name] | [what the test asserts] |
+
+## Contracts
+
+<!-- Interfaces, types, or API contracts this feature exposes or consumes.
+     Define these BEFORE implementation to enable parallel agent work.
+     Leave empty if this feature has no public interfaces. -->
+
+- Exposes: [interface/type/endpoint]
+- Consumes: [interface/type/endpoint]
 
 ## Execution Linkage
 

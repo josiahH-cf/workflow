@@ -7,7 +7,7 @@ tools:
   - replace_string_in_file
   - run_in_terminal
 ---
-<!-- role: derived | canonical-source: meta-prompts/minor/09-continue.md -->
+<!-- role: derived | canonical-source: meta-prompts/09-continue.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)

@@ -37,3 +37,12 @@ Examples:
 - Max parallel agents: `3` (override in AGENTS.md if needed)
 - Rule: never two agents editing the same file simultaneously
 - Setup: `scripts/setup-worktree.sh <model> <type> <description>`
+
+## Concurrency-Aware Task Assignment
+
+When assigning tasks for parallel execution:
+
+1. Verify no file overlap between tasks (check `Files:` fields in task files)
+2. If overlap exists, reassign to a single agent or redesign the split
+3. Run `scripts/clash-check.sh` after worktree creation to detect existing conflicts
+4. See `workflow/CONCURRENCY.md` for full concurrency safety reference

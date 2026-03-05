@@ -6,7 +6,7 @@ This file is the lifecycle index. For execution and validation rules, use:
 - `/workflow/FILE_CONTRACTS.md`
 - `/workflow/FAILURE_ROUTING.md`
 
-## Project-Level Phases (V2 Agentic Workflow)
+## Project-Level Phases
 
 The project lifecycle follows 8 phases plus a parallel Bug Track. These are one-time or periodic phases that establish the project foundation.
 

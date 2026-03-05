@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/minor/04-scaffold-project.md -->
+<!-- role: derived | canonical-source: meta-prompts/04-scaffold-project.md -->
 <!-- generated-from-metaprompt -->
 # Phase 4 — Scaffold Project
 
@@ -46,5 +46,3 @@
 - Multiple passes expected — iterate with the developer
 
 ## See Also
-
-- v1 equivalent: Part of Phase 2 (Plan) — v2 separates architecture reasoning from task breakdown

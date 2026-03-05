@@ -7,7 +7,7 @@ tools:
   - replace_string_in_file
   - run_in_terminal
 ---
-<!-- role: derived | canonical-source: meta-prompts/minor/06-code.md -->
+<!-- role: derived | canonical-source: meta-prompts/06-code.md -->
 <!-- generated-from-metaprompt -->
 
 [workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
@@ -62,4 +62,3 @@ tools:
 ## See Also
 
 - Bug logging: `/bug` command
-- v1 equivalent: Phase 4 (Implement) — v2 adds constitution alignment check and bug-logging requirement

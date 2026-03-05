@@ -4,7 +4,7 @@ Paste this into a coding agent session at the root of any project where a scaffo
 
 > **Updating an existing project?** Use the [Update Meta-Prompt](update.md) instead  -  it preserves your customizations while updating generated files.
 
-> **V2 Workflow:** This initialization covers Phase 1 (Scaffold Import) of the 8-phase agentic workflow. After initialization completes, Phase 2 (Compass) is auto-triggered to begin the project identity interview. The full lifecycle: Scaffold Import → Compass → Define Features → Scaffold Project → Fine-tune Plan → Code → Test → Maintain (+ parallel Bug Track). See `AGENTS.md → Workflow Phases` for details.
+> **Workflow:** This initialization covers Phase 1 (Scaffold Import) of the 8-phase agentic workflow. After initialization completes, Phase 2 (Compass) is auto-triggered to begin the project identity interview. The full lifecycle: Scaffold Import → Compass → Define Features → Scaffold Project → Fine-tune Plan → Code → Test → Maintain (+ parallel Bug Track). See `AGENTS.md → Workflow Phases` for details.
 
 ---
 

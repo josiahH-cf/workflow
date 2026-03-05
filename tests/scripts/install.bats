@@ -36,3 +36,26 @@ teardown() {
   [ "$status" -eq 1 ]
   assert_output_contains "target exists but is not a directory"
 }
+
+@test "install.sh copies new workflow and template files" {
+  run bash "$WORKDIR/scripts/install.sh" "$WORKDIR/target"
+  [ "$status" -eq 0 ]
+
+  # Phase 1 files
+  [ -f "$WORKDIR/target/workflow/ROUTING.md" ]
+  [ -f "$WORKDIR/target/workflow/COMMANDS.md" ]
+  [ -f "$WORKDIR/target/workflow/BOUNDARIES.md" ]
+  [ -f "$WORKDIR/target/workflow/SPECS.md" ]
+  # Phase 2 files
+  [ -f "$WORKDIR/target/workflow/ORCHESTRATOR.md" ]
+  # Phase 4 files
+  [ -f "$WORKDIR/target/.github/ISSUE_TEMPLATE/feature.yml" ]
+  [ -f "$WORKDIR/target/.github/PULL_REQUEST_TEMPLATE.md" ]
+  [ -f "$WORKDIR/target/.github/agents/reviewer.agent.md" ]
+  [ -f "$WORKDIR/target/.github/agents/implementer.agent.md" ]
+  # Phase 6 files
+  [ -f "$WORKDIR/target/workflow/CONCURRENCY.md" ]
+  [ -f "$WORKDIR/target/scripts/clash-check.sh" ]
+  # Phase 7 files
+  [ -f "$WORKDIR/target/.aiignore" ]
+}

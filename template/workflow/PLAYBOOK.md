@@ -10,7 +10,7 @@ This document defines how an agent executes work from spec to merged PR.
 - Move forward only when the current phase gate is satisfied.
 - Reference `.specify/constitution.md` for alignment on all design decisions.
 
-## Project-Level Phase Gates (V2)
+## Project-Level Phase Gates
 
 | Phase | Required Input | Required Output | Gate to Advance |
 | ----- | -------------- | --------------- | --------------- |

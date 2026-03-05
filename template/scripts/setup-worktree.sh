@@ -8,11 +8,67 @@ set -euo pipefail
 # Creates: .trees/<model>-<type>-<description>/
 # Branch: <model>/<type>-<description>
 
+# --list: inventory of all active worktrees
+if [[ "${1:-}" == "--list" ]]; then
+  echo "Active Worktrees:"
+  if [[ -d ".trees" ]]; then
+    for dir in .trees/*/; do
+      [[ -d "$dir" ]] || continue
+      name=$(basename "$dir")
+      branch=$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null || echo "detached")
+      # Age calculation from directory creation time
+      age_seconds=$(( $(date +%s) - $(stat -c %Y "$dir" 2>/dev/null || stat -f %m "$dir" 2>/dev/null) ))
+      if (( age_seconds < 3600 )); then
+        age="$((age_seconds / 60))m"
+      else
+        age="$((age_seconds / 3600))h"
+      fi
+      # Modified files count
+      modified=$(git -C "$dir" status --porcelain 2>/dev/null | wc -l | tr -d ' ')
+      if [[ "$modified" == "0" ]]; then
+        status="clean"
+      else
+        status="$modified modified files"
+      fi
+      printf "  %-30s branch: %-30s age: %-6s status: %s\n" "$name" "$branch" "$age" "$status"
+    done
+  else
+    echo "  (no worktrees)"
+  fi
+  exit 0
+fi
+
+# --cleanup: remove worktrees whose branches have been merged
+if [[ "${1:-}" == "--cleanup" ]]; then
+  if [[ ! -d ".trees" ]]; then
+    echo "No worktrees to clean up."
+    exit 0
+  fi
+  base_branch=$(git rev-parse --abbrev-ref HEAD)
+  merged_branches=$(git branch --merged "$base_branch" | sed 's/^[ *]*//')
+  cleaned=0
+  for dir in .trees/*/; do
+    [[ -d "$dir" ]] || continue
+    branch=$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null || continue)
+    if echo "$merged_branches" | grep -qx "$branch"; then
+      echo "Removing merged worktree: $(basename "$dir") (branch: $branch)"
+      git worktree remove "$dir" --force
+      ((cleaned++))
+    fi
+  done
+  echo "Cleaned up $cleaned worktree(s)."
+  exit 0
+fi
+
 if [[ $# -lt 3 ]]; then
   echo "Usage: $0 <model> <type> <description>"
   echo "  model:       claude | copilot | codex"
   echo "  type:        feat | bug | refactor | chore | docs"
   echo "  description: 2-4 word kebab-case summary"
+  echo ""
+  echo "Flags:"
+  echo "  --list      Show active worktrees"
+  echo "  --cleanup   Remove worktrees with merged branches"
   echo ""
   echo "Example: $0 claude feat auth-flow"
   exit 1
@@ -45,6 +101,28 @@ fi
 
 # Create the worktree directory parent
 mkdir -p .trees
+
+# Check disk space (warn if < 2GB available)
+available_kb=$(df -k . | awk 'NR==2 {print $4}')
+if (( available_kb < 2097152 )); then
+  echo "Warning: Less than 2GB disk space available ($(( available_kb / 1024 ))MB)."
+  echo "Worktrees consume significant space. Proceed? (y/N)"
+  read -r confirm
+  [[ "$confirm" =~ ^[Yy]$ ]] || exit 1
+fi
+
+# Check for file overlap with existing worktrees
+if [[ -d ".trees" ]]; then
+  for existing_dir in .trees/*/; do
+    [[ -d "$existing_dir" ]] || continue
+    existing_modified=$(git -C "$existing_dir" diff --name-only 2>/dev/null)
+    if [[ -n "$existing_modified" ]]; then
+      echo "Note: Worktree $(basename "$existing_dir") has modified files:"
+      echo "$existing_modified" | head -5
+      echo "Ensure your new task doesn't overlap these files."
+    fi
+  done
+fi
 
 # Get the current branch as base
 BASE_BRANCH=$(git rev-parse --abbrev-ref HEAD)

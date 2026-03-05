@@ -7,7 +7,7 @@ tools:
   - replace_string_in_file
   - run_in_terminal
 ---
-<!-- role: derived | canonical-source: meta-prompts/minor/02b-compass-edit.md -->
+<!-- role: derived | canonical-source: meta-prompts/02b-compass-edit.md -->
 <!-- generated-from-metaprompt -->
 
 

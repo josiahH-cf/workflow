@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/minor/09-continue.md -->
+<!-- role: derived | canonical-source: meta-prompts/09-continue.md -->
 <!-- generated-from-metaprompt -->
 # Continue — Deterministic Orchestrator
 

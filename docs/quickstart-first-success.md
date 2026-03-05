@@ -59,3 +59,17 @@ Run `/maintain` to generate/update docs and compliance artifacts.
 - If `/continue` loops, check `workflow/STATE.json` and `tasks/*.md`.
 - If prompts drift, run `./scripts/sync-prompts.sh` in this repo.
 - If setup checks fail, run `./scripts/validate-scaffold.sh` in this repo.
+- See [workflow/FAILURE_ROUTING.md](../template/workflow/FAILURE_ROUTING.md) for the full failure response matrix.
+- See [TROUBLESHOOTING.md](../TROUBLESHOOTING.md) for CI workflow, worktree, and loop issues.
+
+## Path C: Full Autonomous Build (most autonomous)
+
+1. Install: `./scripts/install.sh --with-meta-prompts /path/to/your/project`
+2. Run: Open `meta-prompts/major/00-full-build.md` in your agent
+3. The agent will interview you (Compass), then autonomously:
+   - Define features from your answers
+   - Plan the architecture
+   - Create task breakdowns
+   - Write tests, implement code, review, and ship
+4. You intervene only when the agent stops for: interview questions, merge approval, or blocking issues
+5. Run `/maintain` when all features are shipped

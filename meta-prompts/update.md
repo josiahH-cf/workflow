@@ -4,7 +4,7 @@ Paste this into a coding agent session at the root of a project that was **previ
 
 Works with any of the three ZIP variants: `scaffold-template.zip`, `scaffold-metaprompts.zip`, or `scaffold-full.zip`.
 
-> **V2 Awareness:** This update recognizes the 8-phase agentic workflow and additional files: `.specify/` (constitution, spec template, AC template), `.github/REVIEW_RUBRIC.md`, `.github/agents/` (planner, reviewer), `.github/workflows/autofix.yml`, Claude hooks in `settings.json` (PostToolUse, PreToolUse, Stop), and the `AGENTS.md` v2 routing hub (10 sections). Version-diff before overwriting any of these.
+> **Note:** This update recognizes the 8-phase agentic workflow and additional files: `.specify/` (constitution, spec template, AC template), `.github/REVIEW_RUBRIC.md`, `.github/agents/` (planner, reviewer), `.github/workflows/autofix.yml`, Claude hooks in `settings.json` (PostToolUse, PreToolUse, Stop), and the `AGENTS.md` routing hub (10 sections). Version-diff before overwriting any of these.
 
 ---
 
@@ -59,9 +59,9 @@ Classify every file in the ZIP into one of three categories:
 - `.specify/acceptance-criteria-template.md`  -  AC format reference
 
 **Protect (customized per-project  -  never auto-overwrite):**
-- `AGENTS.md`  -  customized with project-specific conventions (v2: 10 sections including Overview, Core Commands, Code Conventions)
+- `AGENTS.md`  -  customized with project-specific conventions (10 sections including Overview, Core Commands, Code Conventions)
 - `.specify/constitution.md`  -  project identity from Compass interview (never auto-overwrite)
-- `.claude/settings.json`  -  customized tool permissions and hooks (v2: PostToolUse, PreToolUse, Stop)
+- `.claude/settings.json`  -  customized tool permissions and hooks (PostToolUse, PreToolUse, Stop)
 - `.claude/settings.local.json`  -  local Claude override (personal; gitignored)
 - `.vscode/settings.json`  -  local/editor preference overrides (personal)
 - `.github/workflows/copilot-setup-steps.yml`  -  customized CI command env values and runtime steps

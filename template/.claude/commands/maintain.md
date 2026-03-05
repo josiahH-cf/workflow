@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/minor/08-maintain.md -->
+<!-- role: derived | canonical-source: meta-prompts/08-maintain.md -->
 <!-- generated-from-metaprompt -->
 # Phase 8 — Maintain
 
@@ -48,4 +48,3 @@
 ## See Also
 
 - Bug tracking parallel workflow: `AGENTS.md → Bug Track`
-- v1 equivalent: No direct equivalent — v2 adds explicit maintenance phase

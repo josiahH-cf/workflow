@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/minor/02b-compass-edit.md -->
+<!-- role: derived | canonical-source: meta-prompts/02b-compass-edit.md -->
 <!-- generated-from-metaprompt -->
 # Compass Edit — Modify the Project Constitution
 

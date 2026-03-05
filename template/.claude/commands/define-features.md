@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/minor/03-define-features.md -->
+<!-- role: derived | canonical-source: meta-prompts/03-define-features.md -->
 <!-- generated-from-metaprompt -->
 # Phase 3 — Define Features
 
@@ -36,4 +36,3 @@
 
 - Constitution: `.specify/constitution.md`
 - Spec template: `.specify/spec-template.md`
-- v1 equivalent: Phase 1 (Scope) — v2 adds Compass mapping requirement

@@ -13,8 +13,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-META_MINOR="$REPO_ROOT/meta-prompts/minor"
-META_MAJOR="$REPO_ROOT/meta-prompts/major"
+META_DIR="$REPO_ROOT/meta-prompts"
 CLAUDE_CMDS="$REPO_ROOT/template/.claude/commands"
 COPILOT_PROMPTS="$REPO_ROOT/prompts"
 
@@ -38,33 +37,23 @@ declare -A COMMAND_TO_META=(
     # Setup
     ["initialization"]="initialization.md"
     # Workflow controls
-    ["continue"]="minor/09-continue.md"
-    ["compass-edit"]="minor/02b-compass-edit.md"
+    ["continue"]="09-continue.md"
+    ["compass-edit"]="02b-compass-edit.md"
     # Bug track
-    ["bug"]="minor/07b-bug.md"
-    ["bugfix"]="minor/07c-bugfix.md"
-    # V2 phases
-    ["compass"]="minor/02-compass.md"
-    ["define-features"]="minor/03-define-features.md"
-    ["scaffold"]="minor/04-scaffold-project.md"
-    ["fine-tune"]="minor/05-fine-tune-plan.md"
-    ["implement"]="minor/06-code.md"
-    ["test"]="minor/07-test.md"
-    ["maintain"]="minor/08-maintain.md"
-    # V1 phases
-    ["ideate"]="minor/0-ideate.md"
-    ["scope"]="minor/1-scope.md"
-    ["plan"]="minor/2-plan.md"
-    ["execplan"]="minor/2b-execplan.md"
-    ["review"]="minor/5-review.md"
-    ["cross-review"]="minor/5b-cross-review.md"
-    ["pr-create"]="minor/6-pr-create.md"
-    ["merge"]="minor/7-merge.md"
-    ["fix-prompt"]="minor/fix-prompt.md"
-    # Major sessions
-    ["plan-session"]="major/01-plan.md"
-    ["build-session"]="major/02-build.md"
-    ["review-session"]="major/03-review-and-ship.md"
+    ["bug"]="07b-bug.md"
+    ["bugfix"]="07c-bugfix.md"
+    # Phases
+    ["compass"]="02-compass.md"
+    ["define-features"]="03-define-features.md"
+    ["scaffold"]="04-scaffold-project.md"
+    ["fine-tune"]="05-fine-tune-plan.md"
+    ["implement"]="06-code.md"
+    ["test"]="07-test.md"
+    ["maintain"]="08-maintain.md"
+    # Sessions
+    ["build-session"]="06b-build-session.md"
+    ["review-session"]="07d-review-and-ship.md"
+    ["cross-review"]="07e-cross-review.md"
 )
 
 # Extract the operational content from a meta-prompt.
@@ -115,24 +104,11 @@ apply_input_substitutions() {
     local content="$2"
 
     case "$cmd_name" in
-        ideate)
-            echo "$content" | sed -e 's/\$ARGUMENTS/${input:idea:Describe the feature idea}/g'
-            ;;
-        scope|review|cross-review)
+        cross-review)
             echo "$content" | sed -e 's/\$ARGUMENTS/${input:specOrFeature:Provide the spec path or feature description}/g'
             ;;
-        plan|test|implement)
+        test|implement)
             echo "$content" | sed -e 's/\$ARGUMENTS/${input:filePath:Provide the path to the spec or task file}/g'
-            ;;
-        execplan)
-            echo "$content" | sed \
-                -e 's/\$SPEC_PATH/${input:specPath:Path to the spec file}/g' \
-                -e 's/\$TASKS_PATH/${input:tasksPath:Path to the task file}/g'
-            ;;
-        pr-create)
-            echo "$content" | sed \
-                -e 's/\$SPEC_PATH/${input:specPath:Path to the spec file}/g' \
-                -e 's/\$TARGET_BRANCH/${input:targetBranch:Target branch name (e.g., main)}/g'
             ;;
         bugfix)
             echo "$content" | sed -e 's/\$ARGUMENTS/${input:bugRef:Path to bug log file or BUG-NNN}/g'
@@ -161,7 +137,7 @@ generate_copilot_prompt() {
         implement|build-session|bugfix|scaffold|test)
             tools="read_file\n  - create_file\n  - replace_string_in_file\n  - run_in_terminal"
             ;;
-        review|cross-review|review-session|scope|plan|ideate|continue|compass|define-features|fine-tune|maintain)
+        review-session|cross-review|continue|compass|define-features|fine-tune|maintain)
             tools="read_file\n  - create_file\n  - replace_string_in_file\n  - run_in_terminal"
             ;;
         *)

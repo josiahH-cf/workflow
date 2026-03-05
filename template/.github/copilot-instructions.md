@@ -33,3 +33,21 @@ Follow naming conventions and patterns from `AGENTS.md` Code Conventions section
 - Read the linked spec before starting
 - Do not modify files outside the scope described in the issue
 - Treat `/AGENTS.md` and `/workflow/*.md` as canonical; do not redefine policy in ad hoc notes
+
+## Session Bootstrap
+
+At the start of every session:
+1. Read `AGENTS.md` for project conventions and phase navigation
+2. Read `workflow/STATE.json` for current project state
+3. If a task is active, read the task file from `/tasks/`
+
+See `workflow/ORCHESTRATOR.md` for the full loop contract.
+
+## Key References
+
+- Agent routing and branch naming: `workflow/ROUTING.md`
+- Build/test/lint commands: `workflow/COMMANDS.md`
+- Behavioral boundaries: `workflow/BOUNDARIES.md`
+- Specification workflow: `workflow/SPECS.md`
+- Concurrency safety: `workflow/CONCURRENCY.md`
+- Orchestrator loop: `workflow/ORCHESTRATOR.md`

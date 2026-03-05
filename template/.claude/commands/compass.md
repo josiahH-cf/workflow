@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/minor/02-compass.md -->
+<!-- role: derived | canonical-source: meta-prompts/02-compass.md -->
 <!-- generated-from-metaprompt -->
 # Phase 2 — Compass
 
@@ -46,4 +46,3 @@ Use `/compass-edit` (Claude) to modify the constitution after initial creation. 
 
 - Constitution template: `.specify/constitution.md`
 - Edit gate: `.claude/commands/compass-edit.md`
-- v1 equivalent: Phase 0 (Ideate) — v2 absorbs ideation into the Compass interview

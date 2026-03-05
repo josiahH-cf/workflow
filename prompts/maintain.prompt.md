@@ -7,7 +7,7 @@ tools:
   - replace_string_in_file
   - run_in_terminal
 ---
-<!-- role: derived | canonical-source: meta-prompts/minor/08-maintain.md -->
+<!-- role: derived | canonical-source: meta-prompts/08-maintain.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)
@@ -62,4 +62,3 @@ tools:
 ## See Also
 
 - Bug tracking parallel workflow: `AGENTS.md → Bug Track`
-- v1 equivalent: No direct equivalent — v2 adds explicit maintenance phase

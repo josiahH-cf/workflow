@@ -21,6 +21,12 @@ require_file "workflow/PLAYBOOK.md"
 require_file "workflow/FILE_CONTRACTS.md"
 require_file "workflow/STATE.json"
 require_file "workflow/FAILURE_ROUTING.md"
+require_file "workflow/ROUTING.md"
+require_file "workflow/COMMANDS.md"
+require_file "workflow/BOUNDARIES.md"
+require_file "workflow/SPECS.md"
+require_file "workflow/ORCHESTRATOR.md"
+require_file "workflow/CONCURRENCY.md"
 require_file "governance/CHANGE_PROTOCOL.md"
 require_file "governance/POLICY_TESTS.md"
 require_file "governance/REGISTRY.md"
@@ -28,6 +34,15 @@ require_file ".specify/constitution.md"
 require_file ".specify/spec-template.md"
 require_file ".specify/acceptance-criteria-template.md"
 require_file ".github/workflows/copilot-setup-steps.yml"
+
+# Validate that AGENTS.md links resolve to existing files
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+while IFS= read -r link; do
+    target=$(echo "$link" | sed -n 's/.*](\([^)]*\)).*/\1/p')
+    if [[ -n "$target" && ! -f "$target" && ! -f "$ROOT/$target" ]]; then
+        fail "AGENTS.md contains broken link: $target"
+    fi
+done < <(grep -oE '\[[^]]*\]\([^)]*\)' "$ROOT/AGENTS.md" 2>/dev/null || true)
 
 # Ensure policy mapping document still declares checks this script enforces.
 for requirement in \

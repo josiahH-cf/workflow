@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/minor/07-test.md -->
+<!-- role: derived | canonical-source: meta-prompts/07-test.md -->
 <!-- generated-from-metaprompt -->
 # Phase 7 — Test & Mark Changes
 
@@ -45,4 +45,3 @@
 
 - Bug logging: `/bug` command
 - Bug fixing: `/bugfix` command
-- v1 equivalent: Phase 3 (Test) + Phase 5 (Review) — v2 combines test verification with bug logging

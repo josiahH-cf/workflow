@@ -1,5 +1,16 @@
 # Claude Code — Session Rules
 
+## Session Bootstrap
+
+At the start of every session, before any work:
+1. Read `AGENTS.md` — project routing and phase navigation
+2. Read `workflow/STATE.json` — current project state
+3. Read `.specify/constitution.md` — project identity (if it exists)
+4. Read the active task file (if `currentTaskFile` is set in state)
+5. Read `workflow/ORCHESTRATOR.md` — loop contract for `/continue` sessions
+
+This ensures context is grounded in reality, not memory from previous sessions.
+
 Strictly follow the rules in ./AGENTS.md for all project conventions, routing, commands, and boundaries.
 
 Canonical workflow policy lives in `AGENTS.md`, `/workflow/*.md`, and `/governance/*.md`.

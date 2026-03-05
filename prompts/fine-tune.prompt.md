@@ -7,7 +7,7 @@ tools:
   - replace_string_in_file
   - run_in_terminal
 ---
-<!-- role: derived | canonical-source: meta-prompts/minor/05-fine-tune-plan.md -->
+<!-- role: derived | canonical-source: meta-prompts/05-fine-tune-plan.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)
@@ -57,4 +57,3 @@ tools:
 - AC template: `.specify/acceptance-criteria-template.md`
 - Routing matrix: `AGENTS.md → Agent Routing Matrix`
 - Branch naming: `AGENTS.md → Branch Naming`
-- v1 equivalent: Phase 2 (Plan) — v2 adds model assignment and EARS/GWT requirements

@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/minor/07b-bug.md -->
+<!-- role: derived | canonical-source: meta-prompts/07b-bug.md -->
 <!-- generated-from-metaprompt -->
 ### BUG-[NNN]: [short description]
 - **Location:** [file:line]

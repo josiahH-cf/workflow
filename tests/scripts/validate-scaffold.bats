@@ -26,3 +26,20 @@ teardown() {
   [ "$status" -eq 1 ]
   assert_output_contains "AGENTS.md missing"
 }
+
+@test "validate-scaffold.sh detects missing ROUTING.md" {
+  rm -f "$WORKDIR/template/workflow/ROUTING.md"
+
+  run bash "$WORKDIR/scripts/validate-scaffold.sh" "$WORKDIR/template"
+  [ "$status" -eq 1 ]
+  assert_output_contains "workflow/ROUTING.md missing"
+}
+
+@test "validate-scaffold.sh checks AGENTS.md references" {
+  run bash "$WORKDIR/scripts/sync-prompts.sh"
+  [ "$status" -eq 0 ]
+
+  run bash "$WORKDIR/scripts/validate-scaffold.sh" "$WORKDIR/template"
+  [ "$status" -eq 0 ]
+  assert_output_contains "AGENTS.md references ROUTING.md"
+}

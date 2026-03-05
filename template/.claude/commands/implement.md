@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/minor/06-code.md -->
+<!-- role: derived | canonical-source: meta-prompts/06-code.md -->
 <!-- generated-from-metaprompt -->
 # Phase 6 — Code
 
@@ -48,4 +48,3 @@
 ## See Also
 
 - Bug logging: `/bug` command
-- v1 equivalent: Phase 4 (Implement) — v2 adds constitution alignment check and bug-logging requirement

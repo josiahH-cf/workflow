@@ -40,3 +40,26 @@
 - Feature branches should be short-lived; if a branch lives longer than a day, the feature is too large.
 - Post-merge CI runs are non-negotiable; if they fail, revert first and investigate second.
 - Worktree cleanup is part of the workflow  -  delete worktrees and branches after merge to prevent disk bloat and confusion.
+
+## Concurrency Safety
+
+- If two agents need to modify the same file, the task split is wrong.
+- Use vertical slice decomposition: each agent owns an entire feature slice.
+- Run `scripts/clash-check.sh` before starting parallel work.
+- Short integration cycles: merge every few hours, not days.
+- See `workflow/CONCURRENCY.md` for full reference.
+
+## Acceptance Criteria Notation
+
+- Use GIVEN/WHEN/THEN (GWT) format for all acceptance criteria.
+- Each criterion must be independently verifiable by an automated test.
+- The GIVEN is the test setup, WHEN is the action, THEN is the assertion.
+- See `workflow/SPECS.md` for the full EARS notation guide.
+
+## Autonomous Loop Discipline
+
+- The orchestrator (`/continue`) loops automatically through phases.
+- Session bootstrap: always read AGENTS.md + STATE.json + constitution before first action.
+- Max 10 phase transitions per session (safety valve).
+- When stopped, report state + blocker + resume command clearly.
+- See `workflow/ORCHESTRATOR.md` for the loop contract.

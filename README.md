@@ -90,6 +90,12 @@ Decisions             record WHY non-obvious choices were made
 
 Artifact contracts enforce this chain: a spec without a task file is invalid, a criterion without a test is invalid, a PR without verification evidence is invalid. See [FILE_CONTRACTS.md](template/workflow/FILE_CONTRACTS.md).
 
+### Autonomous loop
+
+The `/continue` command reads `workflow/ORCHESTRATOR.md` (the loop contract) and `workflow/STATE.json` (current state), then executes the current phase and auto-advances to the next. It loops automatically through phases, pausing only at stop gates: Compass interview, plan approval, blocking bugs, or merge approval.
+
+For a single-invocation full build, use `/continue` — it runs the entire lifecycle from the current phase through shipping.
+
 ## The 8-phase workflow
 
 ```
@@ -107,12 +113,6 @@ Artifact contracts enforce this chain: a spec without a task file is invalid, a 
 
 **Phases 2-3** require developer interviews. **Phases 4-5** require architecture decisions and plan approval. **Phases 6-8** run autonomously once the plan is approved — use `/continue` to auto-advance through phases until a stop gate is reached.
 
-### V1 vs V2 commands
-
-**V2 commands** handle the full project lifecycle (Phases 1-8): `/compass`, `/define-features`, `/scaffold`, `/fine-tune`, `/implement`, `/test`, `/maintain`, `/continue`.
-
-**V1 commands** handle feature-level delivery (Review -> PR -> Merge): `/ideate`, `/scope`, `/plan`, `/review`, `/cross-review`, `/pr-create`, `/merge`. These integrate into V2 at Phase 7b and are also available standalone for established projects that skip the Compass flow.
-
 Use `/continue` and it will invoke the right commands at the right time — you don't need to memorize the phase sequence.
 
 ## Platform support
@@ -125,7 +125,7 @@ Use `/continue` and it will invoke the right commands at the right time — you 
 | Plan fine-tuning (Phase 5) | `/fine-tune` | `fine-tune.prompt.md` | Manual |
 | TDD implementation (Phase 6) | `/implement` | `implement.prompt.md` | Via ExecPlan |
 | Test verification (Phase 7) | `/test` | `test.prompt.md` | Via ExecPlan |
-| Review & PR (Phase 7b) | `/review`, `/pr-create` | `review.prompt.md` | — |
+| Review & PR (Phase 7b) | `/review-session` | `review-session.prompt.md` | — |
 | Maintenance (Phase 8) | `/maintain` | `maintain.prompt.md` | — |
 | Auto-advance orchestration | `/continue` | `continue.prompt.md` | — |
 | Bug tracking | `/bug`, `/bugfix` | `bug.prompt.md` | — |
@@ -151,7 +151,24 @@ Adapters (`CLAUDE.md`, `.github/copilot-instructions.md`, `.codex/AGENTS.md`) po
 - Tool adapters for Claude, Copilot, and Codex
 - Claude hooks (format, protect, test reminder)
 - Review rubric and extended PR template
-- CI workflows (setup validation, autofix — requires `ANTHROPIC_API_KEY` repository secret for autofix)
+- `.aiignore` configured for the project
+- CI workflows installed and configured (see below)
+- Issue and PR templates in place
+- Agent definition files (implementer, reviewer) available
+
+## CI Workflows
+
+Five CI workflows are included in `.github/workflows/`:
+
+| Workflow | Trigger | Purpose |
+|----------|---------|--------|
+| `copilot-setup-steps.yml` | Used by other workflows | Environment setup for Copilot Coding Agent |
+| `copilot-agent.yml` | Issue assigned to `@copilot` | Issue-to-PR automation |
+| `claude-review.yml` | PR comment mentioning `@claude` | AI-powered PR review |
+| `autofix.yml` | CI failure on push | Automated fix loop (max 3 turns) |
+| `agentic-triage.yml` | Scheduled (cron) | Read-only issue triage and labeling |
+
+Claude-based workflows (`claude-review.yml`, `autofix.yml`) require the `ANTHROPIC_API_KEY` repository secret. All workflows that produce code changes require **human approval before merge**.
 
 ## After all phases complete
 
@@ -178,44 +195,63 @@ When all features have been built and documented, your project will contain:
 ## Scaffold layout
 
 ```text
-/template/
-  AGENTS.md                          # Universal routing hub (read first by all agents)
-  CLAUDE.md                          # Claude adapter -> AGENTS.md
-  /.specify/
-    constitution.md                  # Project identity (from Compass)
-    spec-template.md                 # Feature spec template
-    acceptance-criteria-template.md  # EARS + GWT criteria format
-  /workflow/
-    LIFECYCLE.md                     # Lifecycle index (project + feature phases)
-    PLAYBOOK.md                      # Phase execution contract + gates
-    FILE_CONTRACTS.md                # Artifact ownership + validation rules
-    STATE.json                       # Machine-readable orchestration state for /continue
-    FAILURE_ROUTING.md               # Retry/escalation paths
-  /governance/
-    CHANGE_PROTOCOL.md               # Safe instruction-change process
-    POLICY_TESTS.md                  # Policy checks mapped to validation
-    REGISTRY.md                      # Canonical policy file registry
-  /specs/_TEMPLATE.md                # Feature spec template
-  /tasks/_TEMPLATE.md                # Task plan + evidence template
-  /decisions/_TEMPLATE.md            # Decision record template
-  /.github/
-    copilot-instructions.md          # Copilot adapter -> AGENTS.md
-    REVIEW_RUBRIC.md                 # 6-category review scoring
-    pull_request_template.md         # Extended PR template with AC evidence
-    /agents/
-      planner.agent.md              # Planning specialist agent
-      reviewer.agent.md             # Review specialist agent
-    /workflows/
-      copilot-setup-steps.yml       # CI with spec validation
-      autofix.yml                   # Auto-fix on CI failure
-  /.claude/
-    settings.json                    # Hooks: format, protect, test reminder
-    /commands/                       # Derived Claude slash commands (v2 + support commands)
-  /.codex/
-    AGENTS.md                        # Codex adapter -> AGENTS.md
-    config.toml                      # Codex runtime config
-  /scripts/
-    setup-worktree.sh               # Worktree creation for parallel agents
+project/
+├── AGENTS.md                        ← TOC hub (routing, phases, quick reference)
+├── CLAUDE.md                        ← Claude adapter (session rules, commands)
+├── .aiignore                        ← Files excluded from AI agents
+├── .specify/
+│   ├── constitution.md              ← Project identity (Compass output)
+│   ├── spec-template.md             ← Feature spec template (EARS/GWT)
+│   └── acceptance-criteria-template.md
+├── specs/                           ← Per-feature specs
+├── tasks/                           ← Per-feature task breakdowns
+├── decisions/                       ← Architecture decision records
+├── bugs/
+│   └── LOG.md                       ← Bug tracking log
+├── workflow/
+│   ├── LIFECYCLE.md                 ← Phase definitions
+│   ├── PLAYBOOK.md                  ← Phase execution gates
+│   ├── FILE_CONTRACTS.md            ← Artifact schemas
+│   ├── FAILURE_ROUTING.md           ← Error recovery
+│   ├── STATE.json                   ← Orchestrator state
+│   ├── ORCHESTRATOR.md              ← Autonomous loop contract
+│   ├── ROUTING.md                   ← Agent routing, branches, concurrency
+│   ├── COMMANDS.md                  ← Build/test/lint commands
+│   ├── BOUNDARIES.md                ← ALWAYS/ASK/NEVER rules
+│   ├── SPECS.md                     ← Specification workflow + EARS guide
+│   └── CONCURRENCY.md              ← Multi-agent safety
+├── governance/
+│   ├── CHANGE_PROTOCOL.md
+│   ├── POLICY_TESTS.md
+│   └── REGISTRY.md
+├── scripts/
+│   ├── policy-check.sh
+│   ├── setup-worktree.sh            ← Enhanced with --list, --cleanup
+│   └── clash-check.sh               ← Pre-write conflict detection
+├── .github/
+│   ├── copilot-instructions.md
+│   ├── REVIEW_RUBRIC.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── feature.yml
+│   │   ├── bug.yml
+│   │   └── agent-task.yml
+│   ├── agents/
+│   │   ├── reviewer.agent.md
+│   │   └── implementer.agent.md
+│   └── workflows/
+│       ├── copilot-setup-steps.yml
+│       ├── copilot-agent.yml
+│       ├── claude-review.yml
+│       ├── autofix.yml
+│       └── agentic-triage.yml
+├── .claude/
+│   ├── settings.json
+│   └── commands/                    ← Derived Claude slash commands
+└── .codex/
+    ├── AGENTS.md
+    ├── PLANS.md
+    └── config.toml
 ```
 
 ## Command installation paths
@@ -235,6 +271,8 @@ If you are updating an existing scaffold:
 2. Preserve customized files (`AGENTS.md`, `.specify/constitution.md`, `.claude/settings.json`, `.github/workflows/copilot-setup-steps.yml`).
 3. Regenerate derived prompt artifacts with `./scripts/sync-prompts.sh`.
 4. Verify policy state with `scripts/policy-check.sh` in the target project.
+
+**New in this version:** Running `install.sh` adds new files (`.aiignore`, issue templates, CI workflows, agent definitions, workflow sub-files) without overwriting existing scaffold files unless `--force` is used. Existing `AGENTS.md` content has been decomposed into sub-files under `workflow/`; run `install.sh` to get the new structure.
 
 ## Troubleshooting
 

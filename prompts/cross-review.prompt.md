@@ -1,13 +1,13 @@
 ---
 mode: agent
-description: 'Independent review by a different agent or model'
+description: 'Independent review by a different agent or model (OPTIONAL)'
 tools:
   - read_file
   - create_file
   - replace_string_in_file
   - run_in_terminal
 ---
-<!-- role: derived | canonical-source: meta-prompts/minor/5b-cross-review.md -->
+<!-- role: derived | canonical-source: meta-prompts/07e-cross-review.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)
@@ -25,8 +25,8 @@ Perform the same evaluation as a standard review:
 **For each acceptance criterion in the spec:**
 - Does a test exist that verifies this criterion?
 - Does the implementation actually satisfy the criterion (not just the test)?
-- PASS: [criterion]  -  [evidence]
-- FAIL: [criterion]  -  [what is wrong and where]
+- PASS: [criterion] — [evidence]
+- FAIL: [criterion] — [what is wrong and where]
 
 **Code quality (flag any issues found):**
 - Functions over 50 lines
@@ -42,7 +42,7 @@ Perform the same evaluation as a standard review:
 - REQUEST CHANGES: [list specific changes needed]
 
 If APPROVE:
-  State: "Cross-review passed. Label the issue status:reviewed. Next phase: PR Create (Phase 6)."
+  State: "Cross-review passed. Label the issue status:reviewed. Next phase: PR Create."
 
 If REQUEST CHANGES:
-  State: "Cross-review found issues. Return to Phase 4 (Implement) in a fresh context window to address the items listed above."
+  State: "Cross-review found issues. Return to the Implement phase in a fresh context window to address the items listed above."

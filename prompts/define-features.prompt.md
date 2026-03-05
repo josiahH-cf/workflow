@@ -7,7 +7,7 @@ tools:
   - replace_string_in_file
   - run_in_terminal
 ---
-<!-- role: derived | canonical-source: meta-prompts/minor/03-define-features.md -->
+<!-- role: derived | canonical-source: meta-prompts/03-define-features.md -->
 <!-- generated-from-metaprompt -->
 
 
@@ -47,4 +47,3 @@ tools:
 
 - Constitution: `.specify/constitution.md`
 - Spec template: `.specify/spec-template.md`
-- v1 equivalent: Phase 1 (Scope) — v2 adds Compass mapping requirement

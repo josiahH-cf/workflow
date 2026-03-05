@@ -55,6 +55,7 @@ The project lifecycle follows 8 phases plus a parallel Bug Track.
 | Section | Reference |
 |---------|-----------|
 | Agent routing, branches, concurrency | `workflow/ROUTING.md` |
+| Concurrency safety, drift detection | `workflow/CONCURRENCY.md` |
 | Build/test/lint commands, code conventions | `workflow/COMMANDS.md` |
 | Boundaries (always/ask/never), bug tracking | `workflow/BOUNDARIES.md` |
 | Specification workflow, artifact paths | `workflow/SPECS.md` |

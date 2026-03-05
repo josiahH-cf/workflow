@@ -8,7 +8,7 @@ Paste this into a coding agent session at the root of this repository whenever p
 You are maintaining prompt artifacts for this repository.
 
 Your job is to keep these three sources consistent:
-- Meta-prompts: /meta-prompts/major/*.md and /meta-prompts/minor/*.md
+- Meta-prompts: /meta-prompts/*.md
 - Claude command files: /template/.claude/commands/*.md
 - Copilot prompt files: /prompts/*.prompt.md
 
@@ -21,11 +21,11 @@ STEP 1  -  INVENTORY
 2. List command files in:
    - /template/.claude/commands/
    - /prompts/
-3. Confirm parity using the v2 cross-platform command mapping:
+3. Confirm parity using the cross-platform command mapping:
 
-   V2 Cross-Platform Command Map:
-   | Phase | Claude Command | Copilot Prompt | Meta-Prompt (minor) |
-   |-------|---------------|----------------|-------------------|
+   Cross-Platform Command Map:
+   | Phase | Claude Command | Copilot Prompt | Meta-Prompt |
+   |-------|---------------|----------------|-------------|
    | 1 | initialization.md | initialization.prompt.md | initialization.md |
    | 2 | compass.md | compass.prompt.md | 02-compass.md |
    | 2 | compass-edit.md | compass-edit.prompt.md | 02b-compass-edit.md |
@@ -33,24 +33,18 @@ STEP 1  -  INVENTORY
    | 4 | scaffold.md | scaffold.prompt.md | 04-scaffold-project.md |
    | 5 | fine-tune.md | fine-tune.prompt.md | 05-fine-tune-plan.md |
    | 6 | implement.md | implement.prompt.md | 06-code.md |
+   | 6 | build-session.md | build-session.prompt.md | 06b-build-session.md |
    | 7 | test.md | test.prompt.md | 07-test.md |
    | 7 | bug.md | bug.prompt.md | 07b-bug.md |
    | 7 | bugfix.md | bugfix.prompt.md | 07c-bugfix.md |
+   | 7 | review-session.md | review-session.prompt.md | 07d-review-and-ship.md |
+   | 7 | cross-review.md | cross-review.prompt.md | 07e-cross-review.md |
    | 8 | maintain.md | maintain.prompt.md | 08-maintain.md |
    | Orchestrator | continue.md | continue.prompt.md | 09-continue.md |
-   | V1 | ideate.md | ideate.prompt.md | 0-ideate.md |
-   | V1 | scope.md | scope.prompt.md | 1-scope.md |
-   | V1 | plan.md | plan.prompt.md | 2-plan.md |
-   | V1 | execplan.md | execplan.prompt.md | 2b-execplan.md |
-   | V1 | review.md | review.prompt.md | 5-review.md |
-   | V1 | cross-review.md | cross-review.prompt.md | 5b-cross-review.md |
-   | V1 | pr-create.md | pr-create.prompt.md | 6-pr-create.md |
-   | V1 | merge.md | merge.prompt.md | 7-merge.md |
-   | V1 | fix-prompt.md | fix-prompt.prompt.md | fix-prompt.md |
 
 4. Report parity:
    - Every command with a Copilot equivalent has both files present.
-   - All v2 commands now have Copilot prompt equivalents.
+   - All commands now have Copilot prompt equivalents.
    - No orphan generated outputs without a source.
 
 STEP 2  -  DIFF VALIDATION
@@ -71,7 +65,7 @@ For each command:
    - Keep marker: <!-- generated-from-metaprompt -->
    - Write only the operational command content.
 3. Update /prompts/[command].prompt.md:
-   - Keep frontmatter (v2 uses mode: agent instead of agent: 'agent'):
+   - Keep frontmatter (uses mode: agent):
      ---
      mode: agent
      description: '[description from meta-prompt]'

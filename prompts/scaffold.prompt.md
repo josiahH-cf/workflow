@@ -7,7 +7,7 @@ tools:
   - replace_string_in_file
   - run_in_terminal
 ---
-<!-- role: derived | canonical-source: meta-prompts/minor/04-scaffold-project.md -->
+<!-- role: derived | canonical-source: meta-prompts/04-scaffold-project.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../template/AGENTS.md)
@@ -58,5 +58,3 @@ tools:
 - Multiple passes expected — iterate with the developer
 
 ## See Also
-
-- v1 equivalent: Part of Phase 2 (Plan) — v2 separates architecture reasoning from task breakdown

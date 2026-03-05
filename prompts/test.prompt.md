@@ -7,7 +7,7 @@ tools:
   - replace_string_in_file
   - run_in_terminal
 ---
-<!-- role: derived | canonical-source: meta-prompts/minor/07-test.md -->
+<!-- role: derived | canonical-source: meta-prompts/07-test.md -->
 <!-- generated-from-metaprompt -->
 
 [workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
@@ -58,4 +58,3 @@ tools:
 
 - Bug logging: `/bug` command
 - Bug fixing: `/bugfix` command
-- v1 equivalent: Phase 3 (Test) + Phase 5 (Review) — v2 combines test verification with bug logging

@@ -7,7 +7,7 @@ tools:
   - replace_string_in_file
   - run_in_terminal
 ---
-<!-- role: derived | canonical-source: meta-prompts/minor/07b-bug.md -->
+<!-- role: derived | canonical-source: meta-prompts/07b-bug.md -->
 <!-- generated-from-metaprompt -->
 
 

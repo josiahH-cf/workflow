@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/minor/07c-bugfix.md -->
+<!-- role: derived | canonical-source: meta-prompts/07c-bugfix.md -->
 <!-- generated-from-metaprompt -->
 # Bugfix — Reproduce -> Diagnose -> Fix -> Verify -> PR
 
