@@ -75,7 +75,7 @@ Phases 2–3 require interviews. Phases 4–5 need architecture approval. Phases
 
 ## Reference Example
 
-See [workflow-example](examples/sample-project/) for a completed sample project.
+See [workflow-example](https://github.com/josiahH-cf/workflow-example) for a completed sample project showing all artifacts.
 
 ## Docs
 

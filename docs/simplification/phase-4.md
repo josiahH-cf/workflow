@@ -1,6 +1,6 @@
 # Phase 4: Extract Sample Project to `workflow-example` Repo
 
-> **Status**: NOT STARTED
+> **Status**: COMPLETE
 > **Prereqs**: Phase 3 complete
 > **Outcome**: `examples/` moved to `workflow-example` GitHub repo. Main repo links to it.
 

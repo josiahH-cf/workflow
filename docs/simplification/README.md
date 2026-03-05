@@ -28,7 +28,7 @@ install → /compass → /define-features → /scaffold → /fine-tune → /cont
 - [x] **Phase 1** — Delete Legacy + Flatten Meta-Prompts + Remove Version Language
 - [x] **Phase 2** — Trim Template + Merge Workflow Docs + Delete Archive
 - [x] **Phase 3** — Unify Installation + Onboarding
-- [ ] **Phase 4** — Extract Sample Project to `workflow-example` Repo
+- [x] **Phase 4** — Extract Sample Project to `workflow-example` Repo
 - [ ] **Phase 5** — New Workflow Diagram + Final Verification
 - [ ] **Phase 6** — Cleanup (delete this directory + orchestrator meta-prompt)
 
