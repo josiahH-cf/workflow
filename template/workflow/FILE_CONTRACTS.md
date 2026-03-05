@@ -32,6 +32,10 @@ Machine-readable behavior starts with stable artifact contracts.
 | `/.codex/PLANS.md` (instance copy) | Builder agent | Long-run execution only | Milestones, verification, progress | Milestones map to task IDs |
 | `/workflow/STATE.json` | Orchestrator (`/continue`) | Phase transitions and task selection | `projectPhase`, `currentFeatureId`, `currentTaskFile`, `testMode`, `updatedAt` (`schemaVersion` optional) | Valid JSON and phase/task references resolve |
 | Review report in PR body | Reviewer agent | Review phase | PASS/FAIL per criterion + scope checks + rubric scores | No unchecked criterion |
+| `workflow/ROUTING.md` | Human maintainer | Agent model changes | Routing matrix, branch format, concurrency rules | Tables present and non-empty |
+| `workflow/COMMANDS.md` | Human maintainer | Phase 4+ | Command table, conventions | No placeholder after Phase 5 |
+| `workflow/BOUNDARIES.md` | Human maintainer | Policy changes | ALWAYS/ASK/NEVER sections | All three sections present |
+| `workflow/SPECS.md` | Human maintainer | Template changes | Workflow steps, artifact list | Artifact paths resolve |
 
 ## Linkage Rules
 

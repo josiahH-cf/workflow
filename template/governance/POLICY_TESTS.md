@@ -16,6 +16,8 @@ Map policy requirements to validation signals.
 | Build, lint, test commands are defined | No placeholder commands in AGENTS and no default CI command markers by phase >= `5-fine-tune-plan` | `/AGENTS.md`, `/.github/workflows/copilot-setup-steps.yml`, `/workflow/STATE.json` |
 | Continue state is valid | `workflow/STATE.json` parses and points to existing task file | `/workflow/STATE.json` |
 | Adapter files do not redefine canon | Adapter references AGENTS/workflow docs | `/CLAUDE.md`, `/.github/copilot-instructions.md` |
+| AGENTS.md links resolve | Every markdown link in AGENTS.md points to an existing file | `/AGENTS.md` |
+| Modular workflow files present | ROUTING.md, COMMANDS.md, BOUNDARIES.md, SPECS.md exist | `/workflow/` |
 
 ## CI Mapping
 

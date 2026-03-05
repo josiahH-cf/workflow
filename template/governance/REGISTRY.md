@@ -12,6 +12,10 @@ This registry defines the authority and ownership of scaffold policy files.
 | `/workflow/FILE_CONTRACTS.md` | Artifact schema and linkage | Human maintainer |
 | `/workflow/STATE.json` | Machine-readable orchestration state for `/continue` | Orchestrator agent |
 | `/workflow/FAILURE_ROUTING.md` | Failure matrix and escalation | Human maintainer |
+| `/workflow/ROUTING.md` | Agent routing, branch naming, concurrency | Human maintainer |
+| `/workflow/COMMANDS.md` | Build/test/lint commands, code conventions | Human maintainer |
+| `/workflow/BOUNDARIES.md` | Behavioral boundaries, bug tracking format | Human maintainer |
+| `/workflow/SPECS.md` | Specification workflow, artifact paths | Human maintainer |
 | `/governance/CHANGE_PROTOCOL.md` | Policy mutation rules | Human maintainer |
 | `/governance/POLICY_TESTS.md` | Validation requirements | Human maintainer |
 | `/.specify/constitution.md` | Project identity (from Compass interview) | Compass / Human (via `/compass-edit`) |
