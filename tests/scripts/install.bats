@@ -25,21 +25,21 @@ teardown() {
 }
 
 @test "install.sh copies template, prompts, and meta-prompts by default" {
-  run bash "$WORKDIR/scripts/install.sh" --prompts-dir "$WORKDIR/prompt-dst" "$WORKDIR/target"
+  run bash "$WORKDIR/scripts/install.sh" "$WORKDIR/target"
 
   [ "$status" -eq 0 ]
   [ -f "$WORKDIR/target/AGENTS.md" ]
-  [ -f "$WORKDIR/target/meta-prompts/initialization.md" ]
-  [ -f "$WORKDIR/prompt-dst/compass.prompt.md" ]
+  [ -f "$WORKDIR/target/meta-prompts/admin/initialization.md" ]
+  [ -f "$WORKDIR/target/.github/prompts/compass.prompt.md" ]
 }
 
 @test "install.sh --with-prompts --with-meta-prompts still works as no-ops" {
-  run bash "$WORKDIR/scripts/install.sh" --with-prompts --prompts-dir "$WORKDIR/prompt-dst" --with-meta-prompts "$WORKDIR/target"
+  run bash "$WORKDIR/scripts/install.sh" --with-prompts --with-meta-prompts "$WORKDIR/target"
 
   [ "$status" -eq 0 ]
   [ -f "$WORKDIR/target/AGENTS.md" ]
-  [ -f "$WORKDIR/target/meta-prompts/initialization.md" ]
-  [ -f "$WORKDIR/prompt-dst/compass.prompt.md" ]
+  [ -f "$WORKDIR/target/meta-prompts/admin/initialization.md" ]
+  [ -f "$WORKDIR/target/.github/prompts/compass.prompt.md" ]
 }
 
 @test "install.sh --minimal skips prompts and meta-prompts" {
@@ -75,7 +75,7 @@ teardown() {
   [ -f "$WORKDIR/target/scripts/clash-check.sh" ]
   [ -f "$WORKDIR/target/.aiignore" ]
   # Meta-prompts installed by default
-  [ -f "$WORKDIR/target/meta-prompts/initialization.md" ]
+  [ -f "$WORKDIR/target/meta-prompts/admin/initialization.md" ]
   # Platform-specific files excluded by default
   [ ! -f "$WORKDIR/target/.github/ISSUE_TEMPLATE/feature.yml" ]
   [ ! -f "$WORKDIR/target/.github/agents/reviewer.agent.md" ]

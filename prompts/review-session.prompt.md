@@ -1,17 +1,12 @@
 ---
-mode: agent
+agent: agent
 description: 'Batch review and PR creation for completed features'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/07d-review-and-ship.md -->
 <!-- generated-from-metaprompt -->
 
-[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
-[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
+[workflow/PLAYBOOK.md](../../workflow/PLAYBOOK.md)
+[workflow/FILE_CONTRACTS.md](../../workflow/FILE_CONTRACTS.md)
 
 You are reviewing completed feature branches and preparing them for merge. You will process one feature at a time through review, and if it passes, create its pull request.
 

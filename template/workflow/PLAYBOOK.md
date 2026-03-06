@@ -15,7 +15,7 @@ This document defines how an agent executes work from spec to merged PR.
 | Phase | Required Input | Required Output | Gate to Advance |
 | ----- | -------------- | --------------- | --------------- |
 | Compass | Scaffold files placed | `.specify/constitution.md` populated | All 8 sections have content (no placeholders) |
-| Define Features | Constitution | Feature specs with Compass mapping | At least one feature spec exists |
+| Define Features | Constitution | Feature specs with Compass mapping | At least one feature spec exists in `/specs/` with Compass capability mapping; every constitution capability has at least one feature mapping; no orphan features (every feature traces to a capability) |
 | Scaffold Project | Feature specs | AGENTS.md Code Conventions + Core Commands | Neither section contains `[PROJECT-SPECIFIC]` |
 | Fine-tune Plan | Architecture plan | `/tasks/[feature-id]-[slug].md` files + ordered AC/task/model/branch mappings | Every active spec has a matching task file; all ACs mapped to tasks |
 | Code | Fine-tuned specs + task files + pre-tests | Passing code on feature branch | All tasks marked Complete, tests pass |

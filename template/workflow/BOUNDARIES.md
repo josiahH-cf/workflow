@@ -16,7 +16,7 @@
 
 - Adding new dependencies
 - Modifying CI workflows
-- Changing the constitution (use `/compass-edit`)
+- Changing the constitution (use `/compass-edit`). Exception: Phase 2 Compass directly populates `.specify/constitution.md` — no `/compass-edit` required during initial Compass execution.
 - Modifying this file (`AGENTS.md`)
 - Architectural decisions not covered by the spec
 
@@ -27,6 +27,14 @@
 - Auto-merge without human approval
 - Skip tests
 - Make decisions not traceable to a spec or constitution principle
+
+### Governance Blockage Recovery
+
+If a governance policy or tooling restriction blocks a write that the current phase explicitly requires:
+
+1. **Log failure** in `experiment-log.md` (if present) or `/bugs/LOG.md` with the blocked file, phase, and policy that triggered the block.
+2. **Retry once** after confirming the write is within the current phase's documented scope (e.g., Compass writing `constitution.md` in Phase 2).
+3. **If still blocked**, continue with remaining phase actions and flag the blocked write for human resolution. Do not stall indefinitely.
 
 ## Bug Tracking
 

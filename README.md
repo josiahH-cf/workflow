@@ -85,7 +85,7 @@ See [workflow-example](https://github.com/josiahH-cf/workflow-example) for a com
 
 ## Updates
 
-Run [`meta-prompts/update.md`](meta-prompts/update.md) from your target project to update an existing scaffold.
+Run [`meta-prompts/admin/update.md`](meta-prompts/admin/update.md) from your target project to update an existing scaffold.
 
 ## License
 

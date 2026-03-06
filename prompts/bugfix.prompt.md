@@ -1,17 +1,12 @@
 ---
-mode: agent
+agent: agent
 description: 'Fix a logged bug through reproduce-diagnose-fix-verify-ship'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/07c-bugfix.md -->
 <!-- generated-from-metaprompt -->
 
-[AGENTS.md](../template/AGENTS.md)
-[workflow/FAILURE_ROUTING.md](../template/workflow/FAILURE_ROUTING.md)
+[AGENTS.md](../../AGENTS.md)
+[workflow/FAILURE_ROUTING.md](../../workflow/FAILURE_ROUTING.md)
 
 # Bugfix — Reproduce -> Diagnose -> Fix -> Verify -> PR
 

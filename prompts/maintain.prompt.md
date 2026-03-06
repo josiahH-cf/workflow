@@ -1,18 +1,13 @@
 ---
-mode: agent
+agent: agent
 description: 'Documentation, compliance, and standards enforcement'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/08-maintain.md -->
 <!-- generated-from-metaprompt -->
 
-[AGENTS.md](../template/AGENTS.md)
-[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
-[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
+[AGENTS.md](../../AGENTS.md)
+[workflow/PLAYBOOK.md](../../workflow/PLAYBOOK.md)
+[workflow/FILE_CONTRACTS.md](../../workflow/FILE_CONTRACTS.md)
 
 # Phase 8 — Maintain
 

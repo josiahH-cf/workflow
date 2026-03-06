@@ -1,11 +1,6 @@
 ---
-mode: agent
+agent: agent
 description: 'Log a bug discovered during any workflow phase'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/07b-bug.md -->
 <!-- generated-from-metaprompt -->

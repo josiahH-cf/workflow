@@ -1,11 +1,6 @@
 ---
-mode: agent
+agent: agent
 description: 'Edit constitution with explicit developer approval'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/02b-compass-edit.md -->
 <!-- generated-from-metaprompt -->

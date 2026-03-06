@@ -1,16 +1,11 @@
 ---
-mode: agent
+agent: agent
 description: 'Workflow command'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
-<!-- role: derived | canonical-source: meta-prompts/initialization.md -->
+<!-- role: derived | canonical-source: meta-prompts/admin/initialization.md -->
 <!-- generated-from-metaprompt -->
 
-[AGENTS.md](../template/AGENTS.md)
+[AGENTS.md](../../AGENTS.md)
 
 You are initializing a project with a standard development scaffolding. A zip archive has been placed somewhere in this project directory. Find it.
 
@@ -60,23 +55,11 @@ STEP 2b  -  INSTALL COPILOT PROMPT FILES
 
 If the ZIP contains a prompts/ directory with .prompt.md files:
 
-Ask: "This ZIP includes Copilot slash-command prompt files. Would you like to install them to your VS Code user prompts directory so they appear as / commands in Copilot chat?"
+Copy all .prompt.md files from the prompts/ directory into the project's `.github/prompts/` directory (create it if it does not exist). VS Code discovers slash commands from `.github/prompts/` in each workspace.
 
-If yes:
-1. Detect the prompts directory based on OS/editor:
-   - Linux: ~/.config/Code/User/prompts/
-   - macOS: ~/Library/Application Support/Code/User/prompts/
-   - Windows: $APPDATA/Code/User/prompts/
-   - WSL2 with Windows VS Code: /mnt/c/Users/[WindowsUser]/AppData/Roaming/Code/User/prompts/
-   - VS Code Insiders: replace `Code` with `Code - Insiders`
-   - Cursor: replace `Code` with `Cursor`
-   Create the directory if it does not exist, then copy all .prompt.md files from the prompts/ directory.
-2. If multiple editor prompt directories exist, ask which one to target before copying.
-3. List all installed prompt files and their slash command names (filename without .prompt.md extension).
+List all installed prompt files and their slash command names (filename without .prompt.md extension).
 
-State: "Copilot prompt files installed. Type / in Copilot chat to verify they appear."
-
-If no: skip prompt installation and note that the .prompt.md files can be installed later by copying them into the editor prompts directory.
+State: "Copilot prompt files installed to .github/prompts/. Type / in Copilot chat to verify they appear."
 
 Note: The Claude slash commands (.claude/commands/) are included in the template files and were already placed in Step 2 if template content was present.
 

@@ -26,7 +26,7 @@ STEP 1  -  INVENTORY
    Cross-Platform Command Map:
    | Phase | Claude Command | Copilot Prompt | Meta-Prompt |
    |-------|---------------|----------------|-------------|
-   | 1 | initialization.md | initialization.prompt.md | initialization.md |
+   | 1 | initialization.md | initialization.prompt.md | admin/initialization.md |
    | 2 | compass.md | compass.prompt.md | 02-compass.md |
    | 2 | compass-edit.md | compass-edit.prompt.md | 02b-compass-edit.md |
    | 3 | define-features.md | define-features.prompt.md | 03-define-features.md |
@@ -65,34 +65,31 @@ For each command:
    - Keep marker: <!-- generated-from-metaprompt -->
    - Write only the operational command content.
 3. Update /prompts/[command].prompt.md:
-   - Keep frontmatter (uses mode: agent):
+    - Keep frontmatter (uses agent: agent):
      ---
-     mode: agent
+       agent: agent
      description: '[description from meta-prompt]'
-     tools:
-       - read_file
-       - create_file
-       - replace_string_in_file
-       - run_in_terminal
      ---
    - Keep marker: <!-- generated-from-metaprompt -->
    - Apply input substitutions:
      - cross-review: $ARGUMENTS -> ${input:specOrFeature:Provide the spec path or feature description}
      - test/implement: $ARGUMENTS -> ${input:filePath:Provide the path to the spec or task file}
      - bugfix: $ARGUMENTS -> ${input:bugRef:Path to bug log file or BUG-NNN}
-   - If AGENTS.md is directly referenced in the operational content, add [AGENTS.md](../template/AGENTS.md) at the top of the body.
+    - If AGENTS.md is directly referenced in the operational content, add [AGENTS.md](../../AGENTS.md) at the top of the body.
    - If the command performs phase execution or review logic, also add:
-     - [workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
-     - [workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
+       - [workflow/PLAYBOOK.md](../../workflow/PLAYBOOK.md)
+       - [workflow/FILE_CONTRACTS.md](../../workflow/FILE_CONTRACTS.md)
    - If the command performs implementation logic (implement, build-session), also add:
-     - [workflow/FAILURE_ROUTING.md](../template/workflow/FAILURE_ROUTING.md)
+       - [workflow/FAILURE_ROUTING.md](../../workflow/FAILURE_ROUTING.md)
 
 STEP 4  -  VALIDATE
 1. Re-check command parity using the cross-platform map above.
-2. Confirm each Copilot prompt has valid YAML frontmatter with mode: agent.
-3. Confirm each Claude command has no frontmatter (or has valid Claude frontmatter with description and allowed-tools).
+2. Confirm each Copilot prompt has valid YAML frontmatter with agent: agent.
+3. Confirm each Claude command has no frontmatter.
 4. Confirm no generated file includes script references.
-5. Verify tool lists in Copilot prompts match the command's needs (read-only commands don't need run_in_terminal).
+5. Confirm generated prompts and template agent definitions do not hardcode tool whitelists such as tools: or allowed-tools:.
+6. Confirm generated prompts do not use deprecated mode: frontmatter.
+7. For interview-dependent phases (Compass, Define Features), verify the prompt includes fallback instructions for tools that lack interactive interview capability (e.g., Codex task submission with pre-filled answers).
 
 STEP 5  -  REPORT
 Return a concise report:

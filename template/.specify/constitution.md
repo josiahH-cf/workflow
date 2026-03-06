@@ -1,4 +1,4 @@
-<!-- This file is generated during Phase 2 (Compass). It is read-only during normal workflow. Edit only via /compass-edit or equivalent. -->
+<!-- This file is generated during Phase 2 (Compass). During Phase 2, this is the primary write target — Compass directly populates all sections. After Phase 2 completes, this file is read-only. Post-Compass edits require /compass-edit or equivalent. -->
 
 # Project Constitution
 

@@ -1,18 +1,13 @@
 ---
-mode: agent
+agent: agent
 description: 'Autonomous build session for test-first development of one feature'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/06b-build-session.md -->
 <!-- generated-from-metaprompt -->
 
-[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
-[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
-[workflow/FAILURE_ROUTING.md](../template/workflow/FAILURE_ROUTING.md)
+[workflow/PLAYBOOK.md](../../workflow/PLAYBOOK.md)
+[workflow/FILE_CONTRACTS.md](../../workflow/FILE_CONTRACTS.md)
+[workflow/FAILURE_ROUTING.md](../../workflow/FAILURE_ROUTING.md)
 
 You are building a planned feature. The task file for this session is provided. Read it now, along with the linked spec.
 

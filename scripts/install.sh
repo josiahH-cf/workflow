@@ -11,7 +11,7 @@ set -euo pipefail
 #   --with-github-templates  Include GitHub Issue templates (.github/ISSUE_TEMPLATE/)
 #   --with-github-agents     Include GitHub Copilot agent files (.github/agents/)
 #   --with-codex             Include OpenAI Codex files (.codex/)
-#   --prompts-dir DIR        Override the Copilot prompts destination (default: auto-detect)
+#   --prompts-dir DIR        Override Copilot prompts destination (default: <target>/.github/prompts)
 #   --force                  Overwrite existing files without prompting
 #   --dry-run                Show what would be copied without doing it
 #   -h, --help               Show this help message
@@ -35,31 +35,7 @@ usage() {
     exit 0
 }
 
-detect_prompts_dir() {
-    case "$(uname -s)" in
-        Linux*)
-            if [[ -n "${USERPROFILE:-}" ]]; then
-                echo "$USERPROFILE/AppData/Roaming/Code/User/prompts"
-                return
-            elif [ -f /proc/version ] && grep -qi microsoft /proc/version 2>/dev/null; then
-                # WSL2 fallback — require --prompts-dir
-                echo "WSL2 detected. Use --prompts-dir to specify VS Code prompts location." >&2
-                echo ""
-                return
-            fi
-            echo "${XDG_CONFIG_HOME:-$HOME/.config}/Code/User/prompts"
-            ;;
-        Darwin*)
-            echo "$HOME/Library/Application Support/Code/User/prompts"
-            ;;
-        MINGW*|MSYS*|CYGWIN*)
-            echo "$APPDATA/Code/User/prompts"
-            ;;
-        *)
-            echo "$HOME/.config/Code/User/prompts"
-            ;;
-    esac
-}
+
 
 copy_file() {
     local src="$1" dest="$2"
@@ -139,24 +115,23 @@ done < <(find "$TEMPLATE_DIR" -type f "${EXCLUDE_ARGS[@]}" -print0)
 echo ""
 echo "Copied $file_count template files."
 
-# Copy Copilot prompts (default unless --minimal)
+# Copy Copilot prompts into .github/prompts/ (default unless --minimal)
+# VS Code discovers .prompt.md files from .github/prompts/ in the workspace.
 if [[ "$MINIMAL" != true ]]; then
     if [[ -z "$PROMPTS_DEST" ]]; then
-        PROMPTS_DEST="$(detect_prompts_dir)"
+        PROMPTS_DEST="$TARGET/.github/prompts"
     fi
-    if [[ -n "$PROMPTS_DEST" ]]; then
-        echo ""
-        echo "Installing Copilot prompts to: $PROMPTS_DEST"
-        echo ""
-        prompt_count=0
-        for src in "$PROMPTS_DIR"/*.prompt.md; do
-            [[ -f "$src" ]] || continue
-            copy_file "$src" "$PROMPTS_DEST/$(basename "$src")"
-            prompt_count=$((prompt_count + 1))
-        done
-        echo ""
-        echo "Copied $prompt_count prompt files."
-    fi
+    echo ""
+    echo "Installing Copilot prompts to: $PROMPTS_DEST"
+    echo ""
+    prompt_count=0
+    for src in "$PROMPTS_DIR"/*.prompt.md; do
+        [[ -f "$src" ]] || continue
+        copy_file "$src" "$PROMPTS_DEST/$(basename "$src")"
+        prompt_count=$((prompt_count + 1))
+    done
+    echo ""
+    echo "Copied $prompt_count prompt files."
 fi
 
 # Copy meta-prompts (default unless --minimal)

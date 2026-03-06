@@ -26,6 +26,15 @@
 - Every constitution capability has at least one feature mapping
 - No orphan features (every feature traces to a capability)
 
+### Mandatory Completion Checklist
+
+Before concluding this phase, verify all of the following:
+
+- [ ] At least one `specs/[feature-id]-[slug].md` file has been created (not just discussed)
+- [ ] An explicit capability-to-feature coverage list is present (each constitution capability maps to at least one feature)
+- [ ] Orphan-feature disposition is documented (any proposed feature that does not trace to a capability is explicitly deferred or triggers a Compass reconsideration)
+- [ ] If any of the above are missing, do NOT advance the phase — produce the missing artifacts first
+
 ## Output
 
 - Feature specs in `/specs/[feature-id]-[slug].md`

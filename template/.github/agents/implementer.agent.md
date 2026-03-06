@@ -1,7 +1,6 @@
 ---
 name: implementer
 description: Feature implementation specialist following TDD
-tools: [read_file, write_file, search, terminal]
 ---
 
 # Implementer Agent

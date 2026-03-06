@@ -1,16 +1,11 @@
 ---
-mode: agent
+agent: agent
 description: 'Create ordered specs with ACs, model assignments, and branches'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/05-fine-tune-plan.md -->
 <!-- generated-from-metaprompt -->
 
-[AGENTS.md](../template/AGENTS.md)
+[AGENTS.md](../../AGENTS.md)
 
 # Phase 5 — Fine-tune Plan
 

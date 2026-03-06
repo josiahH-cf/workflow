@@ -7,7 +7,7 @@
 
 **Trigger:** New project needs the agentic workflow, or existing project needs scaffold update.
 
-**Context:** This phase is executed by the `initialization.md` meta-prompt. It is listed here for lifecycle completeness.
+**Context:** This phase is executed by the `admin/initialization.md` meta-prompt. It is listed here for lifecycle completeness.
 
 ---
 
@@ -37,5 +37,5 @@ Phase 1 completion auto-triggers Phase 2 (Compass) — the project identity inte
 
 ## See Also
 
-- Full initialization process: `meta-prompts/initialization.md`
-- Update existing scaffolds: `meta-prompts/update.md`
+- Full initialization process: `meta-prompts/admin/initialization.md`
+- Update existing scaffolds: `meta-prompts/admin/update.md`

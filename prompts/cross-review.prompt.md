@@ -1,18 +1,13 @@
 ---
-mode: agent
+agent: agent
 description: 'Independent review by a different agent or model (OPTIONAL)'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/07e-cross-review.md -->
 <!-- generated-from-metaprompt -->
 
-[AGENTS.md](../template/AGENTS.md)
-[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
-[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
+[AGENTS.md](../../AGENTS.md)
+[workflow/PLAYBOOK.md](../../workflow/PLAYBOOK.md)
+[workflow/FILE_CONTRACTS.md](../../workflow/FILE_CONTRACTS.md)
 
 You are performing an independent review of a completed feature branch. You did not implement this code and you did not perform the initial review. Your judgment is independent.
 

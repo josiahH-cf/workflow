@@ -35,7 +35,7 @@ done
 # Mapping: command-name -> meta-prompt-file (relative to meta-prompts/)
 declare -A COMMAND_TO_META=(
     # Setup
-    ["initialization"]="initialization.md"
+    ["initialization"]="admin/initialization.md"
     # Workflow controls
     ["continue"]="09-continue.md"
     ["compass-edit"]="02b-compass-edit.md"
@@ -131,25 +131,9 @@ generate_copilot_prompt() {
     local description
     description="$(extract_description "$meta_file")"
 
-    # Determine tools needed
-    local tools="read_file"
-    case "$cmd_name" in
-        implement|build-session|bugfix|scaffold|test)
-            tools="read_file\n  - create_file\n  - replace_string_in_file\n  - run_in_terminal"
-            ;;
-        review-session|cross-review|continue|compass|define-features|fine-tune|maintain)
-            tools="read_file\n  - create_file\n  - replace_string_in_file\n  - run_in_terminal"
-            ;;
-        *)
-            tools="read_file\n  - create_file\n  - replace_string_in_file\n  - run_in_terminal"
-            ;;
-    esac
-
     echo "---"
-    echo "mode: agent"
+    echo "agent: agent"
     echo "description: '$description'"
-    echo "tools:"
-    echo -e "  - $tools"
     echo "---"
     echo "<!-- role: derived | canonical-source: $meta_rel -->"
     echo "<!-- generated-from-metaprompt -->"
@@ -159,22 +143,25 @@ generate_copilot_prompt() {
     local op_content
     op_content="$(extract_operational_block "$meta_file")"
 
+    # File references use paths relative to .github/prompts/ in the target workspace.
+    # From .github/prompts/*.prompt.md, ../../ reaches the workspace root.
+
     # Add AGENTS.md reference if mentioned in content
     if echo "$op_content" | grep -q "AGENTS.md"; then
-        echo "[AGENTS.md](../template/AGENTS.md)"
+        echo "[AGENTS.md](../../AGENTS.md)"
     fi
 
     # Add workflow references for execution/review commands
     case "$cmd_name" in
         implement|build-session|test|review|cross-review|review-session|continue|maintain)
-            echo "[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)"
-            echo "[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)"
+            echo "[workflow/PLAYBOOK.md](../../workflow/PLAYBOOK.md)"
+            echo "[workflow/FILE_CONTRACTS.md](../../workflow/FILE_CONTRACTS.md)"
             ;;
     esac
 
     case "$cmd_name" in
         implement|build-session|bugfix)
-            echo "[workflow/FAILURE_ROUTING.md](../template/workflow/FAILURE_ROUTING.md)"
+            echo "[workflow/FAILURE_ROUTING.md](../../workflow/FAILURE_ROUTING.md)"
             ;;
     esac
 
@@ -213,6 +200,47 @@ check_drift() {
     fi
 }
 
+check_for_hardcoded_tool_whitelists() {
+    local found=false
+    local file
+
+    while IFS= read -r file; do
+        [[ -n "$file" ]] || continue
+        if grep -qiE '^(tools:|allowed-tools:)' "$file"; then
+            echo "  [fail] Hardcoded tool whitelist found: $file"
+            found=true
+        fi
+    done < <(
+        find "$COPILOT_PROMPTS" -type f -name '*.prompt.md' -print
+        find "$REPO_ROOT/template/.github/agents" -type f -name '*.agent.md' -print 2>/dev/null || true
+    )
+
+    if [[ "$found" == true ]]; then
+        echo ""
+        echo "FAIL: Hardcoded tool whitelists found in generated prompts or template agent definitions. Remove tools:/allowed-tools: entries."
+        exit 1
+    fi
+}
+
+check_for_deprecated_prompt_mode() {
+    local found=false
+    local file
+
+    while IFS= read -r file; do
+        [[ -n "$file" ]] || continue
+        if grep -qiE '^mode:' "$file"; then
+            echo "  [fail] Deprecated prompt mode header found: $file"
+            found=true
+        fi
+    done < <(find "$COPILOT_PROMPTS" -type f -name '*.prompt.md' -print)
+
+    if [[ "$found" == true ]]; then
+        echo ""
+        echo "FAIL: Deprecated prompt frontmatter found. Replace mode: with agent:."
+        exit 1
+    fi
+}
+
 # Write or report on a file
 sync_file() {
     local target="$1"
@@ -248,6 +276,9 @@ for cmd_name in "${!COMMAND_TO_META[@]}"; do
     copilot_content="$(generate_copilot_prompt "$cmd_name" "$meta_file")"
     sync_file "$COPILOT_PROMPTS/$cmd_name.prompt.md" "$copilot_content"
 done
+
+check_for_hardcoded_tool_whitelists
+check_for_deprecated_prompt_mode
 
 echo ""
 if [[ "$CHECK_MODE" == true ]]; then

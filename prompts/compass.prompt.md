@@ -1,16 +1,11 @@
 ---
-mode: agent
+agent: agent
 description: 'Adaptive interview to establish project identity and boundaries'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/02-compass.md -->
 <!-- generated-from-metaprompt -->
 
-[AGENTS.md](../template/AGENTS.md)
+[AGENTS.md](../../AGENTS.md)
 
 # Phase 2 — Compass
 

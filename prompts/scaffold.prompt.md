@@ -1,16 +1,11 @@
 ---
-mode: agent
+agent: agent
 description: 'Reason about technical architecture — produce a plan, not code'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/04-scaffold-project.md -->
 <!-- generated-from-metaprompt -->
 
-[AGENTS.md](../template/AGENTS.md)
+[AGENTS.md](../../AGENTS.md)
 
 # Phase 4 — Scaffold Project
 

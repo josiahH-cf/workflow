@@ -13,6 +13,8 @@ set -euo pipefail
 #   4. Placeholder consistency in AGENTS.md
 #   5. Constitution template has all 8 sections
 #   6. Prompt-sync parity (Claude commands match Copilot prompts)
+#   7. Generated prompts and template agents do not hardcode tool whitelists
+#   8. Generated prompts do not use deprecated mode: frontmatter
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -216,6 +218,45 @@ if [[ -d "$claude_cmds" && -d "$copilot_prompts" ]]; then
             warn "Copilot '$name' has no matching Claude command"
         fi
     done
+fi
+
+echo ""
+
+# ─── Check 4b: Hardcoded tool whitelist validation ───
+echo "4b. Hardcoded tool whitelist validation"
+
+tool_whitelist_found=false
+while IFS= read -r file; do
+    [[ -n "$file" ]] || continue
+    if grep -qiE '^(tools:|allowed-tools:)' "$file"; then
+        fail "$file hardcodes a tool whitelist"
+        tool_whitelist_found=true
+    fi
+done < <(
+    find "$REPO_ROOT/prompts" -type f -name '*.prompt.md' -print
+    find "$REPO_ROOT/template/.github/agents" -type f -name '*.agent.md' -print 2>/dev/null || true
+)
+
+if [[ "$tool_whitelist_found" == false ]]; then
+    pass "No generated prompts or template agents hardcode tool whitelists"
+fi
+
+echo ""
+
+# ─── Check 4c: Deprecated prompt mode validation ───
+echo "4c. Deprecated prompt mode validation"
+
+deprecated_mode_found=false
+while IFS= read -r file; do
+    [[ -n "$file" ]] || continue
+    if grep -qiE '^mode:' "$file"; then
+        fail "$file uses deprecated mode: frontmatter"
+        deprecated_mode_found=true
+    fi
+done < <(find "$REPO_ROOT/prompts" -type f -name '*.prompt.md' -print)
+
+if [[ "$deprecated_mode_found" == false ]]; then
+    pass "No generated prompts use deprecated mode: frontmatter"
 fi
 
 echo ""

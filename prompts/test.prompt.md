@@ -1,17 +1,12 @@
 ---
-mode: agent
+agent: agent
 description: 'Run tests against ACs, log bugs, verify behavior'
-tools:
-  - read_file
-  - create_file
-  - replace_string_in_file
-  - run_in_terminal
 ---
 <!-- role: derived | canonical-source: meta-prompts/07-test.md -->
 <!-- generated-from-metaprompt -->
 
-[workflow/PLAYBOOK.md](../template/workflow/PLAYBOOK.md)
-[workflow/FILE_CONTRACTS.md](../template/workflow/FILE_CONTRACTS.md)
+[workflow/PLAYBOOK.md](../../workflow/PLAYBOOK.md)
+[workflow/FILE_CONTRACTS.md](../../workflow/FILE_CONTRACTS.md)
 
 # Phase 7 — Test & Mark Changes
 

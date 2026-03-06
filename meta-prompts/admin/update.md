@@ -130,26 +130,14 @@ STEP 5  -  UPDATE COPILOT PROMPT FILES
 
 If the ZIP contains a prompts/ directory with .prompt.md files:
 
-Ask: "This update includes new Copilot prompt files. Would you like to update the installed prompt files in your VS Code user prompts directory?"
+Copy all .prompt.md files from the prompts/ directory into the project's `.github/prompts/` directory, overwriting existing versions. VS Code discovers slash commands from `.github/prompts/` in each workspace.
 
-If yes:
-1. Detect the VS Code user prompts directory (same logic as initialization):
-   - Linux: ~/.config/Code/User/prompts/
-   - macOS: ~/Library/Application Support/Code/User/prompts/
-   - Windows: $APPDATA/Code/User/prompts/
-   - WSL2 with Windows VS Code: /mnt/c/Users/[WindowsUser]/AppData/Roaming/Code/User/prompts/
-   - VS Code Insiders: replace `Code` with `Code - Insiders`
-   - Cursor: replace `Code` with `Cursor`
-2. If multiple editor prompt directories exist, ask which one to target before copying.
-3. Copy all .prompt.md files from the prompts/ directory to the detected target directory, overwriting existing versions.
-4. Show what was updated:
+Show what was updated:
    - Files replaced (with change summary if possible)
    - New files added
    - Files unchanged
 
-State: "Copilot prompt files updated. Type / in Copilot chat to verify."
-
-If no: skip and note the files can be updated manually later by copying `.prompt.md` files into the editor prompts directory.
+State: "Copilot prompt files updated in .github/prompts/. Type / in Copilot chat to verify."
 
 ---
 
