@@ -172,7 +172,7 @@ echo "  cd $TARGET"
 echo ""
 echo "  Copilot (VS Code):  Type /compass in Copilot Chat"
 echo "  Claude Code:         Run /compass"
-echo "  Codex:               Reference meta-prompts/02-compass.md"
+echo "  Codex:               Reference meta-prompts/phase-2-compass.md"
 echo ""
 echo "Then: /define-features → /scaffold → /fine-tune → /continue"
 

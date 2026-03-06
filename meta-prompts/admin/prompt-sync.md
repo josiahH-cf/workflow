@@ -27,20 +27,20 @@ STEP 1  -  INVENTORY
    | Phase | Claude Command | Copilot Prompt | Meta-Prompt |
    |-------|---------------|----------------|-------------|
    | 1 | initialization.md | initialization.prompt.md | admin/initialization.md |
-   | 2 | compass.md | compass.prompt.md | 02-compass.md |
-   | 2 | compass-edit.md | compass-edit.prompt.md | 02b-compass-edit.md |
-   | 3 | define-features.md | define-features.prompt.md | 03-define-features.md |
-   | 4 | scaffold.md | scaffold.prompt.md | 04-scaffold-project.md |
-   | 5 | fine-tune.md | fine-tune.prompt.md | 05-fine-tune-plan.md |
-   | 6 | implement.md | implement.prompt.md | 06-code.md |
-   | 6 | build-session.md | build-session.prompt.md | 06b-build-session.md |
-   | 7 | test.md | test.prompt.md | 07-test.md |
-   | 7 | bug.md | bug.prompt.md | 07b-bug.md |
-   | 7 | bugfix.md | bugfix.prompt.md | 07c-bugfix.md |
-   | 7 | review-session.md | review-session.prompt.md | 07d-review-and-ship.md |
-   | 7 | cross-review.md | cross-review.prompt.md | 07e-cross-review.md |
-   | 8 | maintain.md | maintain.prompt.md | 08-maintain.md |
-   | Orchestrator | continue.md | continue.prompt.md | 09-continue.md |
+   | 2 | compass.md | phase-2-compass.prompt.md | phase-2-compass.md |
+   | 2 | compass-edit.md | phase-2b-compass-edit.prompt.md | phase-2b-compass-edit.md |
+   | 3 | define-features.md | phase-3-define-features.prompt.md | phase-3-define-features.md |
+   | 4 | scaffold.md | phase-4-scaffold.prompt.md | phase-4-scaffold-project.md |
+   | 5 | fine-tune.md | phase-5-fine-tune.prompt.md | phase-5-fine-tune-plan.md |
+   | 6 | implement.md | phase-6-implement.prompt.md | phase-6-code.md |
+   | 6 | build-session.md | phase-6b-build-session.prompt.md | phase-6b-build-session.md |
+   | 7 | test.md | phase-7-test.prompt.md | phase-7-test.md |
+   | 7 | bug.md | phase-7b-bug.prompt.md | phase-7b-bug.md |
+   | 7 | bugfix.md | phase-7c-bugfix.prompt.md | phase-7c-bugfix.md |
+   | 7 | review-session.md | phase-7d-review-session.prompt.md | phase-7d-review-and-ship.md |
+   | 7 | cross-review.md | phase-7e-cross-review.prompt.md | phase-7e-cross-review.md |
+   | 8 | maintain.md | phase-8-maintain.prompt.md | phase-8-maintain.md |
+   | Orchestrator | continue.md | phase-9-continue.prompt.md | phase-9-continue.md |
 
 4. Report parity:
    - Every command with a Copilot equivalent has both files present.
@@ -87,9 +87,8 @@ STEP 4  -  VALIDATE
 2. Confirm each Copilot prompt has valid YAML frontmatter with agent: agent.
 3. Confirm each Claude command has no frontmatter.
 4. Confirm no generated file includes script references.
-5. Confirm generated prompts and template agent definitions do not hardcode tool whitelists such as tools: or allowed-tools:.
-6. Confirm generated prompts do not use deprecated mode: frontmatter.
-7. For interview-dependent phases (Compass, Define Features), verify the prompt includes fallback instructions for tools that lack interactive interview capability (e.g., Codex task submission with pre-filled answers).
+5. Confirm generated prompts do not use deprecated mode: frontmatter.
+6. For interview-dependent phases (Compass, Define Features), verify the prompt includes fallback instructions for tools that lack interactive interview capability (e.g., Codex task submission with pre-filled answers).
 
 STEP 5  -  REPORT
 Return a concise report:

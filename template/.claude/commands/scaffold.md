@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/04-scaffold-project.md -->
+<!-- role: derived | canonical-source: meta-prompts/phase-4-scaffold-project.md -->
 <!-- generated-from-metaprompt -->
 # Phase 4 — Scaffold Project
 
@@ -8,7 +8,7 @@
 
 **Entry commands:**
 - Claude: `/scaffold`
-- Copilot: `scaffold.prompt.md`
+- Copilot: `phase-4-scaffold.prompt.md`
 
 ---
 
@@ -29,16 +29,24 @@
 
 ## Gate
 
-- `AGENTS.md → Code Conventions` section populated (not placeholder)
-- `AGENTS.md → Core Commands` section populated with project-specific commands
+- `workflow/COMMANDS.md → Code Conventions` section populated (not placeholder)
+- `workflow/COMMANDS.md → Core Commands` section populated with project-specific commands
 - Folder structure documented
 - Decisions logged in `/decisions/`
 
 ## Output
 
-- Updated `AGENTS.md` (Code Conventions, Core Commands)
+- Updated `workflow/COMMANDS.md` (Core Commands, Code Conventions) — refined from Phase 1 initial values based on architecture reasoning
 - Technical approach documented in feature specs
 - Decision records in `/decisions/`
+
+### Ownership Boundary
+
+Scaffold owns:
+- `workflow/COMMANDS.md → Core Commands` — finalized build/test/lint commands
+- `workflow/COMMANDS.md → Code Conventions` — finalized language, style, architecture patterns
+
+Scaffold does **not** write to `AGENTS.md → Overview` (owned by Compass). Scaffold reads the constitution and feature specs from Phases 2–3 as input, then refines the initial command and convention values set during Phase 1 (initialization).
 
 ## Rules
 

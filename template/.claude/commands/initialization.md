@@ -62,12 +62,13 @@ STEP 3  -  CUSTOMIZE PROJECT CONVENTIONS
 
 If template content was NOT placed (metaprompts-only variant), skip Steps 3 and 4 entirely  -  jump to Step 5.
 
-Open the placed AGENTS.md file. It contains placeholder values that must be filled in for this project. Walk through each placeholder interactively:
+Open `workflow/COMMANDS.md`. It contains `[PROJECT-SPECIFIC]` placeholder values for build commands and code conventions. These are initial values — Phase 4 (Scaffold Project) will refine them based on architecture reasoning from feature specs. Collect what the developer knows now:
 
 **Project section:**
 Ask: "What is the project name and a one-line description? What is the primary language or framework?"
+(Store answers for use in Phase 2 Compass — do not fill AGENTS.md Overview yet; that is owned by the Compass phase.)
 
-**Build section:**
+**Build section (→ workflow/COMMANDS.md → Core Commands):**
 Ask: "What are your project's build steps? I need each of the following  -  provide the actual values or say 'not applicable' for any that don't apply:"
 - Install
 - Build
@@ -80,7 +81,7 @@ Ask: "What are your project's build steps? I need each of the following  -  prov
 **Architecture section:**
 Ask: "Describe the key directories in this project and what each one is responsible for. Aim for 5–15 lines mapping directories to responsibilities."
 
-**Conventions section:**
+**Conventions section (→ workflow/COMMANDS.md → Code Conventions):**
 Ask: "What naming conventions does this project use?"
 - Functions and variables: (e.g., camelCase, snake_case)
 - Files and directories: (e.g., kebab-case, PascalCase)
@@ -88,7 +89,9 @@ Ask: "What naming conventions does this project use?"
 **Workflow/Governance routing check:**
 Ask: "AGENTS.md routes to `/workflow/*.md` and `/governance/*.md`. Do you want to keep the default control-plane docs as-is, or should we tailor any sections now?"
 
-After receiving answers for each section, update AGENTS.md with the provided values. Present the completed file for review.
+After receiving answers for each section, update `workflow/COMMANDS.md` with the provided build and convention values. Present the completed file for review.
+
+> **Note:** These are initial values. Phase 4 (Scaffold Project) refines commands and conventions based on architecture decisions derived from feature specs.
 
 Ask: "Does this look correct? Anything to adjust?"
 Iterate until confirmed.
@@ -132,11 +135,6 @@ After applying the selected option:
   > ⚠️ YOLO mode is enabled. The agent will execute file edits, terminal commands, and tool calls without asking for confirmation. You can switch to Plan Mode at any time for careful review. To disable, re-run initialization and select option B (Default interactive).
 - If option B is selected, state:
   > Default interactive mode is active. The agent will continue asking for confirmation before privileged actions.
-
-Guardrails:
-- Never write `bypassPermissions` or `allowDangerouslySkipPermissions` into `.claude/settings.json`.
-- `.claude/settings.json` stays the shared project policy file (permissions allow/deny + hooks).
-- YOLO settings are local-only and must be applied only to `.vscode/settings.json` and/or `.claude/settings.local.json`.
 
 Apply by option:
 - For Copilot YOLO (A or C): ensure `.vscode/settings.json` exists and merge `"chat.agent.autoApprove": true` while preserving all other keys.
@@ -191,7 +189,6 @@ If template content was placed:
 9. If optional agent permission mode was configured, confirm:
   - `.vscode/settings.json` is valid JSON and preserved existing keys
   - `.claude/settings.local.json` is valid JSON when present
-  - `.claude/settings.json` does not contain `bypassPermissions` or `allowDangerouslySkipPermissions`
   - Applied mode is accurately reported: Full YOLO / Copilot YOLO / Claude YOLO / Default interactive
 
 If Copilot prompt files were installed:
@@ -218,16 +215,15 @@ STEP 6  -  AUTO-INITIATE COMPASS (Phase 2)
 
 If template content was placed (scaffold includes AGENTS.md and .specify/):
 
-Check whether `.specify/constitution.md` exists and has all 8 sections populated (no `[PROJECT-SPECIFIC]` placeholders remaining).
+Check whether `.specify/constitution.md` exists and has its themes populated (no `[PROJECT-SPECIFIC]` placeholders remaining in covered sections).
 
 If constitution is NOT populated:
   State: "Scaffolding complete. Now starting the Compass interview to establish your project's identity, goals, and boundaries."
-  Auto-trigger: execute the Compass command (`.claude/commands/compass.md` or equivalent). This begins an adaptive interview  -  not a scripted checklist. The compass will:
-  1. Ask about the problem being solved and target audience
-  2. Define success criteria
-  3. Establish core capabilities and out-of-scope boundaries
-  4. Set inviolable principles and security/testing requirements
-  5. Write outputs to `.specify/constitution.md` and `AGENTS.md → Overview`
+  Auto-trigger: execute the Compass command (`.claude/commands/compass.md` or equivalent). This begins a dynamic discovery interview — not a scripted checklist. The compass will:
+  1. Start broad — ask about the problem being solved, target audience, and what success looks like
+  2. Follow the signal — pursue depth where answers reveal complexity or ambiguity
+  3. Synthesize boundaries — establish what the project IS, is NOT, and what remains AMBIGUOUS
+  4. Write outputs to `.specify/constitution.md` and `AGENTS.md → Overview`
 
   After Compass completes, state: "Constitution established. Run `/define-features` to translate it into a feature set, or run `/continue` to let the agent advance through remaining phases automatically."
 

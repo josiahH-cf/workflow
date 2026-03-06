@@ -1,16 +1,17 @@
 # Orchestrator Contract
 
-The orchestrator is the persistent loop that drives the project from Phase 2 through completion.
+The orchestrator (`/continue`) is the persistent loop that drives the project from Phase 2 through completion. It is not a direct implementation command — it reads state, selects the next action (including bug-routing), dispatches to the appropriate phase command, and advances. At Phase 6 it delegates to `/implement`.
 
 ## Loop Protocol
 
 1. **Bootstrap**: Read `workflow/STATE.json` + `.specify/constitution.md` + active spec/task file
-2. **Execute**: Run the command for the current phase (see dispatch table below)
-3. **Verify Gate**: Check that the phase gate is satisfied (per PLAYBOOK.md)
-4. **Advance**: Update STATE.json to the next phase
-5. **Repeat**: Go to step 1
+2. **Check Bug Log**: If `bugs/LOG.md` exists, check for open blocking bugs on the current feature. Blocking bugs must be resolved (via `/bugfix`) before proceeding to the next task. Non-blocking bugs remain logged for a later review cycle.
+3. **Execute**: Run the command for the current phase (see dispatch table below)
+4. **Verify Gate**: Check that the phase gate is satisfied (per PLAYBOOK.md)
+5. **Advance**: Update STATE.json to the next phase
+6. **Repeat**: Go to step 1
 
-The loop continues until `projectPhase` reaches `done` or a stop condition is hit.
+The loop continues until `projectPhase` reaches `8-maintain` and the current maintenance pass is complete, or a stop condition is hit.
 
 ## Session Bootstrap
 
@@ -32,7 +33,7 @@ This prevents context drift between sessions.
 | `4-scaffold-project` | — | `/scaffold` |
 | `5-fine-tune-plan` | — | `/fine-tune` |
 | `6-code` | `pre` | `/test pre` |
-| `6-code` | `implement` | `/implement` |
+| `6-code` | `implement` | Check bug log: resolve open blocking bugs via `/bugfix` first, then `/implement` |
 | `7-test` | `post` | `/test post` |
 | `7b-review-ship` | — | `/review-session` → `/cross-review` |
 | `8-maintain` | — | `/maintain` |

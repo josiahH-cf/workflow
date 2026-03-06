@@ -1,10 +1,12 @@
-<!-- This file is generated during Phase 2 (Compass). During Phase 2, this is the primary write target — Compass directly populates all sections. After Phase 2 completes, this file is read-only. Post-Compass edits require /compass-edit or equivalent. -->
+<!-- This file is generated during Phase 2 (Compass). During Phase 2, this is the primary write target — Compass directly populates sections based on the discovery interview. After Phase 2 completes, this file is read-only. Post-Compass edits require /compass-edit or equivalent. -->
 
 # Project Constitution
 
 This document defines the project's identity, goals, and boundaries. It is the source of truth that every downstream phase references. Nothing gets built that isn't traceable to this document.
 
-## Problem Statement
+The sections below are guiding themes — not a rigid checklist. Compass populates them with depth proportional to the project's needs. Some projects need extensive security coverage; others need minimal. The interview adapts.
+
+## Problem & Context
 
 `[PROJECT-SPECIFIC]` — What problem does this project solve? Who experiences this problem? What happens if it remains unsolved?
 
@@ -12,13 +14,13 @@ This document defines the project's identity, goals, and boundaries. It is the s
 
 `[PROJECT-SPECIFIC]` — Who is the primary user? What is their context, skill level, and environment? What are their key pain points?
 
-## Definition of Success
+## Success Criteria
 
 `[PROJECT-SPECIFIC]` — What does success look like? How will we know the project is working? What metrics or outcomes matter?
 
 ## Core Capabilities
 
-`[PROJECT-SPECIFIC]` — What does the project do? List the essential capabilities mapped from the Compass interview. Each capability should be traceable to a user need from the Problem Statement.
+`[PROJECT-SPECIFIC]` — What does the project do? List the essential capabilities mapped from the Compass interview. Each capability should be traceable to a user need from the Problem & Context section.
 
 1. Capability 1: _description_
 2. Capability 2: _description_
@@ -38,10 +40,17 @@ This document defines the project's identity, goals, and boundaries. It is the s
 1. Principle 1: _description_
 2. Principle 2: _description_
 
-## Security Requirements
+## Security Posture
 
-`[PROJECT-SPECIFIC]` — Baseline security constraints. Authentication approach, data handling rules, compliance requirements, threat model considerations.
+`[PROJECT-SPECIFIC]` — Baseline security constraints. Authentication approach, data handling rules, compliance requirements, threat model considerations. Depth should match the project's risk profile.
 
-## Testing Requirements
+## Testing Strategy
 
 `[PROJECT-SPECIFIC]` — TDD policy, coverage expectations, test types required (unit, integration, e2e), acceptable test frameworks, CI enforcement rules.
+
+## Ambiguity Tracking
+
+Document what remains unresolved after the Compass interview. This section is expected to have content — not everything can be decided upfront.
+
+- **Unknown:** _questions that need future resolution_
+- **Deferred:** _decisions intentionally postponed, with rationale_

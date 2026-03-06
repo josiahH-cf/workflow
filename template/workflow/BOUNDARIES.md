@@ -4,41 +4,34 @@
 
 ## Boundaries
 
-### ALWAYS
+### Best Practices
 
 - Read the spec before implementation
 - Run tests before commit
 - Include acceptance criteria evidence in every PR
 - Follow branch naming conventions
-- Reference the constitution for alignment on any design decision
+- Reference the constitution for alignment on design decisions
 
-### ASK FIRST
+### Recommended Review Points
+
+These are areas where extra awareness helps — not approval gates:
 
 - Adding new dependencies
 - Modifying CI workflows
-- Changing the constitution (use `/compass-edit`). Exception: Phase 2 Compass directly populates `.specify/constitution.md` — no `/compass-edit` required during initial Compass execution.
-- Modifying this file (`AGENTS.md`)
+- Changing the constitution — consider using `/compass-edit` for traceability. Exception: Phase 2 Compass directly populates `.specify/constitution.md` during initial discovery.
+- Modifying `AGENTS.md`
 - Architectural decisions not covered by the spec
 
-### NEVER
+### Avoid
 
-- Commit secrets or `.env` files
-- Modify files outside the assigned scope
-- Auto-merge without human approval
-- Skip tests
-- Make decisions not traceable to a spec or constitution principle
-
-### Governance Blockage Recovery
-
-If a governance policy or tooling restriction blocks a write that the current phase explicitly requires:
-
-1. **Log failure** in `experiment-log.md` (if present) or `/bugs/LOG.md` with the blocked file, phase, and policy that triggered the block.
-2. **Retry once** after confirming the write is within the current phase's documented scope (e.g., Compass writing `constitution.md` in Phase 2).
-3. **If still blocked**, continue with remaining phase actions and flag the blocked write for human resolution. Do not stall indefinitely.
+- Committing secrets or `.env` files
+- Modifying files outside the assigned scope
+- Skipping tests
+- Making decisions not traceable to a spec or constitution principle
 
 ## Bug Tracking
 
-Use `/bug` (Claude) or `bug.prompt.md` (Copilot) from any phase:
+Use `/bug` (Claude) or `phase-7b-bug.prompt.md` (Copilot) from any phase:
 
 ```
 Description: [what's wrong]

@@ -84,7 +84,6 @@
 - [ ] `--check` mode detects drift (exit code 1 if out of sync)
 - [ ] `--dry-run` previews without modifying
 - [ ] All 18 commands are mapped (initialization, continue, compass, compass-edit, define-features, scaffold, fine-tune, implement, build-session, test, bug, bugfix, review-session, cross-review, maintain)
-- [ ] Generated prompts and template agent definitions do not hardcode tool whitelists or provider-specific tool IDs
 - [ ] YAML frontmatter is generated correctly for Copilot prompts (`agent: agent`, no deprecated `mode:`)
 
 **Parity check:** Run `bash scripts/sync-prompts.sh --check` and confirm exit code 0.

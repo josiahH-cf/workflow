@@ -1,19 +1,8 @@
-tasks alongside of [[process for testing]]
-
-Process Changes
-- [x] fix tool calls in all prompts - copy them over
-- [x] working: fix process from one project to the other
-- [ ] fix all prompts being in 1 - only keep the workspace meta-prompts
-
-- [ ] First principles workflow ideation
-	- [ ] Workflow feature changes and how they're stored is well-defined, AI-able, and consistently tracked well
-	- [ ] 
-
 Workflow changes:
 - [ ] Minor Improvements (Potential Ideas or Areas to Explore)
 	- [ ] Agent Process
 		- [ ] Still have to step through all of the phases (activate compass, etc.) - can it somehow continuously 'go' --> 'stop' --> 'go', etc.
-	- [ ] Troubleshoot tool calls globally across entire workflow - there should be zero limitations here [[tool-call-troubleshooting-msg]]
+	- [x] Troubleshoot tool calls globally across entire workflow - there should be zero limitations here [[tool-call-troubleshooting-msg]]
 	- [ ] Phase Clarification / Improvement / TODO Prioritization Logic
 		- [ ] /implement and /continue do the same thing at phase 6 - what's the difference? do we need to somehow combine or consolidate? what are the implications in other files?
 		- [ ] Bug fixes could supersede implementation or bugs SHOULD be logged during implementation if found and NOT fixable right away

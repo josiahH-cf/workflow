@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/02b-compass-edit.md -->
+<!-- role: derived | canonical-source: meta-prompts/phase-2b-compass-edit.md -->
 <!-- generated-from-metaprompt -->
 # Compass Edit — Modify the Project Constitution
 
@@ -22,6 +22,6 @@ The constitution (`.specify/constitution.md`) is read-only during normal workflo
 ## Constraints
 
 - Modify only sections explicitly approved by the developer.
-- Do not add sections; the 8-section structure is fixed.
+- Sections may be added, restructured, or consolidated if the developer approves — the constitution structure adapts to the project's needs.
 - If edits affect downstream specs or tasks, warn the developer and recommend rerunning `/define-features`.
-- Never modify the constitution silently or as a side effect of another command.
+- Log constitution changes with rationale for traceability.

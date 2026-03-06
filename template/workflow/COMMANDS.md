@@ -2,7 +2,7 @@
 
 > Referenced from `AGENTS.md`. This is part of the canonical workflow — see `/governance/REGISTRY.md`.
 
-These values are populated during Phase 4 (Scaffold Project). Until then, placeholders remain.
+These values are set with initial values during Phase 1 (initialization) and finalized during Phase 4 (Scaffold Project) based on architecture reasoning.
 
 ## Core Commands
 

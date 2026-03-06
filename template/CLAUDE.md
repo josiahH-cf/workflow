@@ -66,7 +66,7 @@ Commands are organized by workflow phase. Run `/continue` to auto-advance throug
 
 ### Interview & Planning (Phases 2–5)
 
-- `/compass` — Phase 2: Adaptive interview to establish project identity → outputs `.specify/constitution.md`
+- `/compass` — Phase 2: Dynamic discovery interview to establish project identity → outputs `.specify/constitution.md`
 - `/compass-edit` — Edit mode for the constitution (approval-gated)
 - `/define-features` — Phase 3: Translate constitution into feature specs
 - `/scaffold` — Phase 4: Reason about architecture, produce plan (no code)

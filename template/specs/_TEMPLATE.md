@@ -44,6 +44,18 @@
 
 <!-- Other features, services, or data this depends on -->
 
+## Test Planning Intent
+
+<!-- Populated during Phase 3 (define-features). Inferred from acceptance criteria and affected areas.
+     Do NOT add test file paths or function names here — that belongs in the Verification Map during Phase 7. -->
+
+**Test approach:** <!-- e.g., unit, integration, e2e, visual -->
+
+**Rough test scenarios:**
+<!-- Brief natural-language descriptions of key scenarios to verify -->
+- [ ] [Scenario description, e.g., "verify login rejects expired tokens with a 401"]
+- [ ] [Scenario description]
+
 ## Verification Map
 
 <!-- Map each criterion to its exact test location. Every AC must have a test. -->

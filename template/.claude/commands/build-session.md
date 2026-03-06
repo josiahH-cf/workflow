@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/06b-build-session.md -->
+<!-- role: derived | canonical-source: meta-prompts/phase-6b-build-session.md -->
 <!-- generated-from-metaprompt -->
 You are building a planned feature. The task file for this session is provided. Read it now, along with the linked spec.
 

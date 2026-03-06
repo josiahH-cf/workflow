@@ -4,7 +4,7 @@ Paste this into a coding agent session at the root of a project that was **previ
 
 Works with any of the three ZIP variants: `scaffold-template.zip`, `scaffold-metaprompts.zip`, or `scaffold-full.zip`.
 
-> **Note:** This update recognizes the 8-phase agentic workflow and additional files: `.specify/` (constitution, spec template, AC template), `.github/REVIEW_RUBRIC.md`, `.github/agents/` (planner, reviewer), `.github/workflows/autofix.yml`, Claude hooks in `settings.json` (PostToolUse, PreToolUse, Stop), and the `AGENTS.md` routing hub (10 sections). Version-diff before overwriting any of these.
+> **Note:** This update recognizes the 8-phase agentic workflow and additional files: `.specify/` (constitution, spec template, AC template), `.github/REVIEW_RUBRIC.md`, `.github/agents/` (planner, reviewer), `.github/workflows/autofix.yml`, Claude hooks in `settings.json` (PostToolUse, Stop), and the `AGENTS.md` routing hub (10 sections). Version-diff before overwriting any of these.
 
 ---
 
@@ -59,9 +59,10 @@ Classify every file in the ZIP into one of three categories:
 - `.specify/acceptance-criteria-template.md`  -  AC format reference
 
 **Protect (customized per-project  -  never auto-overwrite):**
-- `AGENTS.md`  -  customized with project-specific conventions (10 sections including Overview, Core Commands, Code Conventions)
+- `AGENTS.md`  -  customized with project-specific Overview (from Compass)
+- `workflow/COMMANDS.md`  -  customized with project-specific Core Commands and Code Conventions (from Init + Scaffold)
 - `.specify/constitution.md`  -  project identity from Compass interview (never auto-overwrite)
-- `.claude/settings.json`  -  customized tool permissions and hooks (PostToolUse, PreToolUse, Stop)
+- `.claude/settings.json`  -  customized tool permissions and hooks (PostToolUse, Stop)
 - `.claude/settings.local.json`  -  local Claude override (personal; gitignored)
 - `.vscode/settings.json`  -  local/editor preference overrides (personal)
 - `.github/workflows/copilot-setup-steps.yml`  -  customized CI command env values and runtime steps
@@ -174,9 +175,8 @@ Report the update results:
 8. Confirm governance files are present at `governance/CHANGE_PROTOCOL.md`, `governance/POLICY_TESTS.md`, and `governance/REGISTRY.md`.
 9. Confirm `.github/workflows/copilot-setup-steps.yml` remains project-customized and was not overwritten unless explicitly approved.
 10. Confirm no template placeholder values were introduced into customized files.
-11. Confirm `.claude/settings.json` does not contain `bypassPermissions` or `allowDangerouslySkipPermissions`.
-12. Confirm local preference files (`.claude/settings.local.json`, `.vscode/settings.json`) were not overwritten unless explicitly approved.
-13. Check current YOLO configuration: report whether `.claude/settings.local.json` and `.vscode/settings.json` have YOLO mode enabled, and which option (A/B/C/D) is active. If the configuration appears incomplete or inconsistent, offer to re-run the YOLO setup from initialization Step 4.
+11. Confirm local preference files (`.claude/settings.local.json`, `.vscode/settings.json`) were not overwritten unless explicitly approved.
+12. Check current YOLO configuration: report whether `.claude/settings.local.json` and `.vscode/settings.json` have YOLO mode enabled, and which option (A/B/C/D) is active. If the configuration appears incomplete or inconsistent, offer to re-run the YOLO setup from initialization Step 4.
 
 State: "Scaffolding update complete. All generated files (slash commands, templates, lifecycle docs) have been updated. Your project customizations (AGENTS.md, tool configs) are preserved."
 ```

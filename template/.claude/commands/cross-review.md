@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/07e-cross-review.md -->
+<!-- role: derived | canonical-source: meta-prompts/phase-7e-cross-review.md -->
 <!-- generated-from-metaprompt -->
 You are performing an independent review of a completed feature branch. You did not implement this code and you did not perform the initial review. Your judgment is independent.
 

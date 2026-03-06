@@ -10,7 +10,7 @@
 
 ## Completions
 
-Follow naming conventions and patterns from `AGENTS.md` Code Conventions section.
+Follow naming conventions and patterns from `workflow/COMMANDS.md` Code Conventions section.
 
 ## Code Review
 

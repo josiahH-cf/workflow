@@ -14,13 +14,13 @@ This document defines how an agent executes work from spec to merged PR.
 
 | Phase | Required Input | Required Output | Gate to Advance |
 | ----- | -------------- | --------------- | --------------- |
-| Compass | Scaffold files placed | `.specify/constitution.md` populated | All 8 sections have content (no placeholders) |
+| Compass | Scaffold files placed | `.specify/constitution.md` populated | All relevant themes addressed (no `[PROJECT-SPECIFIC]` placeholders in covered sections); ambiguities documented |
 | Define Features | Constitution | Feature specs with Compass mapping | At least one feature spec exists in `/specs/` with Compass capability mapping; every constitution capability has at least one feature mapping; no orphan features (every feature traces to a capability) |
-| Scaffold Project | Feature specs | AGENTS.md Code Conventions + Core Commands | Neither section contains `[PROJECT-SPECIFIC]` |
+| Scaffold Project | Feature specs | `workflow/COMMANDS.md` Code Conventions + Core Commands | Neither section contains `[PROJECT-SPECIFIC]` |
 | Fine-tune Plan | Architecture plan | `/tasks/[feature-id]-[slug].md` files + ordered AC/task/model/branch mappings | Every active spec has a matching task file; all ACs mapped to tasks |
 | Code | Fine-tuned specs + task files + pre-tests | Passing code on feature branch | All tasks marked Complete, tests pass |
 | Test | Implementation | Verified ACs, bug log reviewed | No blocking bugs, all ACs pass in `/test post` mode |
-| Maintain | Shipped features | README, CONTRIBUTING, security baseline | Documentation exists and reflects current state |
+| Maintain | Shipped features | Maintenance mode active (level selected) | Maintenance level recorded in STATE.json; all items for selected level completed |
 
 ## Feature-Level Phase Contract
 

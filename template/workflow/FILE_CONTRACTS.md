@@ -24,17 +24,23 @@ Machine-readable behavior starts with stable artifact contracts.
 
 | Artifact | Owner | Updated When | Required Fields | Validation Signal |
 | -------- | ----- | ------------ | --------------- | ----------------- |
-| `.specify/constitution.md` | Compass interview | Phase 2 (Compass) or `/compass-edit` | 8 sections: Problem, User, Success, Capabilities, Out-of-Scope, Principles, Security, Testing | No `[PROJECT-SPECIFIC]` placeholders remain |
+| `.specify/constitution.md` | Compass interview | Phase 2 (Compass) or `/compass-edit` | Theme-based sections covering: Problem & Context, Target User, Success Criteria, Core Capabilities, Out-of-Scope, Principles, Security, Testing (depth varies by project); Ambiguity Tracking section | No `[PROJECT-SPECIFIC]` placeholders remain in covered sections; ambiguities documented |
+| `AGENTS.md` (per-section) | See breakdown | See breakdown | See breakdown | See breakdown |
+| — `AGENTS.md → Overview` | Compass (Phase 2) | Phase 2 or `/compass-edit` | One-paragraph project description | No `[PROJECT-SPECIFIC]` placeholder |
+| — `AGENTS.md → Workflow Phases` | Scaffold template (Phase 1) | Phase 1 (static) | Phase listing with entry commands and gates | Sections present and consistent with LIFECYCLE.md |
+| — `AGENTS.md → Quick Reference` | Scaffold template (Phase 1) | Phase 1 (static) | Routing table to workflow/ and governance/ files | All referenced files exist |
+| `workflow/COMMANDS.md → Core Commands` | Phase 1 initial; Scaffold (Phase 4) finalizes | Phase 1 (initial values), Phase 4 (refined based on architecture) | Install, Build, Test, Lint, Format, Type-check | No `[PROJECT-SPECIFIC]` after Phase 4 |
+| `workflow/COMMANDS.md → Code Conventions` | Phase 1 initial; Scaffold (Phase 4) finalizes | Phase 1 (initial values), Phase 4 (refined based on architecture) | Language, style guide, architecture patterns, naming conventions | No `[PROJECT-SPECIFIC]` after Phase 4 |
 | `/specs/[feature-id]-[slug].md` | Builder agent | Scope changes | Feature ID, criteria IDs, affected areas, out-of-scope, Compass mapping | Criteria count 3–7 and IDs present |
-| `/tasks/[feature-id]-[slug].md` | Builder agent | Plan + every task completion | Task IDs, criterion mapping, status counts, session log, model assignment, branch name | All criteria mapped, status math consistent |
+| `/tasks/[feature-id]-[slug].md` | Builder agent | Plan + every task completion + session end | Task IDs, criterion mapping, status counts, routing plan, session log (structured), branch name | All criteria mapped, status math consistent, latest Session Log row reflects current state |
 | `/decisions/[NNNN]-[slug].md` | Builder/reviewer/human | Non-obvious forks or conflicts | Trigger, options, decision, consequences, rollback impact | Decision linked from task/spec when needed |
 | `/bugs/LOG.md` | Any agent via `/bug` | Bug discovered in any phase | BUG-NNN, description, location, phase, severity, expected, actual, status | Sequential BUG-NNN IDs, status field present |
 | `/.codex/PLANS.md` (instance copy) | Builder agent | Long-run execution only | Milestones, verification, progress | Milestones map to task IDs |
-| `/workflow/STATE.json` | Orchestrator (`/continue`) | Phase transitions and task selection | `projectPhase`, `currentFeatureId`, `currentTaskFile`, `testMode`, `updatedAt` (`schemaVersion` optional) | Valid JSON and phase/task references resolve |
+| `/workflow/STATE.json` | Orchestrator (`/continue`) | Phase transitions and task selection | `projectPhase`, `currentFeatureId`, `currentTaskFile`, `testMode`, `maintenanceLevel`, `updatedAt` (`schemaVersion` optional) | Valid JSON and phase/task references resolve; `maintenanceLevel` is one of `light`, `standard`, `deep`, or empty |
 | Review report in PR body | Reviewer agent | Review phase | PASS/FAIL per criterion + scope checks + rubric scores | No unchecked criterion |
 | `workflow/ROUTING.md` | Human maintainer | Agent model changes | Routing matrix, branch format, concurrency rules | Tables present and non-empty |
-| `workflow/COMMANDS.md` | Human maintainer | Phase 4+ | Command table, conventions | No placeholder after Phase 5 |
-| `workflow/BOUNDARIES.md` | Human maintainer | Policy changes | ALWAYS/ASK/NEVER sections | All three sections present |
+| `workflow/COMMANDS.md` | Phase 1 initial; Scaffold (Phase 4) finalizes | Phase 1 (initial values), Phase 4 (architecture-refined) | Command table, conventions | No `[PROJECT-SPECIFIC]` after Phase 4 |
+| `workflow/BOUNDARIES.md` | Human maintainer | Policy changes | Best Practices, Recommended Review Points, Avoid sections | All three sections present |
 
 ## Linkage Rules
 

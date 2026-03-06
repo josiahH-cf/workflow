@@ -1,4 +1,4 @@
-User: Follow instructions in [fine-tune.prompt.md](vscode-remote://wsl%2Bubuntu/home/josiah/hello-verify/.github/prompts/fine-tune.prompt.md).
+User: Follow instructions in [phase-5-fine-tune.prompt.md](vscode-remote://wsl%2Bubuntu/home/josiah/hello-verify/.github/prompts/phase-5-fine-tune.prompt.md).
 
 GitHub Copilot: 
 

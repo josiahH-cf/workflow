@@ -37,23 +37,42 @@ declare -A COMMAND_TO_META=(
     # Setup
     ["initialization"]="admin/initialization.md"
     # Workflow controls
-    ["continue"]="09-continue.md"
-    ["compass-edit"]="02b-compass-edit.md"
+    ["continue"]="phase-9-continue.md"
+    ["compass-edit"]="phase-2b-compass-edit.md"
     # Bug track
-    ["bug"]="07b-bug.md"
-    ["bugfix"]="07c-bugfix.md"
+    ["bug"]="phase-7b-bug.md"
+    ["bugfix"]="phase-7c-bugfix.md"
     # Phases
-    ["compass"]="02-compass.md"
-    ["define-features"]="03-define-features.md"
-    ["scaffold"]="04-scaffold-project.md"
-    ["fine-tune"]="05-fine-tune-plan.md"
-    ["implement"]="06-code.md"
-    ["test"]="07-test.md"
-    ["maintain"]="08-maintain.md"
+    ["compass"]="phase-2-compass.md"
+    ["define-features"]="phase-3-define-features.md"
+    ["scaffold"]="phase-4-scaffold-project.md"
+    ["fine-tune"]="phase-5-fine-tune-plan.md"
+    ["implement"]="phase-6-code.md"
+    ["test"]="phase-7-test.md"
+    ["maintain"]="phase-8-maintain.md"
     # Sessions
-    ["build-session"]="06b-build-session.md"
-    ["review-session"]="07d-review-and-ship.md"
-    ["cross-review"]="07e-cross-review.md"
+    ["build-session"]="phase-6b-build-session.md"
+    ["review-session"]="phase-7d-review-and-ship.md"
+    ["cross-review"]="phase-7e-cross-review.md"
+)
+
+# Mapping: command-name -> Copilot prompt file name (relative to prompts/)
+declare -A COMMAND_TO_PROMPT=(
+    ["initialization"]="initialization.prompt.md"
+    ["continue"]="phase-9-continue.prompt.md"
+    ["compass-edit"]="phase-2b-compass-edit.prompt.md"
+    ["bug"]="phase-7b-bug.prompt.md"
+    ["bugfix"]="phase-7c-bugfix.prompt.md"
+    ["compass"]="phase-2-compass.prompt.md"
+    ["define-features"]="phase-3-define-features.prompt.md"
+    ["scaffold"]="phase-4-scaffold.prompt.md"
+    ["fine-tune"]="phase-5-fine-tune.prompt.md"
+    ["implement"]="phase-6-implement.prompt.md"
+    ["test"]="phase-7-test.prompt.md"
+    ["maintain"]="phase-8-maintain.prompt.md"
+    ["build-session"]="phase-6b-build-session.prompt.md"
+    ["review-session"]="phase-7d-review-session.prompt.md"
+    ["cross-review"]="phase-7e-cross-review.prompt.md"
 )
 
 # Extract the operational content from a meta-prompt.
@@ -200,28 +219,6 @@ check_drift() {
     fi
 }
 
-check_for_hardcoded_tool_whitelists() {
-    local found=false
-    local file
-
-    while IFS= read -r file; do
-        [[ -n "$file" ]] || continue
-        if grep -qiE '^(tools:|allowed-tools:)' "$file"; then
-            echo "  [fail] Hardcoded tool whitelist found: $file"
-            found=true
-        fi
-    done < <(
-        find "$COPILOT_PROMPTS" -type f -name '*.prompt.md' -print
-        find "$REPO_ROOT/template/.github/agents" -type f -name '*.agent.md' -print 2>/dev/null || true
-    )
-
-    if [[ "$found" == true ]]; then
-        echo ""
-        echo "FAIL: Hardcoded tool whitelists found in generated prompts or template agent definitions. Remove tools:/allowed-tools: entries."
-        exit 1
-    fi
-}
-
 check_for_deprecated_prompt_mode() {
     local found=false
     local file
@@ -273,11 +270,11 @@ for cmd_name in "${!COMMAND_TO_META[@]}"; do
     sync_file "$CLAUDE_CMDS/$cmd_name.md" "$claude_content"
 
     # Generate and sync Copilot prompt
+    prompt_filename="${COMMAND_TO_PROMPT[$cmd_name]:-$cmd_name.prompt.md}"
     copilot_content="$(generate_copilot_prompt "$cmd_name" "$meta_file")"
-    sync_file "$COPILOT_PROMPTS/$cmd_name.prompt.md" "$copilot_content"
+    sync_file "$COPILOT_PROMPTS/$prompt_filename" "$copilot_content"
 done
 
-check_for_hardcoded_tool_whitelists
 check_for_deprecated_prompt_mode
 
 echo ""

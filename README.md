@@ -34,7 +34,7 @@ Pick one or combine them. You don't need all three.
 
 ## How It Works
 
-Everything traces to the **project constitution** produced by the Compass interview.
+Everything traces to the **project constitution** produced by the Compass discovery interview.
 
 ```
 Constitution          → defines WHAT the project is
@@ -49,7 +49,7 @@ Decisions             → record WHY non-obvious choices were made
 See the [workflow diagram](docs/reference/workflow-diagram.md) for the full visual flow.
 
 1. **Scaffold Import** → Install files (`install.sh`)
-2. **Compass** → Interview → `constitution.md`
+2. **Compass** → Discovery interview → `constitution.md`
 3. **Define Features** → Map features to constitution capabilities
 4. **Scaffold Project** → Architecture decisions (no code)
 5. **Fine-tune Plan** → Ordered specs, ACs, model assignments, branches

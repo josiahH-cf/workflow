@@ -1,14 +1,16 @@
-<!-- role: derived | canonical-source: meta-prompts/06-code.md -->
+<!-- role: derived | canonical-source: meta-prompts/phase-6-code.md -->
 <!-- generated-from-metaprompt -->
 # Phase 6 — Code
 
 **Objective:** Implement features following TDD from fine-tuned specs and task files. Tests exist first — make them pass.
 
+`/implement` is **direct single-feature execution**. It does not manage state transitions, select the next action, or advance phases — that is the orchestrator's job (`/continue`). Use `/implement` when you know which feature to build. Use `/continue` when you want the orchestrator to determine the next action (which may invoke `/implement` at Phase 6).
+
 **Trigger:** Phase 5 complete (`/tasks/[feature-id]-[slug].md` exists with ordered tasks, model assignment, and branches).
 
 **Entry commands:**
 - Claude: `/implement`
-- Copilot: `implement.prompt.md`
+- Copilot: `phase-6-implement.prompt.md`
 
 ---
 

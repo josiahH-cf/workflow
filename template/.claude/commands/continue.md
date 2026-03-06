@@ -1,8 +1,10 @@
-<!-- role: derived | canonical-source: meta-prompts/09-continue.md -->
+<!-- role: derived | canonical-source: meta-prompts/phase-9-continue.md -->
 <!-- generated-from-metaprompt -->
 # Continue — Deterministic Orchestrator
 
-You are the orchestration brain. Determine state, advance phases deterministically, and persist transitions in `/workflow/STATE.json`.
+`/continue` is the **orchestrator**, not a direct implementation command. It reads project state, determines the next action, and dispatches to the appropriate phase command (e.g., `/compass`, `/implement`, `/test`). At Phase 6 it delegates to `/implement` — it does not duplicate `/implement`'s behavior. Its unique value is **state management, phase advancement, bug-routing, and next-action selection**.
+
+Use `/implement` when you know exactly which feature to build. Use `/continue` when you want the orchestrator to determine and execute the next right action.
 
 See `workflow/ORCHESTRATOR.md` for the full loop contract.
 
@@ -17,6 +19,7 @@ Before the first action in any session, read these files in order:
 2. `workflow/STATE.json` (current state)
 3. `.specify/constitution.md` (project identity, if it exists)
 4. The active task file (if `currentTaskFile` is set in state)
+5. The **Session Log** table at the bottom of the active task file — read the latest row to determine: last completed task, next planned action, and any blockers.
 
 Only then begin execution. This prevents context drift between sessions.
 
@@ -25,7 +28,7 @@ Only then begin execution. This prevents context drift between sessions.
 Primary source of truth: `/workflow/STATE.json`
 
 Expected fields:
-- `projectPhase` (`2-compass`, `3-define-features`, `4-scaffold-project`, `5-fine-tune-plan`, `6-code`, `7-test`, `7b-review-ship`, `8-maintain`, `done`)
+- `projectPhase` (`2-compass`, `3-define-features`, `4-scaffold-project`, `5-fine-tune-plan`, `6-code`, `7-test`, `7b-review-ship`, `8-maintain`)
 - `currentFeatureId`
 - `currentTaskFile`
 - `testMode` (`pre`, `implement`, `post`)
@@ -53,21 +56,37 @@ When `projectPhase` is `6-code` or later and `currentTaskFile` is empty:
    - `pre` if pre-implementation tests do not yet exist for this feature
    - otherwise `implement`
 
+## Step 2b: Check Bug Log
+
+Before executing the current phase action, check `bugs/LOG.md` (if it exists) for open bugs:
+
+- **Blocking bugs** (severity: blocking) for the current feature → run `/bugfix` to resolve before continuing to the next task. A blocking bug means the current task cannot be completed until the bug is fixed.
+- **Non-blocking bugs** (severity: non-blocking) → remain logged for a later review cycle. Do not interrupt the current workflow to fix them.
+
+This ensures the "next right action" always prioritizes unresolved blockers over new task work.
+
 ## Step 3: Execute by State
 
 | State | Action |
 |---|---|
-| `2-compass` | Run `/compass`; when constitution is complete set `projectPhase=3-define-features`. |
+| `2-compass` | Run `/compass`; when constitution themes are addressed and ambiguities documented, set `projectPhase=3-define-features`. |
 | `3-define-features` | Run `/define-features`; when at least one spec exists set `projectPhase=4-scaffold-project`. |
 | `4-scaffold-project` | Run `/scaffold`; when AGENTS commands + conventions are populated set `projectPhase=5-fine-tune-plan`. |
 | `5-fine-tune-plan` | Run `/fine-tune`; ensure matching `/tasks/[feature-id]-[slug].md` for active specs; set `projectPhase=6-code`, `testMode=pre`. |
 | `6-code` + `testMode=pre` | Run `/test pre` with `currentTaskFile`; on success set `testMode=implement`. |
-| `6-code` + `testMode=implement` | Run `/implement` with `currentTaskFile` until tasks complete; then set `projectPhase=7-test`, `testMode=post`. |
+| `6-code` + `testMode=implement` | Check bug log (Step 2b): resolve blocking bugs via `/bugfix` first. Then run `/implement` with `currentTaskFile` until tasks complete; then set `projectPhase=7-test`, `testMode=post`. |
 | `7-test` + `testMode=post` | Run `/test post`; if all ACs pass and no blocking bugs set `projectPhase=7b-review-ship`. |
 | `7b-review-ship` | Run `/review-session`, `/cross-review`; if incomplete task files remain set `projectPhase=6-code`, `testMode=pre`, and move to next feature; otherwise set `projectPhase=8-maintain`. |
-| `8-maintain` | Run `/maintain`; when docs/compliance complete set `projectPhase=done`. |
+| `8-maintain` | Run `/maintain` with selected level; maintenance is ongoing — remain at `projectPhase=8-maintain`. |
 
 Persist `workflow/STATE.json` after every transition.
+
+After every state transition, also append a row to the active task file's **Session Log** table:
+
+| Date | Last Completed | Next Action | Blockers | State Link |
+|------|---------------|-------------|----------|------------|
+
+This ensures any future `/continue` session can resume from the latest Session Log entry + `workflow/STATE.json` together, regardless of context loss.
 
 ## Stop Gates
 
@@ -93,7 +112,7 @@ After completing a phase action and persisting the state transition:
 1. Increment the session transition counter (initialized to 0 at session start)
 2. Emit progress: `[ORCHESTRATOR] Phase X → Phase Y | Feature: [id] | Transitions: N/10`
 3. Re-read `workflow/STATE.json`
-4. If `projectPhase` is `done`, report completion and stop
+4. If `projectPhase` is `8-maintain` and current maintenance pass is complete, report status and stop
 5. If any stop condition is met, stop and report
 6. If transition counter >= 10, stop and report (safety valve)
 7. Otherwise, continue to the next phase (go to Step 2: Resolve Active Feature)

@@ -9,7 +9,7 @@ You review pull requests for correctness, spec compliance, and quality using the
 
 ## Process
 
-1. Read `/AGENTS.md` (Boundaries, Specification Workflow, Code Conventions)
+1. Read `/AGENTS.md` (Boundaries, Specification Workflow) and `/workflow/COMMANDS.md` (Code Conventions)
 2. Read `.specify/constitution.md` — verify PR aligns with project identity
 3. Read the linked feature spec in `/specs/` and task file in `/tasks/`
 4. Read `/.github/REVIEW_RUBRIC.md` — use this as the scoring framework
@@ -29,7 +29,7 @@ Per `REVIEW_RUBRIC.md`:
 
 ## Rules
 
-- Do not suggest refactors outside the PR scope
+- Focus review on the PR scope
 - Do not approve if any Required category FAILS
 - Flag but do not block Advisory issues
 - Verify AC evidence: each criterion must have a test name and result

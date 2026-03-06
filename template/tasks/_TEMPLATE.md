@@ -28,7 +28,6 @@
 - **Test File:** [test file covering this task's criteria]
 - **Done when:** [one sentence]
 - **Criteria covered:** [AC-1, AC-2]
-- **Model:** [claude|copilot|codex]
 - **Branch:** [model/type-short-description]
 - **Status:** [ ] Not started
 
@@ -38,7 +37,6 @@
 - **Test File:** [test file covering this task's criteria]
 - **Done when:** [one sentence]
 - **Criteria covered:** [AC-*]
-- **Model:** [claude|copilot|codex]
 - **Branch:** [model/type-short-description]
 - **Status:** [ ] Not started
 
@@ -48,9 +46,18 @@
 - **Test File:** [test file covering this task's criteria]
 - **Done when:** [one sentence]
 - **Criteria covered:** [AC-*]
-- **Model:** [claude|copilot|codex]
 - **Branch:** [model/type-short-description]
 - **Status:** [ ] Not started
+
+## Routing Plan
+
+<!-- Suggested model assignments. These are recommendations — the developer or /continue may override at execution time based on current conditions. -->
+
+| Task | Suggested Model | Rationale | Reviewer | Parallel? | Context Needs |
+|------|-----------------|-----------|----------|-----------|---------------|
+| T-1 | [claude\|copilot\|codex] | [one-line reason] | [different model] | [yes/no + reason] | [small/medium/large] |
+| T-2 | [claude\|copilot\|codex] | [one-line reason] | [different model] | [yes/no + reason] | [small/medium/large] |
+| T-3 | [claude\|copilot\|codex] | [one-line reason] | [different model] | [yes/no + reason] | [small/medium/large] |
 
 ## Test Strategy
 
@@ -68,4 +75,9 @@
 
 ## Session Log
 
-<!-- Append after each session: date, completed, blockers -->
+<!-- Append after each session. /continue reads the latest entry + workflow/STATE.json to resume. -->
+<!-- Format: date, last completed task, next action, blockers, link to state file -->
+
+| Date | Last Completed | Next Action | Blockers | State Link |
+|------|---------------|-------------|----------|------------|
+| [YYYY-MM-DD] | [T-N or "plan created"] | [next task ID or phase action] | [none or description] | [workflow/STATE.json](../workflow/STATE.json) |

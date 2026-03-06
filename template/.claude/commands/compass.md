@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/02-compass.md -->
+<!-- role: derived | canonical-source: meta-prompts/phase-2-compass.md -->
 <!-- generated-from-metaprompt -->
 # Phase 2 — Compass
 
@@ -8,35 +8,65 @@
 
 **Entry commands:**
 - Claude: `/compass`
-- Copilot: `compass.prompt.md`
+- Copilot: `phase-2-compass.prompt.md`
 - Codex: see `.codex/AGENTS.md`
 
 ---
 
 ## What Happens
 
-An adaptive interview (not a scripted checklist) covers:
+A dynamic discovery interview that starts broad and narrows only as context justifies specificity. This is not a scripted checklist — depth, ordering, and emphasis adapt to the developer's answers.
 
-1. **Problem Statement** — What problem does this project solve?
-2. **Target User** — Who is the primary audience?
-3. **Definition of Success** — How do we know the project succeeds?
-4. **Core Capabilities** — What must the project do? (features at the capability level)
-5. **Out-of-Scope Boundaries** — What will this project explicitly NOT do?
-6. **Inviolable Principles** — What rules can never be broken?
-7. **Security Requirements** — What security standards apply?
-8. **Testing Requirements** — What testing standards apply?
+### Discovery Model
 
-The interview is adaptive — follow-up questions are driven by the developer's answers, not a fixed script.
+1. **Start broad** — Ask what the project is about, who it serves, and what success looks like. Let the developer frame the problem in their own terms.
+2. **Follow the signal** — Pursue depth where the developer's answers reveal complexity, ambiguity, or risk. Skip areas that are self-evident or premature.
+3. **Synthesize boundaries** — Establish what the project IS, what it is NOT, and what remains AMBIGUOUS.
+
+### Guiding Themes
+
+The interview should explore these themes as context warrants — not as mandatory sequential sections:
+
+- **Problem & Context** — What problem does this project solve? Who experiences it?
+- **Target User** — Who is the primary audience? What is their context?
+- **Success Criteria** — How do we know the project succeeds?
+- **Core Capabilities** — What must the project do? (features at the capability level)
+- **Out-of-Scope Boundaries** — What will this project explicitly NOT do?
+- **Inviolable Principles** — What rules can never be broken?
+- **Security Posture** — What security standards apply?
+- **Testing Strategy** — What testing standards apply?
+
+Depth per theme varies — a CLI tool may need minimal security discussion while a healthcare app needs extensive coverage. The interview adapts.
+
+### Personas (Optional)
+
+If personas help the developer reason about users or use cases, introduce them. Do not require a fixed persona set — use them only when they clarify the problem.
+
+### Ambiguity Tracking
+
+Not everything can be resolved in one interview. Explicitly document:
+- **Known** — what is decided and clear
+- **Unknown** — what remains ambiguous and needs future resolution
+- **Deferred** — what was intentionally postponed with rationale
 
 ## Gate
 
-- `.specify/constitution.md` exists with all 8 sections populated (no `[PROJECT-SPECIFIC]` placeholders)
+- `.specify/constitution.md` exists with all relevant themes addressed (no `[PROJECT-SPECIFIC]` placeholders remain in covered sections)
+- Known ambiguities are documented rather than papered over with guesses
 - `AGENTS.md → Overview` section is filled with project description
 
 ## Output
 
-- `.specify/constitution.md` — project identity document
+- `.specify/constitution.md` — project identity document with theme-based sections and ambiguity tracking
 - `AGENTS.md → Overview` — one-paragraph project description
+
+### Ownership Boundary
+
+Compass owns exactly two write targets:
+1. `.specify/constitution.md` — full content
+2. `AGENTS.md → Overview` — one-paragraph project description
+
+Compass does **not** write to `workflow/COMMANDS.md` (Core Commands, Code Conventions). Those are owned by Phase 1 (initial values) and Phase 4 Scaffold (finalized values).
 
 ## Editing the Constitution
 

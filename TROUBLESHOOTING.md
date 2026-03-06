@@ -88,7 +88,7 @@ Common issues and fixes for the Agent Workflow Scaffold.
 
 **Cause:** Agent didn't read the task file properly.
 
-**Fix:** Claude's `settings.json` includes hooks that block edits to protected files (`.env`, `.git/`, `constitution.md`). For scope enforcement beyond protected files, review the PR using the `REVIEW_RUBRIC.md` "File Scope Check."
+**Fix:** For scope enforcement, review the PR using the `REVIEW_RUBRIC.md` "File Scope Check." The implementer agent is guided to stay within task scope as a best practice.
 
 ## Getting Help
 

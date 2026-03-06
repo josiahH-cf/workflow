@@ -13,16 +13,17 @@ The project lifecycle follows 8 phases plus a parallel Bug Track. These are one-
 | Phase | Input | Action | Output |
 | ----- | ----- | ------ | ------ |
 | 1. Scaffold Import | Empty/new repo | Run `initialization.md` | Scaffold files placed |
-| 2. Compass | Scaffold in place | Adaptive interview (`/compass`) | `.specify/constitution.md`, AGENTS.md Overview |
+| 2. Compass | Scaffold in place | Dynamic discovery interview (`/compass`) | `.specify/constitution.md`, AGENTS.md Overview |
 | 3. Define Features | Constitution | Feature interview (`/define-features`) | Feature specs with Compass mapping |
-| 4. Scaffold Project | Feature specs | Architecture reasoning (`/scaffold`) | AGENTS.md Code Conventions + Core Commands |
+| 4. Scaffold Project | Feature specs | Architecture reasoning (`/scaffold`) | `workflow/COMMANDS.md` Code Conventions + Core Commands |
 | 5. Fine-tune Plan | Architecture plan | Spec + task finalization (`/fine-tune`) | Updated specs + `/tasks/[feature-id]-[slug].md` with task/model/branch mappings |
-| 6. Code | Fine-tuned specs + task files + pre-tests | TDD implementation (`/implement`) | Passing code on feature branches |
+| 6. Code | Fine-tuned specs + task files + pre-tests | Direct TDD implementation (`/implement`) | Passing code on feature branches |
 | 7. Test | Feature branch state | `pre` mode: failing tests, `post` mode: AC verification (`/test`) | Test results, bug log entries |
-| 8. Maintain | Shipped features | Documentation + compliance (`/maintain`) | README, CONTRIBUTING, compliance report |
+| 7b. Review & Ship | All ACs pass | Feature review + PR creation (`/review-session`), optional cross-review (`/cross-review`) | Approved PR merged → next feature or Phase 8 |
+| 8. Maintain | Shipped features | Ongoing maintenance (`/maintain`) — select level: Light / Standard / Deep | Maintenance mode active (level recorded in STATE.json) |
 | Bug Track | Any phase | Bug logging (`/bug`) + fixing (`/bugfix`) | Bug log entries, fix PRs |
 
-Use `/continue` to auto-advance through phases based on exit criteria and persisted orchestrator state in `/workflow/STATE.json`.
+`/continue` is the **orchestrator** that auto-advances through phases based on exit criteria and persisted state in `/workflow/STATE.json`. It selects the next right action — including routing to `/bugfix` for blocking bugs before continuing task work. At Phase 6, `/continue` delegates to `/implement`. Use `/implement` directly when you know which feature to build; use `/continue` when you want the orchestrator to decide.
 
 ## Feature-Level Phases (Per-Feature Lifecycle)
 

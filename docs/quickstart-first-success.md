@@ -25,7 +25,7 @@ For template only: `./scripts/install.sh --minimal /path/to/your/project`
 cd /path/to/your/project
 ```
 
-In your AI tool, run `/compass`. The agent interviews you about your project and produces `.specify/constitution.md`.
+In your AI tool, run `/compass`. The agent conducts a dynamic discovery interview about your project — starting broad and narrowing based on your answers — and produces `.specify/constitution.md`.
 
 Done means:
 - `.specify/constitution.md` has no `[PROJECT-SPECIFIC]` placeholders.
@@ -42,7 +42,7 @@ Done means:
 Run `/scaffold`, then `/fine-tune`.
 
 Done means:
-- AGENTS Core Commands and Code Conventions are filled.
+- `workflow/COMMANDS.md` Core Commands and Code Conventions are filled.
 - `tasks/[feature-id]-[slug].md` exists and maps ACs to tasks.
 
 ## 5) Build, Test, Review, Ship

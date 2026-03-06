@@ -1,4 +1,4 @@
-<!-- role: derived | canonical-source: meta-prompts/07-test.md -->
+<!-- role: derived | canonical-source: meta-prompts/phase-7-test.md -->
 <!-- generated-from-metaprompt -->
 # Phase 7 — Test & Mark Changes
 
@@ -8,7 +8,7 @@
 
 **Entry commands:**
 - Claude: `/test`
-- Copilot: `test.prompt.md`
+- Copilot: `phase-7-test.prompt.md`
 
 ---
 

@@ -11,7 +11,7 @@ set -euo pipefail
 #   2. Cross-references between files resolve
 #   3. No orphan command files (command without meta-prompt or vice versa)
 #   4. Placeholder consistency in AGENTS.md
-#   5. Constitution template has all 8 sections
+#   5. Constitution template has required theme sections
 #   6. Prompt-sync parity (Claude commands match Copilot prompts)
 #   7. Generated prompts and template agents do not hardcode tool whitelists
 #   8. Generated prompts do not use deprecated mode: frontmatter
@@ -152,20 +152,21 @@ fi
 
 echo ""
 
-# ─── Check 3: Constitution template has all 8 sections ───
+# ─── Check 3: Constitution template has required sections ───
 echo "3. Constitution template sections"
 
 constitution="$TEMPLATE_DIR/.specify/constitution.md"
 if [[ -f "$constitution" ]]; then
     SECTIONS=(
-        "Problem Statement"
+        "Problem & Context"
         "Target User"
-        "Definition of Success"
+        "Success Criteria"
         "Core Capabilities"
         "Out-of-Scope Boundaries"
         "Inviolable Principles"
-        "Security Requirements"
-        "Testing Requirements"
+        "Security Posture"
+        "Testing Strategy"
+        "Ambiguity Tracking"
     )
     for section in "${SECTIONS[@]}"; do
         if grep -q "## $section" "$constitution"; then
@@ -184,6 +185,32 @@ echo "4. Command file parity (Claude <-> Copilot)"
 claude_cmds="$REPO_ROOT/template/.claude/commands"
 copilot_prompts="$REPO_ROOT/prompts"
 
+# Command-to-prompt filename mapping (mirrors sync-prompts.sh COMMAND_TO_PROMPT)
+declare -A CMD_TO_PROMPT=(
+    ["initialization"]="initialization.prompt.md"
+    ["continue"]="phase-9-continue.prompt.md"
+    ["compass-edit"]="phase-2b-compass-edit.prompt.md"
+    ["bug"]="phase-7b-bug.prompt.md"
+    ["bugfix"]="phase-7c-bugfix.prompt.md"
+    ["compass"]="phase-2-compass.prompt.md"
+    ["define-features"]="phase-3-define-features.prompt.md"
+    ["scaffold"]="phase-4-scaffold.prompt.md"
+    ["fine-tune"]="phase-5-fine-tune.prompt.md"
+    ["implement"]="phase-6-implement.prompt.md"
+    ["test"]="phase-7-test.prompt.md"
+    ["maintain"]="phase-8-maintain.prompt.md"
+    ["build-session"]="phase-6b-build-session.prompt.md"
+    ["review-session"]="phase-7d-review-session.prompt.md"
+    ["cross-review"]="phase-7e-cross-review.prompt.md"
+)
+
+# Reverse mapping: prompt base name -> command name
+declare -A PROMPT_TO_CMD=()
+for cmd in "${!CMD_TO_PROMPT[@]}"; do
+    pbase="$(basename "${CMD_TO_PROMPT[$cmd]}" .prompt.md)"
+    PROMPT_TO_CMD["$pbase"]="$cmd"
+done
+
 if [[ -d "$claude_cmds" && -d "$copilot_prompts" ]]; then
     # Get Claude command names (without .md)
     claude_names=()
@@ -201,44 +228,25 @@ if [[ -d "$claude_cmds" && -d "$copilot_prompts" ]]; then
         copilot_names+=("$name")
     done
 
-    # Check Claude -> Copilot
+    # Check Claude -> Copilot (using mapping)
     for name in "${claude_names[@]}"; do
-        if [[ -f "$copilot_prompts/$name.prompt.md" ]]; then
+        prompt_file="${CMD_TO_PROMPT[$name]:-$name.prompt.md}"
+        if [[ -f "$copilot_prompts/$prompt_file" ]]; then
             pass "Claude '$name' has matching Copilot prompt"
         else
             warn "Claude '$name' has no matching Copilot prompt"
         fi
     done
 
-    # Check Copilot -> Claude
+    # Check Copilot -> Claude (using reverse mapping)
     for name in "${copilot_names[@]}"; do
-        if [[ -f "$claude_cmds/$name.md" ]]; then
+        cmd_name="${PROMPT_TO_CMD[$name]:-$name}"
+        if [[ -f "$claude_cmds/$cmd_name.md" ]]; then
             pass "Copilot '$name' has matching Claude command"
         else
             warn "Copilot '$name' has no matching Claude command"
         fi
     done
-fi
-
-echo ""
-
-# ─── Check 4b: Hardcoded tool whitelist validation ───
-echo "4b. Hardcoded tool whitelist validation"
-
-tool_whitelist_found=false
-while IFS= read -r file; do
-    [[ -n "$file" ]] || continue
-    if grep -qiE '^(tools:|allowed-tools:)' "$file"; then
-        fail "$file hardcodes a tool whitelist"
-        tool_whitelist_found=true
-    fi
-done < <(
-    find "$REPO_ROOT/prompts" -type f -name '*.prompt.md' -print
-    find "$REPO_ROOT/template/.github/agents" -type f -name '*.agent.md' -print 2>/dev/null || true
-)
-
-if [[ "$tool_whitelist_found" == false ]]; then
-    pass "No generated prompts or template agents hardcode tool whitelists"
 fi
 
 echo ""

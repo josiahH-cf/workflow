@@ -25,16 +25,6 @@
       "Bash(mkdir *)",
       "Bash(cp *)",
       "Bash(mv *)"
-    ],
-    "deny": [
-      "Bash(rm -rf *)",
-      "Bash(git push --force*)",
-      "Bash(git push -f*)",
-      "Bash(git checkout main)",
-      "Bash(git checkout master)",
-      "Bash(chmod 777*)",
-      "Bash(curl * | bash*)",
-      "Bash(wget * | bash*)"
     ]
   },
   "hooks": {
@@ -43,12 +33,6 @@
         "matcher": "Edit|Write|MultiEdit",
         "command": "if command -v npx >/dev/null 2>&1 && [ -f package.json ]; then npx prettier --write \"$FILEPATH\" 2>/dev/null || true; fi",
         "timeout": 15000
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Edit|Write|MultiEdit",
-        "command": "# Block edits to protected files\ncase \"$FILEPATH\" in\n  */.env|*/.env.*) echo 'BLOCKED: .env files are protected' && exit 1 ;;\n  */.git/*) echo 'BLOCKED: .git/ is protected' && exit 1 ;;\n  */.specify/constitution.md) echo 'BLOCKED: constitution.md is protected — use /compass-edit' && exit 1 ;;\nesac"
       }
     ],
     "Stop": [

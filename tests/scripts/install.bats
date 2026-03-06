@@ -30,7 +30,7 @@ teardown() {
   [ "$status" -eq 0 ]
   [ -f "$WORKDIR/target/AGENTS.md" ]
   [ -f "$WORKDIR/target/meta-prompts/admin/initialization.md" ]
-  [ -f "$WORKDIR/target/.github/prompts/compass.prompt.md" ]
+  [ -f "$WORKDIR/target/.github/prompts/phase-2-compass.prompt.md" ]
 }
 
 @test "install.sh --with-prompts --with-meta-prompts still works as no-ops" {
@@ -39,7 +39,7 @@ teardown() {
   [ "$status" -eq 0 ]
   [ -f "$WORKDIR/target/AGENTS.md" ]
   [ -f "$WORKDIR/target/meta-prompts/admin/initialization.md" ]
-  [ -f "$WORKDIR/target/.github/prompts/compass.prompt.md" ]
+  [ -f "$WORKDIR/target/.github/prompts/phase-2-compass.prompt.md" ]
 }
 
 @test "install.sh --minimal skips prompts and meta-prompts" {
