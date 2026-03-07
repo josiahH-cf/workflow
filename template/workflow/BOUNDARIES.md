@@ -14,7 +14,7 @@
 
 ### Recommended Review Points
 
-These are areas where extra awareness helps — not approval gates:
+These are areas where extra awareness helps — not approval gates. All items below use the **Suggest** advisory tier (see `workflow/ROUTING.md → Advisory Tier Reference`):
 
 - Adding new dependencies
 - Modifying CI workflows

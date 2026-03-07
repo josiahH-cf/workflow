@@ -66,6 +66,19 @@ Not everything can be resolved in one interview. Explicitly document:
 
 - `.specify/constitution.md` — project identity document with theme-based sections and ambiguity tracking
 - `AGENTS.md → Overview` — one-paragraph project description
+- `workflow/STATE.json → advisoryProfile` — auto-detected from interview signals (see below)
+
+### Advisory Profile Detection
+
+At the end of the Compass interview, set `advisoryProfile` in `workflow/STATE.json` based on observed signals:
+
+| Signal | Profile |
+|--------|---------|
+| Simple project, experienced user, few ambiguities | `concise` |
+| Moderate complexity, mixed signals | `standard` |
+| Complex project, many unknowns, first-time user, detailed questions asked | `detailed` |
+
+If signals are unclear, default to `standard`. The user can override at any time ("switch to concise/detailed").
 
 ### Ownership Boundary
 

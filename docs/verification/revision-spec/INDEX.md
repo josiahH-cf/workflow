@@ -25,6 +25,7 @@ Purpose: map every finding to a standalone goal spec and linked execution meta-p
 | RS-017 | docs/verification/revision-spec/RS-017-context-sensitive-advisory-guidance.md | docs/verification/revision-meta-prompts/17-context-sensitive-advisory-guidance.md | Always-on advisory context-sensitive guidance behavior |
 | RS-018 | docs/verification/revision-spec/RS-018-generated-surface-clutter-mitigation.md | docs/verification/revision-meta-prompts/18-generated-surface-clutter-mitigation.md | Cleaner generated project surface and clutter mitigation |
 | RS-019 | docs/verification/revision-spec/RS-019-cross-review-suggestion-tone.md | docs/verification/revision-meta-prompts/19-cross-review-suggestion-tone.md | Minimal optional new-window/terminal suggestions in late phases |
+| RS-020 | docs/verification/revision-spec/RS-020-workflow-diagram-update.md | docs/verification/revision-meta-prompts/20-workflow-diagram-update.md | Update workflow diagram to reflect Phase 7a (Review Bot), auto-merge, findings re-entry |
 
 ## Final Audit Link
 - Completeness meta-prompt: `docs/verification/revision-meta-prompts/phase-x-completeness-audit.md`

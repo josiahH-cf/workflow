@@ -4,10 +4,12 @@ This document defines how an agent executes work from spec to merged PR.
 
 ## Global Rules
 
+> These rules are **Recommend** tier (see `workflow/ORCHESTRATOR.md → Advisory Tiers`). Agents should follow them by default but may adapt when context justifies deviation.
+
 - Work from a single feature ID at a time.
 - Keep branch scope aligned to the spec's Affected Areas.
-- Record non-obvious decisions in `/decisions/` before continuing.
-- Move forward only when the current phase gate is satisfied.
+- Recommended: Record non-obvious decisions in `/decisions/` before continuing.
+- Move forward only when the current phase gate is satisfied (verify via PLAYBOOK gates below).
 - Reference `.specify/constitution.md` for alignment on all design decisions.
 
 ## Project-Level Phase Gates
@@ -19,8 +21,10 @@ This document defines how an agent executes work from spec to merged PR.
 | Scaffold Project | Feature specs | `workflow/COMMANDS.md` Code Conventions + Core Commands | Neither section contains `[PROJECT-SPECIFIC]` |
 | Fine-tune Plan | Architecture plan | `/tasks/[feature-id]-[slug].md` files + ordered AC/task/model/branch mappings | Every active spec has a matching task file; all ACs mapped to tasks |
 | Code | Fine-tuned specs + task files + pre-tests | Passing code on feature branch | All tasks marked Complete, tests pass |
-| Test | Implementation | Verified ACs, bug log reviewed | No blocking bugs, all ACs pass in `/test post` mode |
+| Test | Implementation | Verified ACs, bug log reviewed | No blocking bugs, all ACs pass in `/test post` mode; `scripts/workflow-lint.sh` run (advisory — non-blocking; uses Suggest tier) |
+| Review Bot | Post-test pass | Auto-merged PR or findings file | All rubric categories PASS, tests PASS, lint PASS → auto-merge; any FAIL → findings file written, route back to Code |
 | Maintain | Shipped features | Maintenance mode active (level selected) | Maintenance level recorded in STATE.json; all items for selected level completed |
+| Operationalize | Maintenance level selected + interview answers | `.github/maintenance-config.yml` + generated GitHub Actions workflows | Config file records all interview decisions; at least one workflow generated per enabled category; notification routing configured; all workflow YAML valid |
 
 ## Feature-Level Phase Contract
 
@@ -31,9 +35,11 @@ This document defines how an agent executes work from spec to merged PR.
 | Test (`pre`) | Task file + spec | Failing tests committed | At least one failing test per criterion |
 | Implement | Failing tests + task file | Passing code commits | Task statuses updated with evidence |
 | Test (`post`) | Implemented feature + task file + spec | AC verification report + bug entries | All ACs verified or logged as bugs |
-| Review | Spec + task file + diff + post-test report | PASS/FAIL review report | All criteria have passing test evidence |
-| PR | Review PASS | Open PR with required checklist | CI and policy checks green |
-| Merge | Approved PR | Merged branch + cleanup | Human merge approval or repo policy approval |
+| Bot Review | Post-test pass + spec + task file + diff | Rubric review report | All 6 rubric categories PASS, tests PASS, lint PASS |
+| Auto-Merge (bot) | Bot review PASS | Committed, pushed, merged PR | PR squash-merged, branch deleted, feature labeled `status:done` |
+| Review (manual) | Bot review FAIL or manual override | PASS/FAIL review report | All criteria have passing test evidence |
+| PR | Review PASS (bot or manual) | Open PR with required checklist | CI and policy checks green; lint report reviewed (advisory) |
+| Merge | Approved PR | Merged branch + cleanup | Bot auto-merge or human merge approval |
 
 ## Definition of Done
 

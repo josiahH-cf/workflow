@@ -57,12 +57,12 @@ body:
   - type: dropdown
     id: assigned-model
     attributes:
-      label: Assigned Model
-      description: Which agent should handle this?
+      label: Suggested Agent
+      description: Which agent should handle this? (advisory — any agent can do any task)
       options:
-        - claude — Complex reasoning, multi-file changes
-        - copilot — UI work, iterative design, documentation
-        - codex — Batch operations, migrations, CI/CD
-        - auto — Let routing matrix decide
+        - claude — Tends to excel at complex reasoning, multi-file changes
+        - copilot — Tends to excel at UI work, iterative design, documentation
+        - codex — Tends to excel at batch operations, migrations, CI/CD
+        - any — No preference
     validations:
       required: true

@@ -110,6 +110,11 @@ if task_file:
     p = Path(task_file.lstrip('/'))
     if not p.exists():
         raise SystemExit(f"workflow/STATE.json currentTaskFile does not exist: {task_file}")
+
+# Validate advisoryProfile if present
+advisory = state.get("advisoryProfile", "")
+if advisory and advisory not in ("concise", "standard", "detailed"):
+    raise SystemExit(f"workflow/STATE.json has invalid advisoryProfile: {advisory}")
 PY
 
 # Spec/task parity checks.

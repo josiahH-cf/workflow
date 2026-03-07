@@ -8,7 +8,7 @@ Canonical entrypoint for all coding agents. Read this first, then follow links t
 
 ## Workflow Phases
 
-The project lifecycle follows 8 phases plus a parallel Bug Track.
+The project lifecycle follows 9 phases plus a parallel Bug Track.
 
 ### Phase 1 — Scaffold Import
 - **Entry:** Run `initialization.md` meta-prompt
@@ -38,31 +38,46 @@ The project lifecycle follows 8 phases plus a parallel Bug Track.
 
 ### Phase 7 — Test
 - **Entry:** Claude: `/test` · Copilot: `phase-7-test.prompt.md`
-- **Gate:** Implementation on feature branch → **Output:** Test results, bug log → **Next:** Phase 7b
+- **Gate:** Implementation on feature branch → **Output:** Test results, bug log → **Next:** Phase 7a
 
-### Phase 7b — Review & Ship
+### Phase 7a — Review Bot (Default Merge Path)
+- **Entry:** Claude: `/review-bot` · Copilot: `phase-7a-review-bot.prompt.md`
+- **Automatic:** `/continue` dispatches here after tests pass — no manual trigger needed
+- **On-demand:** `/review-bot` to run manually at any time
+- **Gate:** All ACs pass → **Output:** Auto-merged PR (on PASS) or findings file at `/reviews/[feature-id]-bot-findings.md` (on FAIL) → **Next:** Phase 8 or next feature (on PASS); back to Phase 6 (on FAIL)
+- **Agent:** `.github/agents/review-bot.agent.md` — prefer a different model than the implementer (advisory)
+
+### Phase 7b — Review & Ship (Manual Fallback)
 - **Entry:** Claude: `/review-session` · Copilot: `phase-7d-review-session.prompt.md`
 - **Optional:** `/cross-review` — second-opinion review from a different agent
+- **Use when:** Manual human review is desired (security-critical, architectural changes)
 - **Gate:** All ACs pass → **Output:** Approved PR merged → **Next:** Phase 8 or next feature
 
 ### Phase 8 — Maintain
 - **Entry:** Claude: `/maintain` · Copilot: `phase-8-maintain.prompt.md`
-- **Gate:** Feature shipped → **Output:** Updated docs, compliance report → **Next:** Next cycle
+- **Gate:** Feature shipped → **Output:** Updated docs, compliance report → **Next:** Phase 9 or next cycle
+
+### Phase 9 — Operationalize
+- **Entry:** Claude: `/operationalize` · Copilot: `phase-9-operationalize.prompt.md`
+- **Gate:** Maintenance level selected → **Output:** `.github/maintenance-config.yml` + generated GitHub Actions workflows → **Next:** Ongoing (re-enterable)
+- **Interview:** Covers lint schedule, docs compliance, release publishing, dependency monitoring, security scanning, notification routing, automation depth
+- **Re-entry:** Run `/operationalize` again to update existing config — no duplication
 
 ### Bug Track (Parallel)
 - **Entry:** Claude: `/bug` · Copilot: `phase-7b-bug.prompt.md` — invoke from any phase
 - **Fix flow:** `/bugfix` — reproduce → diagnose → fix → verify → PR
 
 ### Orchestrator
-- **Entry:** Claude: `/continue` · Copilot: `phase-9-continue.prompt.md`
-- `/continue` is the **orchestrator**, not a direct implementation command. It reads `workflow/STATE.json`, determines the next action (including bug-routing), dispatches to the appropriate phase command, and auto-advances. At Phase 6 it delegates to `/implement`.
+- **Entry:** Claude: `/continue` · Copilot: `phase-10-continue.prompt.md`
+- `/continue` is the **orchestrator**, not a direct implementation command. It reads `workflow/STATE.json`, determines the next action (including bug-routing), dispatches to the appropriate phase command, and auto-advances through phases 2–9. At Phase 6 it delegates to `/implement`.
 - See `workflow/ORCHESTRATOR.md` for the loop contract
 
 ## Quick Reference
 
 | Section | Reference |
 |---------|-----------|
-| Agent routing, branches, concurrency | `workflow/ROUTING.md` |
+| Advisory routing hints, branches, concurrency | `workflow/ROUTING.md` |
+| Advisory tier model and context-sensitive guidance | `workflow/ORCHESTRATOR.md → Context-Sensitive Advisory Guidance` |
 | Concurrency safety, drift detection | `workflow/CONCURRENCY.md` |
 | Build/test/lint commands, code conventions | `workflow/COMMANDS.md` |
 | Boundaries (best practices, review points, avoid patterns), bug tracking | `workflow/BOUNDARIES.md` |

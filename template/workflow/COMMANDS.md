@@ -15,6 +15,8 @@ These values are set with initial values during Phase 1 (initialization) and fin
 | Lint | `[PROJECT-SPECIFIC]` |
 | Format | `[PROJECT-SPECIFIC]` |
 | Type-check | `[PROJECT-SPECIFIC]` |
+| Lint (workflow) | `scripts/workflow-lint.sh` |
+| Review Bot | `/review-bot` (Claude) or `phase-7a-review-bot.prompt.md` (Copilot) |
 
 ## Code Conventions
 

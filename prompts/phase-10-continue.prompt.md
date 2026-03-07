@@ -2,7 +2,7 @@
 agent: agent
 description: 'Orchestrate phases deterministically using workflow/STATE.json'
 ---
-<!-- role: derived | canonical-source: meta-prompts/phase-9-continue.md -->
+<!-- role: derived | canonical-source: meta-prompts/phase-10-continue.md -->
 <!-- generated-from-metaprompt -->
 
 [AGENTS.md](../../AGENTS.md)
@@ -19,7 +19,7 @@ See `workflow/ORCHESTRATOR.md` for the full loop contract.
 
 ## Scope
 
-Manage project phases 2-8 only. If scaffold files are missing, stop and instruct the developer to initialize scaffold first.
+Manage project phases 2-9 only. If scaffold files are missing, stop and instruct the developer to initialize scaffold first.
 
 ## Session Bootstrap
 
@@ -37,10 +37,11 @@ Only then begin execution. This prevents context drift between sessions.
 Primary source of truth: `/workflow/STATE.json`
 
 Expected fields:
-- `projectPhase` (`2-compass`, `3-define-features`, `4-scaffold-project`, `5-fine-tune-plan`, `6-code`, `7-test`, `7b-review-ship`, `8-maintain`)
+- `projectPhase` (`2-compass`, `3-define-features`, `4-scaffold-project`, `5-fine-tune-plan`, `6-code`, `7-test`, `7b-review-ship`, `8-maintain`, `9-operationalize`)
 - `currentFeatureId`
 - `currentTaskFile`
 - `testMode` (`pre`, `implement`, `post`)
+- `advisoryProfile` (`concise`, `standard`, `detailed`, or empty — see `workflow/ORCHESTRATOR.md → Context-Sensitive Advisory Guidance`)
 - `updatedAt`
 - `schemaVersion` (optional, if present must be numeric)
 
@@ -86,7 +87,8 @@ This ensures the "next right action" always prioritizes unresolved blockers over
 | `6-code` + `testMode=implement` | Check bug log (Step 2b): resolve blocking bugs via `/bugfix` first. Then run `/implement` with `currentTaskFile` until tasks complete; then set `projectPhase=7-test`, `testMode=post`. |
 | `7-test` + `testMode=post` | Run `/test post`; if all ACs pass and no blocking bugs set `projectPhase=7b-review-ship`. |
 | `7b-review-ship` | Run `/review-session`, `/cross-review`; if incomplete task files remain set `projectPhase=6-code`, `testMode=pre`, and move to next feature; otherwise set `projectPhase=8-maintain`. |
-| `8-maintain` | Run `/maintain` with selected level; maintenance is ongoing — remain at `projectPhase=8-maintain`. |
+| `8-maintain` | Run `/maintain` with selected level; when maintenance pass complete and automation not yet configured, set `projectPhase=9-operationalize`. |
+| `9-operationalize` | Run `/operationalize`; when interview complete and workflows generated, remain at `9-operationalize` (re-enterable) or return to `8-maintain` for ongoing mode. |
 
 Persist `workflow/STATE.json` after every transition.
 
@@ -120,11 +122,13 @@ After completing a phase action and persisting the state transition:
 
 1. Increment the session transition counter (initialized to 0 at session start)
 2. Emit progress: `[ORCHESTRATOR] Phase X → Phase Y | Feature: [id] | Transitions: N/10`
-3. Re-read `workflow/STATE.json`
-4. If `projectPhase` is `8-maintain` and current maintenance pass is complete, report status and stop
-5. If any stop condition is met, stop and report
-6. If transition counter >= 10, stop and report (safety valve)
-7. Otherwise, continue to the next phase (go to Step 2: Resolve Active Feature)
+3. **Advisory callout** (every 3rd transition or start of a new feature cycle): emit `[ADVISORY] Profile: <advisoryProfile> | Phase: <phase> | Tip: <context-relevant suggestion>`. If context signals suggest the profile should shift (e.g., user is experienced and profile is still `detailed`), append: `(profile shift available — say "switch to <profile>" to change)`. See `workflow/ORCHESTRATOR.md → Context-Sensitive Advisory Guidance`.
+4. Re-read `workflow/STATE.json`
+5. If `projectPhase` is `9-operationalize` and automation configuration is complete, report status and stop
+6. If `projectPhase` is `8-maintain` and current maintenance pass is complete, check if automation is configured; if not prompt for Phase 9
+7. If any stop condition is met, stop and report
+8. If transition counter >= 10, stop and report (safety valve)
+9. Otherwise, continue to the next phase (go to Step 2: Resolve Active Feature)
 
 This makes `/continue` self-sustaining rather than one-shot.
 

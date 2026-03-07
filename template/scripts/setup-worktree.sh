@@ -2,11 +2,13 @@
 set -euo pipefail
 
 # Setup a git worktree for parallel agent work.
-# Usage: scripts/setup-worktree.sh <model> <type> <description>
+# Usage: scripts/setup-worktree.sh <agent> <type> <description>
 # Example: scripts/setup-worktree.sh claude feat auth-flow
+#          scripts/setup-worktree.sh agent-1 feat auth-flow
 #
-# Creates: .trees/<model>-<type>-<description>/
-# Branch: <model>/<type>-<description>
+# Creates: .trees/<agent>-<type>-<description>/
+# Branch: <agent>/<type>-<description>
+# Agent: any identifier (claude, copilot, codex, agent-1, user name, etc.)
 
 # --list: inventory of all active worktrees
 if [[ "${1:-}" == "--list" ]]; then
@@ -61,8 +63,8 @@ if [[ "${1:-}" == "--cleanup" ]]; then
 fi
 
 if [[ $# -lt 3 ]]; then
-  echo "Usage: $0 <model> <type> <description>"
-  echo "  model:       claude | copilot | codex"
+  echo "Usage: $0 <agent> <type> <description>"
+  echo "  agent:       any identifier (e.g., claude, copilot, codex, agent-1, your name)"
   echo "  type:        feat | bug | refactor | chore | docs"
   echo "  description: 2-4 word kebab-case summary"
   echo ""
@@ -71,16 +73,17 @@ if [[ $# -lt 3 ]]; then
   echo "  --cleanup   Remove worktrees with merged branches"
   echo ""
   echo "Example: $0 claude feat auth-flow"
+  echo "         $0 agent-1 feat auth-flow"
   exit 1
 fi
 
-MODEL="$1"
+AGENT="$1"
 TYPE="$2"
 DESC="$3"
 
-# Validate model
-if [[ ! "$MODEL" =~ ^(claude|copilot|codex)$ ]]; then
-  echo "Error: model must be claude, copilot, or codex (got: $MODEL)"
+# Validate agent identifier (alphanumeric, hyphens, underscores)
+if [[ ! "$AGENT" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+  echo "Error: agent must contain only alphanumeric characters, hyphens, or underscores (got: $AGENT)"
   exit 1
 fi
 
@@ -90,8 +93,8 @@ if [[ ! "$TYPE" =~ ^(feat|bug|refactor|chore|docs)$ ]]; then
   exit 1
 fi
 
-BRANCH="${MODEL}/${TYPE}-${DESC}"
-WORKTREE_DIR=".trees/${MODEL}-${TYPE}-${DESC}"
+BRANCH="${AGENT}/${TYPE}-${DESC}"
+WORKTREE_DIR=".trees/${AGENT}-${TYPE}-${DESC}"
 
 # Check if worktree already exists
 if [[ -d "$WORKTREE_DIR" ]]; then

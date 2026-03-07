@@ -1,47 +1,100 @@
-## Summary
+# Pull Request
 
-<!-- One paragraph: what changed and why. Link to the issue. -->
+## What
 
-Closes #[ISSUE_NUMBER]
+<!-- One sentence: what does this PR do? -->
 
-## Change Type
+## Feature Linkage
 
-- [ ] Feature (new functionality)
-- [ ] Bug fix (non-breaking fix)
-- [ ] Refactor (no behavior change)
-- [ ] Documentation
-- [ ] CI/Infrastructure
+- Feature ID: [issue-id]-[slug]
+- Spec: /specs/[feature-id]-[slug].md
+- Tasks: /tasks/[feature-id]-[slug].md
+- Decisions (if any): /decisions/[NNNN]-[slug].md
 
-## Acceptance Criteria Evidence
+## Why
 
-<!-- Copy ACs from spec. Mark each with test evidence. -->
+<!-- Link to spec: /specs/[feature-name].md -->
 
-| AC | Criterion | Test | Result |
-|----|-----------|------|--------|
-| AC-1 | [description] | [test file::test name] | PASS / FAIL |
-| AC-2 | [description] | [test file::test name] | PASS / FAIL |
-| AC-3 | [description] | [test file::test name] | PASS / FAIL |
+## Changes
 
-## Checklist
+<!-- Bullet list of logical changes, grouped by area -->
 
-### Required (all must be checked)
-- [ ] Linked to an issue or spec
-- [ ] All acceptance criteria have corresponding tests
-- [ ] All tests pass (`[PROJECT-SPECIFIC test command]`)
-- [ ] Lint passes (`[PROJECT-SPECIFIC lint command]`)
-- [ ] No files modified outside spec scope
-- [ ] No secrets or `.env` files committed
-- [ ] Branch follows naming convention (`model/type-description`)
+## Testing
 
-### Review
-- [ ] Self-reviewed the diff
-- [ ] AI review requested (or `@claude` mentioned)
-- [ ] One human approval obtained
+- [ ] All acceptance criteria from the spec have corresponding tests
+- [ ] All tests pass locally
+- [ ] No existing tests were modified to accommodate new behavior
+- [ ] Linting and formatting checks pass
 
-## Rollback Plan
+## Criteria Coverage
 
-<!-- How to revert if this causes issues in production -->
+<!-- Map acceptance criteria to test evidence -->
 
-## Notes
+- AC-1 -> [test/suite name]
+- AC-2 -> [test/suite name]
+- AC-3 -> [test/suite name]
 
-<!-- Anything the reviewer should know that isn't obvious from the diff -->
+## Non-Code Checks
+
+- [ ] Spec acceptance criteria are all addressed (compare spec vs task completion)
+- [ ] Diff is under 300 lines
+- [ ] No files changed outside the declared scope (compare "Affected Areas" in spec vs files in diff)
+- [ ] Commit messages reference the spec or task file
+- [ ] No TODOs or placeholder text in the diff
+- [ ] No new dependencies added without justification
+- [ ] Rollback path is documented below
+
+## Verification
+
+<!-- How can a reviewer verify beyond reading the diff? -->
+
+- Commands run:
+  - [install/build/lint/test commands]
+- Evidence summary:
+  - [what passed, where to find output]
+
+## Rollback
+
+<!-- Special steps beyond git revert? If none, write "Standard revert." -->
+
+---
+
+## Spec Reference
+
+- Constitution alignment: <!-- Which constitution capability does this serve? -->
+- Feature spec: `/specs/[feature-id]-[slug].md`
+- Task breakdown: `/tasks/[feature-id]-[slug].md`
+
+## AC Evidence
+
+<!-- Map each acceptance criterion to its test and result -->
+
+| AC ID | Description | Test | Result |
+|-------|-------------|------|--------|
+| AC-1 | | | PASS/FAIL |
+| AC-2 | | | PASS/FAIL |
+
+## Agent & Branch
+
+- Implementing agent: <!-- any agent identifier (e.g., claude, copilot, codex, agent-1) -->
+- Branch: <!-- agent/type-short-description -->
+- Reviewing agent: <!-- suggest a different model than implementer (advisory) -->
+
+## Review Checklist
+
+Per [REVIEW_RUBRIC.md](/.github/REVIEW_RUBRIC.md):
+
+- [ ] Correctness: All ACs met
+- [ ] Test Coverage: Every AC has a test
+- [ ] Security: No secrets, inputs validated, no injection vectors
+- [ ] Performance: No obvious perf issues
+- [ ] Style: Matches project conventions, linter clean
+- [ ] Documentation: Spec updated if behavior changed, decisions logged
+
+## Bug Log
+
+<!-- List any bugs discovered or fixed during this PR -->
+
+- [ ] No new bugs discovered
+- Bugs found: <!-- BUG-NNN references -->
+- Bugs fixed: <!-- BUG-NNN references -->

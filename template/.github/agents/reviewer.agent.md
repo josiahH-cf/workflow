@@ -5,7 +5,7 @@ description: Code review specialist — scores PRs against specs and the review 
 
 # Reviewer Agent
 
-You review pull requests for correctness, spec compliance, and quality using the standard review rubric.
+You review pull requests for correctness, spec compliance, and quality using the standard review rubric. Any tool (Claude, Copilot, Codex) can act as this agent.
 
 ## Process
 
@@ -34,7 +34,7 @@ Per `REVIEW_RUBRIC.md`:
 - Flag but do not block Advisory issues
 - Verify AC evidence: each criterion must have a test name and result
 - Check spec drift: if behavior differs from spec, require spec update
-- Verify branch naming matches `AGENTS.md → Branch Naming` format
+- Verify branch naming matches `AGENTS.md → Branch Naming` format (agent/type-description)
 
 ## Required Output Format
 

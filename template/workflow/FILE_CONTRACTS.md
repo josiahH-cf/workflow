@@ -10,6 +10,7 @@
 /tasks/[feature-id]-[slug].md        ← one per feature (authoritative execution artifact; created in Phase 5+)
 /decisions/[NNNN]-[slug].md          ← architecture choices (any phase)
 /bugs/LOG.md                         ← append-only bug log (any phase)
+/reviews/[feature-id]-bot-findings.md ← bot review findings (Phase 7a, on FAIL only)
 /.codex/PLANS.md                     ← Codex long-run execution plan (Phase 6+)
 /workflow/STATE.json                 ← orchestration state for /continue
 ```
@@ -36,11 +37,14 @@ Machine-readable behavior starts with stable artifact contracts.
 | `/decisions/[NNNN]-[slug].md` | Builder/reviewer/human | Non-obvious forks or conflicts | Trigger, options, decision, consequences, rollback impact | Decision linked from task/spec when needed |
 | `/bugs/LOG.md` | Any agent via `/bug` | Bug discovered in any phase | BUG-NNN, description, location, phase, severity, expected, actual, status | Sequential BUG-NNN IDs, status field present |
 | `/.codex/PLANS.md` (instance copy) | Builder agent | Long-run execution only | Milestones, verification, progress | Milestones map to task IDs |
-| `/workflow/STATE.json` | Orchestrator (`/continue`) | Phase transitions and task selection | `projectPhase`, `currentFeatureId`, `currentTaskFile`, `testMode`, `maintenanceLevel`, `updatedAt` (`schemaVersion` optional) | Valid JSON and phase/task references resolve; `maintenanceLevel` is one of `light`, `standard`, `deep`, or empty |
+| `/workflow/STATE.json` | Orchestrator (`/continue`) | Phase transitions and task selection | `projectPhase`, `currentFeatureId`, `currentTaskFile`, `testMode`, `maintenanceLevel`, `advisoryProfile`, `activeClaims`, `updatedAt` (`schemaVersion` optional) | Valid JSON and phase/task references resolve; `maintenanceLevel` is one of `light`, `standard`, `deep`, or empty; `advisoryProfile` is one of `concise`, `standard`, `detailed`, or empty; `activeClaims` is an array of objects with `taskFile`, `agent`, `claimedAt`, `lockedFiles` |
 | Review report in PR body | Reviewer agent | Review phase | PASS/FAIL per criterion + scope checks + rubric scores | No unchecked criterion |
-| `workflow/ROUTING.md` | Human maintainer | Agent model changes | Routing matrix, branch format, concurrency rules | Tables present and non-empty |
+| `/reviews/[feature-id]-bot-findings.md` | Review bot agent | Bot review FAIL | Date, feature ID, verdict, rubric scores (6 categories), AC results, issues list with file:line references, re-entry instructions | All issues have category + location + fix description; links to spec, task, and rubric are valid |
+| `workflow/ROUTING.md` | Human maintainer | Agent model changes | Advisory routing hints, branch format, concurrency rules, multi-agent claim protocol | Tables present and non-empty; no enforced model-to-task bindings |
 | `workflow/COMMANDS.md` | Phase 1 initial; Scaffold (Phase 4) finalizes | Phase 1 (initial values), Phase 4 (architecture-refined) | Command table, conventions | No `[PROJECT-SPECIFIC]` after Phase 4 |
 | `workflow/BOUNDARIES.md` | Human maintainer | Policy changes | Best Practices, Recommended Review Points, Avoid sections | All three sections present |
+| `workflow/LINT_CONTRACT.md` | Human maintainer | Lint rule changes | Lint categories, check definitions, output format, non-mutation guarantee | All four categories defined |
+| `workflow/LINT_REPORT.md` | `scripts/workflow-lint.sh` | Each lint run | Timestamp, findings by category, summary counts | Generated file; not manually edited |
 
 ## Linkage Rules
 

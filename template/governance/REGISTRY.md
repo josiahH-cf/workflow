@@ -15,6 +15,7 @@ This registry defines the authority and ownership of scaffold policy files.
 | `/workflow/ROUTING.md` | Agent routing, branch naming, concurrency | Human maintainer |
 | `/workflow/COMMANDS.md` | Build/test/lint commands, code conventions | Human maintainer |
 | `/workflow/BOUNDARIES.md` | Behavioral boundaries, bug tracking format | Human maintainer |
+| `/workflow/LINT_CONTRACT.md` | Lint check definitions and output contract | Human maintainer |
 | `/workflow/CONCURRENCY.md` | Concurrency safety, drift detection, decomposition strategies | Human maintainer |
 | `/workflow/ORCHESTRATOR.md` | Autonomous loop contract (session bootstrap, phase transitions) | Human maintainer |
 | `/governance/CHANGE_PROTOCOL.md` | Policy mutation rules | Human maintainer |
@@ -23,8 +24,7 @@ This registry defines the authority and ownership of scaffold policy files.
 | `/.specify/spec-template.md` | Feature spec template | Human maintainer |
 | `/.specify/acceptance-criteria-template.md` | AC format reference (EARS + GWT) | Human maintainer |
 | `/.github/REVIEW_RUBRIC.md` | Review scoring rubric (6 categories) | Human maintainer |
-| `/.github/pull_request_template.md` | PR template (extended sections) | Human maintainer |
-| `/.github/PULL_REQUEST_TEMPLATE.md` | PR template (GitHub default location) | Human maintainer |
+| `/.github/PULL_REQUEST_TEMPLATE.md` | PR template (GitHub default location, extended sections) | Human maintainer |
 | `/bugs/LOG.md` | Bug tracking log | Any agent (via `/bug`) |
 
 ## Adapter Files (Non-Canonical)
@@ -44,6 +44,7 @@ Adapters may add tool-specific mechanics but must not redefine canonical workflo
 - `/scripts/setup-worktree.sh` — Worktree creation, inventory, and cleanup
 - `/scripts/clash-check.sh` — Pre-write conflict detection between worktrees
 - `/scripts/policy-check.sh` — Policy validation script
+- `/scripts/workflow-lint.sh` — Non-destructive workflow artifact linting
 
 ## Agent Definition Files
 

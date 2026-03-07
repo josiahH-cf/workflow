@@ -6,8 +6,8 @@
 
 - Read `../AGENTS.md` at the start of every task for routing, conventions, and boundaries
 - Use `../.specify/constitution.md` as the project identity reference
-- Follow the Agent Routing Matrix in `../workflow/ROUTING.md` for model assignment
-- Follow branch naming conventions in `../workflow/ROUTING.md`: `codex/type-short-description`
+- Consult advisory routing hints in `../workflow/ROUTING.md` when choosing tasks (any agent can do any task)
+- Follow branch naming conventions in `../workflow/ROUTING.md`: `agent/type-short-description` (where agent is any identifier)
 
 ## Execution Mode
 

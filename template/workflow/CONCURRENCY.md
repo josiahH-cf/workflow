@@ -10,10 +10,11 @@ Redesign the task decomposition until each agent has exclusive file ownership.
 
 ## Worktree Isolation
 
-Every agent gets an isolated worktree via `scripts/setup-worktree.sh <model> <type> <description>`.
+Every agent gets an isolated worktree via `scripts/setup-worktree.sh <agent> <type> <description>`.
 
-- Directory: `.trees/<model>-<type>-<description>/`
-- Branch: `<model>/<type>-<description>`
+- Directory: `.trees/<agent>-<type>-<description>/`
+- Branch: `<agent>/<type>-<description>`
+- Agent identifier: any label (e.g., `claude`, `copilot`, `codex`, `agent-1`, a user name)
 - Max parallel agents: 3 (configurable in this file)
 - Inventory: `scripts/setup-worktree.sh --list`
 - Cleanup: `scripts/setup-worktree.sh --cleanup`
@@ -41,12 +42,14 @@ Group files by import relationships; assign each group to one agent.
 - ✅ Respects natural code boundaries
 - ❌ Complex for highly interconnected codebases
 
-### Strategy 4: Role-Based Routing
+### Strategy 4: Advisory Strength-Based Routing
 
-Use the Agent Routing Matrix in `workflow/ROUTING.md`:
-- Claude: complex reasoning, refactoring, bug diagnosis
-- Copilot: UI work, documentation, boilerplate
-- Codex: batch operations, migrations, CI/CD
+Consult the advisory routing hints in `workflow/ROUTING.md` when deciding which agent to assign to a task. Any agent can perform any task, but model strengths may inform the choice:
+- Claude tends to excel at complex reasoning, refactoring, bug diagnosis
+- Copilot tends to excel at UI work, documentation, boilerplate
+- Codex tends to excel at batch operations, migrations, CI/CD
+
+These are suggestions, not constraints.
 
 ## Drift Detection
 
@@ -61,7 +64,7 @@ Use the Agent Routing Matrix in `workflow/ROUTING.md`:
 ### Detection
 - Post-merge, run full test suite (catches behavioral conflicts)
 - Review merged code for contradictory patterns
-- Track which agents modified which files across branches
+- Track which agents modified which files across branches (check `activeClaims` in STATE.json)
 
 ## Safety Limits
 

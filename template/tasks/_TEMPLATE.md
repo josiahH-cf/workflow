@@ -28,7 +28,7 @@
 - **Test File:** [test file covering this task's criteria]
 - **Done when:** [one sentence]
 - **Criteria covered:** [AC-1, AC-2]
-- **Branch:** [model/type-short-description]
+- **Branch:** [agent/type-short-description]
 - **Status:** [ ] Not started
 
 ### T-2: [name]
@@ -37,7 +37,7 @@
 - **Test File:** [test file covering this task's criteria]
 - **Done when:** [one sentence]
 - **Criteria covered:** [AC-*]
-- **Branch:** [model/type-short-description]
+- **Branch:** [agent/type-short-description]
 - **Status:** [ ] Not started
 
 ### T-3: [name]
@@ -46,7 +46,7 @@
 - **Test File:** [test file covering this task's criteria]
 - **Done when:** [one sentence]
 - **Criteria covered:** [AC-*]
-- **Branch:** [model/type-short-description]
+- **Branch:** [agent/type-short-description]
 - **Status:** [ ] Not started
 
 ## Routing Plan

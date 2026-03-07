@@ -66,6 +66,8 @@ REQUIRED_FILES=(
     "scripts/policy-check.sh"
     "scripts/setup-worktree.sh"
     "scripts/clash-check.sh"
+    "scripts/workflow-lint.sh"
+    "workflow/LINT_CONTRACT.md"
 )
 
 for f in "${REQUIRED_FILES[@]}"; do
@@ -188,7 +190,7 @@ copilot_prompts="$REPO_ROOT/prompts"
 # Command-to-prompt filename mapping (mirrors sync-prompts.sh COMMAND_TO_PROMPT)
 declare -A CMD_TO_PROMPT=(
     ["initialization"]="initialization.prompt.md"
-    ["continue"]="phase-9-continue.prompt.md"
+    ["continue"]="phase-10-continue.prompt.md"
     ["compass-edit"]="phase-2b-compass-edit.prompt.md"
     ["bug"]="phase-7b-bug.prompt.md"
     ["bugfix"]="phase-7c-bugfix.prompt.md"
@@ -199,9 +201,11 @@ declare -A CMD_TO_PROMPT=(
     ["implement"]="phase-6-implement.prompt.md"
     ["test"]="phase-7-test.prompt.md"
     ["maintain"]="phase-8-maintain.prompt.md"
+    ["operationalize"]="phase-9-operationalize.prompt.md"
     ["build-session"]="phase-6b-build-session.prompt.md"
     ["review-session"]="phase-7d-review-session.prompt.md"
     ["cross-review"]="phase-7e-cross-review.prompt.md"
+    ["review-bot"]="phase-7a-review-bot.prompt.md"
 )
 
 # Reverse mapping: prompt base name -> command name

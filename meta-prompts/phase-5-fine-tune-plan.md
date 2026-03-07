@@ -21,7 +21,7 @@ Follow these steps in order. Produce artifacts as you go — do not revisit earl
 
 1. Read `workflow/STATE.json`, `AGENTS.md`, and all feature specs in `/specs/`.
 2. Read the task template in `template/tasks/_TEMPLATE.md` (or existing task files).
-3. Note the Agent Routing Matrix and Branch Naming conventions.
+3. Note the advisory routing hints and Branch Naming conventions.
 
 ### Step B — Create Task Files
 
@@ -33,7 +33,7 @@ For each feature spec, create or update `/tasks/[feature-id]-[slug].md`:
    - **GWT:** `Given [context], When [action], Then [outcome]`
 3. Each criterion is a machine-parseable checkbox: `- [ ] criterion`
 4. Fill the Routing Plan section (see below) with suggested model assignments and rationale.
-5. Name branches using `AGENTS.md → Branch Naming`: `model/type-short-description`
+5. Name branches using `AGENTS.md → Branch Naming`: `agent/type-short-description`
 6. Note which model will review each task (different from implementer).
 7. Populate the Session Log with an initial entry recording the plan creation.
 
@@ -76,5 +76,5 @@ This table is the final deliverable of Phase 5. Await approval before advancing.
 ## See Also
 
 - AC template: `.specify/acceptance-criteria-template.md`
-- Routing matrix: `AGENTS.md → Agent Routing Matrix`
+- Advisory routing hints: `workflow/ROUTING.md → Advisory Routing Hints`
 - Branch naming: `AGENTS.md → Branch Naming`

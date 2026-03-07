@@ -4,12 +4,13 @@
 
 At the start of every session, before any work:
 1. Read `AGENTS.md` — project routing and phase navigation
-2. Read `workflow/STATE.json` — current project state
+2. Read `workflow/STATE.json` — current project state (including `advisoryProfile` for guidance tone)
 3. Read `.specify/constitution.md` — project identity (if it exists)
 4. Read the active task file (if `currentTaskFile` is set in state)
 5. Read `workflow/ORCHESTRATOR.md` — loop contract for `/continue` sessions
 
 This ensures context is grounded in reality, not memory from previous sessions.
+Advisory guidance adapts to `advisoryProfile` — see `workflow/ORCHESTRATOR.md → Context-Sensitive Advisory Guidance`.
 
 Strictly follow the rules in ./AGENTS.md for all project conventions, routing, commands, and boundaries.
 

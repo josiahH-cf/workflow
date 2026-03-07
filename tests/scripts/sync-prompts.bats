@@ -40,13 +40,13 @@ teardown() {
   [ "$status" -eq 0 ]
 
   printf "manual drift\n" >> "$WORKDIR/template/.claude/commands/continue.md"
-  printf "manual drift\n" >> "$WORKDIR/prompts/phase-9-continue.prompt.md"
+  printf "manual drift\n" >> "$WORKDIR/prompts/phase-10-continue.prompt.md"
 
   run bash "$WORKDIR/scripts/sync-prompts.sh" --check
 
   [ "$status" -eq 1 ]
   assert_output_contains "[drift] $WORKDIR/template/.claude/commands/continue.md"
-  assert_output_contains "[drift] $WORKDIR/prompts/phase-9-continue.prompt.md"
+  assert_output_contains "[drift] $WORKDIR/prompts/phase-10-continue.prompt.md"
 }
 
 @test "build-session meta-prompt exists" {

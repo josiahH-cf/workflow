@@ -3,7 +3,7 @@
 <!-- description: Batch review and PR creation for completed features -->
 # Review & Ship
 
-> Reviews use the scoring rubric at `.github/REVIEW_RUBRIC.md` (6 categories: Correctness, Test Coverage, Security, Performance, Style, Documentation). PR creation uses the extended template with sections (Spec Reference, AC Evidence, Model & Branch, Review Checklist, Bug Log). The Agent Routing Matrix in `AGENTS.md` recommends assigning a different model for review than the one that implemented. See `AGENTS.md → Workflow Phases`.
+> Reviews use the scoring rubric at `.github/REVIEW_RUBRIC.md` (6 categories: Correctness, Test Coverage, Security, Performance, Style, Documentation). PR creation uses the extended template with sections (Spec Reference, AC Evidence, Agent & Branch, Review Checklist, Bug Log). The advisory routing hints in `workflow/ROUTING.md` suggest assigning a different model for review than the one that implemented (not enforced). See `AGENTS.md → Workflow Phases`.
 
 **Standing rules for all sessions:**
 

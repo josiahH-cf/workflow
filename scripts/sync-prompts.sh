@@ -37,7 +37,7 @@ declare -A COMMAND_TO_META=(
     # Setup
     ["initialization"]="admin/initialization.md"
     # Workflow controls
-    ["continue"]="phase-9-continue.md"
+    ["continue"]="phase-10-continue.md"
     ["compass-edit"]="phase-2b-compass-edit.md"
     # Bug track
     ["bug"]="phase-7b-bug.md"
@@ -50,16 +50,18 @@ declare -A COMMAND_TO_META=(
     ["implement"]="phase-6-code.md"
     ["test"]="phase-7-test.md"
     ["maintain"]="phase-8-maintain.md"
+    ["operationalize"]="phase-9-operationalize.md"
     # Sessions
     ["build-session"]="phase-6b-build-session.md"
     ["review-session"]="phase-7d-review-and-ship.md"
     ["cross-review"]="phase-7e-cross-review.md"
+    ["review-bot"]="phase-7a-review-bot.md"
 )
 
 # Mapping: command-name -> Copilot prompt file name (relative to prompts/)
 declare -A COMMAND_TO_PROMPT=(
     ["initialization"]="initialization.prompt.md"
-    ["continue"]="phase-9-continue.prompt.md"
+    ["continue"]="phase-10-continue.prompt.md"
     ["compass-edit"]="phase-2b-compass-edit.prompt.md"
     ["bug"]="phase-7b-bug.prompt.md"
     ["bugfix"]="phase-7c-bugfix.prompt.md"
@@ -70,9 +72,11 @@ declare -A COMMAND_TO_PROMPT=(
     ["implement"]="phase-6-implement.prompt.md"
     ["test"]="phase-7-test.prompt.md"
     ["maintain"]="phase-8-maintain.prompt.md"
+    ["operationalize"]="phase-9-operationalize.prompt.md"
     ["build-session"]="phase-6b-build-session.prompt.md"
     ["review-session"]="phase-7d-review-session.prompt.md"
     ["cross-review"]="phase-7e-cross-review.prompt.md"
+    ["review-bot"]="phase-7a-review-bot.prompt.md"
 )
 
 # Extract the operational content from a meta-prompt.
