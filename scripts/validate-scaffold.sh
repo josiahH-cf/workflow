@@ -50,7 +50,7 @@ REQUIRED_FILES=(
     ".specify/acceptance-criteria-template.md"
     ".github/copilot-instructions.md"
     ".github/REVIEW_RUBRIC.md"
-    ".github/pull_request_template.md"
+    ".github/PULL_REQUEST_TEMPLATE.md"
     ".github/workflows/copilot-setup-steps.yml"
     ".github/workflows/copilot-agent.yml"
     ".github/workflows/claude-review.yml"

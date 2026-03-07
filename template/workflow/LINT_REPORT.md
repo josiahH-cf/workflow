@@ -1,8 +1,8 @@
 # Workflow Lint Report
 
-- **Generated:** 2026-03-07T01:20:53Z
+- **Generated:** 2026-03-07T01:59:31Z
 - **Project root:** `/home/josiah/workflow/template`
-- **Files scanned:** 69
+- **Files scanned:** 68
 - **Total findings:** 18
 
 ## Summary
@@ -18,7 +18,7 @@
 
 | File | Line | Message |
 |------|------|---------|
-| `workflow/ORCHESTRATOR.md` | — | **133** lines (threshold: 120) |
+| `workflow/ORCHESTRATOR.md` | — | **134** lines (threshold: 120) |
 
 ## EOF Newline
 
@@ -36,7 +36,7 @@
 | `workflow/LIFECYCLE.md` | 59 | Line exceeds 200 characters (202 chars) |
 | `workflow/LINT_CONTRACT.md` | 20 | Line exceeds 200 characters (213 chars) |
 | `workflow/ORCHESTRATOR.md` | 3 | Line exceeds 200 characters (316 chars) |
-| `workflow/ORCHESTRATOR.md` | 9 | Line exceeds 200 characters (240 chars) |
+| `workflow/ORCHESTRATOR.md` | 9 | Line exceeds 200 characters (357 chars) |
 | `workflow/ORCHESTRATOR.md` | 10 | Line exceeds 200 characters (311 chars) |
 | `workflow/ORCHESTRATOR.md` | 20 | Line exceeds 200 characters (218 chars) |
 | `workflow/ORCHESTRATOR.md` | 47 | Line exceeds 200 characters (276 chars) |
