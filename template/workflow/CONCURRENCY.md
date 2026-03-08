@@ -75,6 +75,54 @@ These are suggestions, not constraints.
 | Conflict check frequency | Before each commit | Catches overlaps early |
 | Integration cycle | Every 4-8 hours | Prevents drift accumulation |
 
+## Worktree Lifecycle
+
+Every worktree follows a five-stage lifecycle. Agents must complete each stage before advancing.
+
+```
+CREATE → COMMIT → REVIEW → MERGE → CLEANUP
+```
+
+### Stage 1: Create
+
+- Run `scripts/setup-worktree.sh <agent> <type> <description>`.
+- Before creating, run `scripts/clash-check.sh` to verify no file overlap with active worktrees.
+- If clash is detected: redesign the task split (see Task Decomposition Strategies above) or wait for the conflicting worktree to merge.
+
+### Stage 2: Commit
+
+- **Cadence:** Commit after each logical unit of work (one task completed, one test passing, one bug fixed). Do not batch multiple unrelated changes.
+- **Pre-commit:** Run `scripts/clash-check.sh` to verify no new overlaps since creation.
+- **Message format:** Follow conventional commits: `<type>(<scope>): <description>`.
+
+### Stage 3: Review
+
+- Follow the standard review path (bot review via `/review-bot` or manual via `/review-session`).
+- Do not start new implementation in the same worktree while review is pending.
+
+### Stage 4: Merge
+
+- Merge at logical stopping points: feature completion, review pass, or phase gate satisfied.
+- After merge, run the full test suite from the base branch to catch behavioral conflicts.
+- If merge conflicts arise, resolve them in the feature worktree before merging — never force-push or skip conflict resolution.
+
+### Stage 5: Cleanup
+
+- After a successful merge, remove the worktree: `git worktree remove .trees/<name>`.
+- Delete the remote branch if it was pushed.
+- Automated cleanup: `scripts/setup-worktree.sh --cleanup` removes all worktrees whose branches are merged.
+- Stale worktree warning: worktrees older than 24h are flagged by `scripts/setup-worktree.sh --list` — investigate or clean up promptly.
+
+### Conflict-First Rule
+
+Before starting any new implementation loop, the orchestrator checks for unresolved conflicts:
+
+1. Run `scripts/clash-check.sh`. If file overlaps exist, **stop** and resolve before proceeding.
+2. Check for stale worktrees (>24h). If found, emit a Suggest-tier advisory to clean up or merge.
+3. Check for uncommitted changes in active worktrees. If found, commit or stash before starting new work.
+
+This is a stop condition: the orchestrator must not dispatch `/implement` or `/build-session` while conflicts are unresolved.
+
 ## Runtime Isolation
 
 Worktrees share the host machine. Prevent resource conflicts:

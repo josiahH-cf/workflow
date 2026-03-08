@@ -27,10 +27,11 @@ The orchestrator (`/continue`) is the persistent loop that drives the project fr
    ```
 
 5. **Claim Work**: Identify the next unclaimed, file-disjoint unit of work. Write a claim into `STATE.json → activeClaims` with `taskFile`, `agent` (session identifier), `claimedAt` (ISO timestamp), and `lockedFiles` (files the task will modify). If no unclaimed work exists, report "nothing to claim" and stop.
-6. **Execute**: Run the command for the current phase (see dispatch table below)
-7. **Verify Gate**: Check that the phase gate is satisfied (per PLAYBOOK.md)
-8. **Release & Advance**: Remove the claim from `activeClaims`. Update STATE.json to the next phase.
-9. **Repeat**: Go to step 1
+6. **Conflict-First Check**: Before dispatching implementation (`/implement`, `/build-session`, `/bugfix`), verify worktree health: (a) `scripts/clash-check.sh` shows no file overlaps, (b) no stale worktrees (>24h) exist without acknowledgment, (c) no uncommitted changes in other active worktrees conflict with claimed files. If any check fails, stop and resolve before proceeding. See `workflow/CONCURRENCY.md → Conflict-First Rule`.
+7. **Execute**: Run the command for the current phase (see dispatch table below)
+8. **Verify Gate**: Check that the phase gate is satisfied (per PLAYBOOK.md)
+9. **Release & Advance**: Remove the claim from `activeClaims`. Update STATE.json to the next phase.
+10. **Repeat**: Go to step 1
 
 The loop continues until `projectPhase` reaches `9-operationalize` and automation configuration is complete, or a stop condition is hit.
 

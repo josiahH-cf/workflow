@@ -56,6 +56,8 @@ Examples:
 - Max parallel agents: `3` (override in AGENTS.md if needed)
 - Rule: never two agents editing the same file simultaneously
 - Setup: `scripts/setup-worktree.sh <agent> <type> <description>`
+- Lifecycle: create → commit → review → merge → cleanup (see `workflow/CONCURRENCY.md → Worktree Lifecycle`)
+- Conflict-first: run `scripts/clash-check.sh` before creating worktrees and before each commit; resolve overlaps before new implementation loops
 
 ## Concurrency-Aware Task Assignment
 

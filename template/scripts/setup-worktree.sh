@@ -25,6 +25,11 @@ if [[ "${1:-}" == "--list" ]]; then
       else
         age="$((age_seconds / 3600))h"
       fi
+      # Stale worktree warning (>24h)
+      stale=""
+      if (( age_seconds > 86400 )); then
+        stale=" [STALE]"
+      fi
       # Modified files count
       modified=$(git -C "$dir" status --porcelain 2>/dev/null | wc -l | tr -d ' ')
       if [[ "$modified" == "0" ]]; then
@@ -32,7 +37,7 @@ if [[ "${1:-}" == "--list" ]]; then
       else
         status="$modified modified files"
       fi
-      printf "  %-30s branch: %-30s age: %-6s status: %s\n" "$name" "$branch" "$age" "$status"
+      printf "  %-30s branch: %-30s age: %-6s status: %s%s\n" "$name" "$branch" "$age" "$status" "$stale"
     done
   else
     echo "  (no worktrees)"

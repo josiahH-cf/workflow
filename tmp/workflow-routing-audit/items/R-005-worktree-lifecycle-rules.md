@@ -36,3 +36,30 @@ Define durable, agentic worktree rules that reduce clutter and keep `/continue` 
 - Simulate parallel worktrees with potential overlap.
 - Validate clash detection/escalation path.
 - Validate merged-branch cleanup behavior and reporting.
+
+## Implementation Notes
+
+### Changes Made
+
+1. **`template/workflow/CONCURRENCY.md`** — Added full "Worktree Lifecycle" section with 5 stages (Create → Commit → Review → Merge → Cleanup), commit cadence rules, merge timing guidance, and a "Conflict-First Rule" subsection that defines the pre-implementation check the orchestrator must perform.
+2. **`template/workflow/ORCHESTRATOR.md`** — Inserted step 6 ("Conflict-First Check") into the loop protocol between Claim Work and Execute. Implementation commands (`/implement`, `/build-session`, `/bugfix`) are now gated on worktree health: no file overlaps, no unacknowledged stale worktrees, no uncommitted conflicts with claimed files.
+3. **`template/workflow/FAILURE_ROUTING.md`** — Added two escalation rows: "Worktree file conflict" and "Stale worktree (>24h)" with first/second actions and escalation triggers.
+4. **`template/workflow/ROUTING.md`** — Added lifecycle reference and conflict-first bullet points to the Concurrency Rules section.
+5. **`template/scripts/setup-worktree.sh`** — Enhanced `--list` mode to flag worktrees older than 24h with a `[STALE]` marker.
+
+### Decisions
+
+- Conflict-first check is a **stop condition** in the orchestrator loop, not merely advisory — this ensures agents never start implementation with known conflicts.
+- Stale worktree threshold kept at 24h (matching the existing Safety Limits table in CONCURRENCY.md).
+- Cleanup remains user-initiated (`--cleanup` flag) rather than automatic — prevents accidental removal of in-progress work.
+- No changes to derived prompt files required — all changes are to template workflow docs consumed at the project level.
+
+### Evidence
+
+- `./scripts/sync-prompts.sh --check`: **OK** — all 36 derived files in sync.
+- `bats tests/scripts/*.bats`: **36/36 pass** — full suite green.
+- `./scripts/validate-scaffold.sh`: **95/95 pass** — scaffold structural integrity confirmed.
+
+## Status
+
+Complete.
