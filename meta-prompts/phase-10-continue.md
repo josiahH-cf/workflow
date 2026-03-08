@@ -29,7 +29,7 @@ Only then begin execution. This prevents context drift between sessions.
 Primary source of truth: `/workflow/STATE.json`
 
 Expected fields:
-- `projectPhase` (`2-compass`, `3-define-features`, `4-scaffold-project`, `5-fine-tune-plan`, `6-code`, `7-test`, `7b-review-ship`, `8-maintain`, `9-operationalize`)
+- `projectPhase` (`2-compass`, `3-define-features`, `4-scaffold-project`, `5-fine-tune-plan`, `6-code`, `7-test`, `7a-review-bot`, `7b-review-ship`, `8-maintain`, `9-operationalize`)
 - `currentFeatureId`
 - `currentTaskFile`
 - `testMode` (`pre`, `implement`, `post`)
@@ -52,9 +52,10 @@ If `workflow/STATE.json` is missing or invalid:
 
 When `projectPhase` is `6-code` or later and `currentTaskFile` is empty:
 1. List `/tasks/*.md`.
-2. Select the first task file with incomplete tasks.
-3. Set `currentTaskFile` and `currentFeatureId` in state.
-4. Set `testMode`:
+2. Count task files with incomplete tasks.
+3. If exactly one incomplete task file exists, select it automatically — set `currentTaskFile` and `currentFeatureId` in state.
+4. If more than one incomplete task file exists, **do not auto-select** — defer to Step 2c (Fork Detection, F-1).
+5. If a task file was selected, set `testMode`:
    - `pre` if pre-implementation tests do not yet exist for this feature
    - otherwise `implement`
 
@@ -67,6 +68,37 @@ Before executing the current phase action, check `bugs/LOG.md` (if it exists) fo
 
 This ensures the "next right action" always prioritizes unresolved blockers over new task work.
 
+## Step 2c: Fork Detection (FAST Router)
+
+Before dispatching, check whether the current state matches a **decision fork** — a point where multiple valid next actions exist and the user must choose. If exactly one valid path exists, skip this step and dispatch normally.
+
+Fork detection runs **after** bug-log checks (Step 2b) so that blocking bugs are always resolved first — they are not forks.
+
+### Fork Conditions
+
+| Fork ID | Condition | Checklist |
+|---------|-----------|----------|
+| **F-1: Feature Selection** | `projectPhase` is `6-code`, `currentTaskFile` is empty, and more than one incomplete task file exists in `/tasks/` | List incomplete features by file order. Ask which to work on next. |
+| **F-2: Review Path** | `projectPhase` is `7-test`, `testMode` is `post`, all ACs pass, and no blocking bugs | 1. Bot review (`/review-bot`) ← recommended 2. Manual review (`/review-session`) |
+| **F-3: Post-Ship Continuation** | Feature just shipped (from `7a-review-bot` or `7b-review-ship`) and incomplete task files remain | 1. Next feature in priority order ← recommended 2. Choose a different feature 3. Enter maintenance early |
+| **F-4: Maintenance Level** | `projectPhase` is `8-maintain` and `maintenanceLevel` is empty in STATE.json | 1. Light 2. Standard ← recommended 3. Deep |
+
+### Checklist Format
+
+```
+[FORK] <brief description of the decision>
+  1. <option> ← recommended
+  2. <option>
+  ...
+Reply with option number to proceed.
+```
+
+### Fork Rules
+
+- **Forks are stop gates.** The orchestrator stops and waits for the user to reply with an option number. Do not auto-continue with a default.
+- **One fork per condition per feature cycle.** Do not re-ask the same fork unless the underlying state changes (e.g., a new feature ships, a task file is added or completed).
+- **Non-fork states skip this step entirely.** Single incomplete task file → auto-select. All features done → go to `8-maintain`. Phases 2–5 → linear dispatch. Active task with `testMode` set → continue current workflow.
+
 ## Step 3: Execute by State
 
 | State | Action |
@@ -77,9 +109,10 @@ This ensures the "next right action" always prioritizes unresolved blockers over
 | `5-fine-tune-plan` | Run `/fine-tune`; ensure matching `/tasks/[feature-id]-[slug].md` for active specs; set `projectPhase=6-code`, `testMode=pre`. |
 | `6-code` + `testMode=pre` | Run `/test pre` with `currentTaskFile`; on success set `testMode=implement`. |
 | `6-code` + `testMode=implement` | Check bug log (Step 2b): resolve blocking bugs via `/bugfix` first. Then run `/implement` with `currentTaskFile` until tasks complete; then set `projectPhase=7-test`, `testMode=post`. |
-| `7-test` + `testMode=post` | Run `/test post`; if all ACs pass and no blocking bugs set `projectPhase=7b-review-ship`. |
-| `7b-review-ship` | Run `/review-session`, `/cross-review`; if incomplete task files remain set `projectPhase=6-code`, `testMode=pre`, and move to next feature; otherwise set `projectPhase=8-maintain`. |
-| `8-maintain` | Run `/maintain` with selected level; when maintenance pass complete and automation not yet configured, set `projectPhase=9-operationalize`. |
+| `7-test` + `testMode=post` | Run `/test post` (includes launch/smoke check — see phase-7-test.md); if all ACs pass, launch check passes or is skipped, and no blocking bugs, trigger **Fork F-2** (review path selection). Route to `7a-review-bot` or `7b-review-ship` based on user response. |
+| `7a-review-bot` | Run `/review-bot`; on PASS auto-merge — then trigger **Fork F-3** if incomplete task files remain (set `projectPhase=6-code`, `testMode=pre` for the chosen feature), otherwise set `projectPhase=8-maintain`. On FAIL write findings file, set `projectPhase=6-code`, `testMode=implement`. |
+| `7b-review-ship` | Run `/review-session`, `/cross-review`; then trigger **Fork F-3** if incomplete task files remain (set `projectPhase=6-code`, `testMode=pre` for the chosen feature), otherwise set `projectPhase=8-maintain`. |
+| `8-maintain` | If `maintenanceLevel` is empty, trigger **Fork F-4** (maintenance level selection). Then run `/maintain` with selected level; when maintenance pass complete and automation not yet configured, set `projectPhase=9-operationalize`. |
 | `9-operationalize` | Run `/operationalize`; when interview complete and workflows generated, remain at `9-operationalize` (re-enterable) or return to `8-maintain` for ongoing mode. |
 
 Persist `workflow/STATE.json` after every transition.
@@ -94,6 +127,7 @@ This ensures any future `/continue` session can resume from the latest Session L
 ## Stop Gates
 
 Stop and report clearly when:
+- A fork checklist is awaiting user response (Step 2c)
 - Human input is required
 - A blocking bug exists
 - Required artifacts are missing (`spec`, `task`, or `state` cannot be reconciled)
@@ -131,3 +165,4 @@ This makes `/continue` self-sustaining rather than one-shot.
 - Use `/test pre` before implementation and `/test post` after task completion.
 - Never fabricate gate evidence.
 - Max 10 phase transitions per session (safety valve).
+- Fork detection (Step 2c) fires once per fork condition per feature cycle. Do not re-ask a fork unless the underlying state changes.

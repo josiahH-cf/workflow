@@ -35,6 +35,11 @@ description: 'Run tests against ACs, log bugs, verify behavior'
 3. Log failures as bugs via `/bug`
 4. If behavior deviated from spec but tests pass, update spec notes
 5. Verify no regressions
+6. **Launch/smoke check** — attempt to verify the application starts and responds:
+   a. Infer the likely run or start command from project tooling files (`package.json` scripts, `Makefile`/`justfile` targets, `Procfile`, `Dockerfile`, `pyproject.toml`, `Cargo.toml`, or `workflow/COMMANDS.md` Run entry).
+   b. If a run command is found: execute it, confirm the process starts without crash (exit code 0 or successful bind to expected port/address), and capture evidence (startup output or health-check response).
+   c. If no run command can be inferred: record `[LAUNCH CHECK] Skipped — no inferable run command. Manual smoke test recommended.` in the test output and proceed. This is not a blocker.
+   d. If the launch check fails (crash, non-zero exit, timeout): log as a **blocking bug** via `/bug` with `severity: blocking` and the captured output.
 
 ## Gate
 
@@ -42,11 +47,13 @@ description: 'Run tests against ACs, log bugs, verify behavior'
 - `post` mode: all acceptance criteria verified (pass or documented failure)
 - Bug log reviewed — no blocking bugs remain
 - No regressions in existing tests
+- Launch/smoke check executed or explicitly skipped with documented reason
 
 ## Output
 
 - Test results mapped to ACs
 - Bug log entries for any failures
+- Launch check evidence (startup output, health response, or skip reason)
 - Updated spec if behavior deviated
 
 ## See Also

@@ -82,16 +82,23 @@ Run the project test suite to confirm all tests pass:
 - Execute the Lint command from /workflow/COMMANDS.md
 - Execute scripts/workflow-lint.sh
 
+Run a launch/smoke check:
+- Infer the run or start command from project tooling files (package.json scripts, Makefile/justfile targets, Procfile, Dockerfile, pyproject.toml, Cargo.toml, or workflow/COMMANDS.md Run entry).
+- If found: execute it, confirm the process starts without crash (exit code 0 or successful bind), and capture evidence.
+- If not inferable: record "[LAUNCH CHECK] Skipped — no inferable run command. Manual smoke test recommended." in the summary. This is not a FAIL.
+- If launch fails: report as a FAIL in the summary with captured output.
+
 Produce a summary:
 - Total criteria: [N], Passed: [N], Failed: [N]
 - Rubric category results (6 categories, each PASS/FAIL)
 - Code quality issues: [list or "None"]
 - Test suite: PASS/FAIL
 - Lint: PASS/FAIL
+- Launch check: PASS/FAIL/SKIPPED [evidence or reason]
 
 STEP 3: DECISION
 
-IF ALL checks pass (all criteria PASS, all rubric categories PASS, tests PASS, lint PASS):
+IF ALL checks pass (all criteria PASS, all rubric categories PASS, tests PASS, lint PASS, launch check PASS or SKIPPED):
   1. State: "Review Bot PASSED for [feature-id]-[slug]. Auto-merging."
   2. Commit all changes with message: "feat([feature-id]): [short description] — bot-reviewed"
   3. Push the feature branch

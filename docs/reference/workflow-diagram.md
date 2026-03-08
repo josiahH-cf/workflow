@@ -2,7 +2,9 @@
 
 ```mermaid
 flowchart TD
-    START([Phase 1: Install Scaffold]) --> P2
+    START([Phase 1: Install Scaffold]) --> P1
+
+    P1["/initialization<br/>Phase 1: Detect + Route + Apply"] --> P2
 
     subgraph SETUP ["Project Setup"]
         P2["/compass<br/>Phase 2: Project Identity"]

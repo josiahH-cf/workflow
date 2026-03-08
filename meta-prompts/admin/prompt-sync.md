@@ -37,11 +37,13 @@ STEP 1  -  INVENTORY
    | 7 | test.md | phase-7-test.prompt.md | phase-7-test.md |
    | 7 | bug.md | phase-7b-bug.prompt.md | phase-7b-bug.md |
    | 7 | bugfix.md | phase-7c-bugfix.prompt.md | phase-7c-bugfix.md |
+   | 7 | review-bot.md | phase-7a-review-bot.prompt.md | phase-7a-review-bot.md |
    | 7 | review-session.md | phase-7d-review-session.prompt.md | phase-7d-review-and-ship.md |
    | 7 | cross-review.md | phase-7e-cross-review.prompt.md | phase-7e-cross-review.md |
    | 8 | maintain.md | phase-8-maintain.prompt.md | phase-8-maintain.md |
    | 9 | operationalize.md | phase-9-operationalize.prompt.md | phase-9-operationalize.md |
    | Orchestrator | continue.md | phase-10-continue.prompt.md | phase-10-continue.md |
+   | Admin | update-workflow.md | update-workflow.prompt.md | admin/update.md |
 
 4. Report parity:
    - Every command with a Copilot equivalent has both files present.

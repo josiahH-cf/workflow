@@ -50,7 +50,7 @@ If you are a different agent or model than the one that built AND initially revi
 If you are the same agent that built the feature, note: "Self-reviewed only. Cross-review by a different agent is recommended before merge."
 
 PR CREATE (only for features that passed review)
-Read the PR template at /.github/pull_request_template.md if it exists.
+Read the PR template at /.github/PULL_REQUEST_TEMPLATE.md if it exists.
 Read the full diff of the feature branch against the target branch.
 
 Produce the pull request:

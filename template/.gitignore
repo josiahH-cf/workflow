@@ -9,6 +9,9 @@ CLAUDE.local.md
 # Worktree scratch directories
 .trees/
 
+# Install staging workspace
+.workflow-bootstrap/
+
 # Local agent permission overrides
 .vscode/
 .claude/settings.local.json

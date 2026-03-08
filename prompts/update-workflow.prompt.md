@@ -1,18 +1,12 @@
-# Project Update  -  Meta-Prompt
-
-<!-- description: Update scaffold to latest version from local source or upstream -->
-
-This is the `/update-workflow` command. It updates the development scaffold in a project that was **previously initialized**. It can be invoked directly at any time, or delegated to by `/initialization` when scaffold markers are already present.
-
-A scaffold source may already be in the project directory, or it can be fetched from upstream. Accepted sources: ZIP archive, extracted scaffold directory, installed-layout scaffold directory, or the upstream GitHub repository (`josiahH-cf/workflow`).
-
-Works with any of the three ZIP variants (`scaffold-template.zip`, `scaffold-metaprompts.zip`, or `scaffold-full.zip`) and with extracted copies of those variants.
-
-> **Note:** This update recognizes the 8-phase agentic workflow and additional files: `.specify/` (constitution, spec template, AC template), `.github/REVIEW_RUBRIC.md`, `.github/agents/` (planner, reviewer), `.github/workflows/autofix.yml`, Claude hooks in `settings.json` (PostToolUse, Stop), and the `AGENTS.md` routing hub (10 sections). Version-diff before overwriting any of these.
-
 ---
+agent: agent
+description: 'Update scaffold to latest version from local source or upstream'
+---
+<!-- role: derived | canonical-source: meta-prompts/admin/update.md -->
+<!-- generated-from-metaprompt -->
 
-```text
+[AGENTS.md](../../AGENTS.md)
+
 You are updating an existing project's development scaffolding. This project was previously initialized with the scaffold  -  its files are already in place and have been customized. A new version of the scaffold source has been placed in this project directory. Find it.
 
 Work through the following steps in order.
@@ -223,4 +217,3 @@ Report the update results:
 12. Check current YOLO configuration: report whether `.claude/settings.local.json` and `.vscode/settings.json` have YOLO mode enabled, and which option (A/B/C/D) is active. If the configuration appears incomplete or inconsistent, offer to re-run the YOLO setup from initialization Step 4.
 
 State: "Scaffolding update complete. All generated files (slash commands, templates, lifecycle docs) have been updated. Your project customizations (AGENTS.md, tool configs) are preserved."
-```

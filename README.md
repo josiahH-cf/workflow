@@ -13,6 +13,7 @@ cd /path/to/your/project
 Then in your AI tool:
 
 ```
+/initialization       # Phase 1: detect fresh vs existing vs scaffolded repo, then route/apply
 /compass              # Define your project (interactive interview)
 /define-features      # Map features from constitution capabilities
 /scaffold             # Plan technical architecture
@@ -48,7 +49,7 @@ Decisions             → record WHY non-obvious choices were made
 
 See the [workflow diagram](docs/reference/workflow-diagram.md) for the full visual flow.
 
-1. **Scaffold Import** → Install files (`install.sh`)
+1. **Scaffold Import** → Install files (`install.sh`) then run `/initialization`
 2. **Compass** → Discovery interview → `constitution.md`
 3. **Define Features** → Map features to constitution capabilities
 4. **Scaffold Project** → Architecture decisions (no code)
@@ -73,6 +74,8 @@ Phases 2–3 require interviews. Phases 4–5 need architecture approval. Phases
 ./scripts/install.sh --with-github-templates --with-github-agents --with-codex /path/to/project
 ```
 
+After install, always run `/initialization`. It is the sole Phase 1 entrypoint and will detect whether the project is new, an existing codebase that needs workflow injection, or an already-scaffolded repo (which it delegates to `/update-workflow`).
+
 ## Reference Example
 
 See [workflow-example](https://github.com/josiahH-cf/workflow-example) for a completed sample project showing all artifacts.
@@ -85,7 +88,13 @@ See [workflow-example](https://github.com/josiahH-cf/workflow-example) for a com
 
 ## Updates
 
-Run [`meta-prompts/admin/update.md`](meta-prompts/admin/update.md) from your target project to update an existing scaffold.
+Run `/update-workflow` to update your project's scaffold to the latest version. It resolves sources in this order:
+1. Local scaffold ZIP or directory in the project root
+2. Upstream clone from `josiahH-cf/workflow` (fetched automatically when no local source exists)
+
+Managed files are updated automatically; protected files (constitution, AGENTS.md overview, tool configs) are preserved unless you explicitly approve changes.
+
+`/initialization` also auto-detects scaffolded repos and delegates to `/update-workflow`. [`meta-prompts/admin/update.md`](meta-prompts/admin/update.md) is the canonical source for the update command.
 
 ## License
 

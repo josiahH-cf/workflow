@@ -36,6 +36,7 @@ done
 declare -A COMMAND_TO_META=(
     # Setup
     ["initialization"]="admin/initialization.md"
+    ["update-workflow"]="admin/update.md"
     # Workflow controls
     ["continue"]="phase-10-continue.md"
     ["compass-edit"]="phase-2b-compass-edit.md"
@@ -61,6 +62,7 @@ declare -A COMMAND_TO_META=(
 # Mapping: command-name -> Copilot prompt file name (relative to prompts/)
 declare -A COMMAND_TO_PROMPT=(
     ["initialization"]="initialization.prompt.md"
+    ["update-workflow"]="update-workflow.prompt.md"
     ["continue"]="phase-10-continue.prompt.md"
     ["compass-edit"]="phase-2b-compass-edit.prompt.md"
     ["bug"]="phase-7b-bug.prompt.md"

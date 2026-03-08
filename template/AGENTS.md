@@ -11,8 +11,9 @@ Canonical entrypoint for all coding agents. Read this first, then follow links t
 The project lifecycle follows 9 phases plus a parallel Bug Track.
 
 ### Phase 1 — Scaffold Import
-- **Entry:** Run `initialization.md` meta-prompt
-- **Gate:** Empty or new project repository → **Output:** Scaffold files placed → **Next:** Phase 2
+- **Entry:** After install, run `/initialization` (Claude/Copilot) or `meta-prompts/admin/initialization.md` (manual/Codex)
+- **Update:** `/update-workflow` (Claude/Copilot) or `meta-prompts/admin/update.md` (manual/Codex) — fetch latest scaffold from local source or upstream and apply managed/protected diffs
+- **Gate:** Scaffold assets copied or staged → **Output:** Phase 1 routing completed (fresh init, existing-project injection, or scaffold-update behavior) → **Next:** Phase 2 or current project phase
 
 ### Phase 2 — Compass
 - **Entry:** Claude: `/compass` · Copilot: `phase-2-compass.prompt.md` · Codex: `.codex/AGENTS.md`

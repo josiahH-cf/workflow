@@ -3,9 +3,9 @@
 The fastest path to a complete feature cycle with the scaffold.
 
 ```
-install → /compass → /define-features → /scaffold → /fine-tune → /continue
-                                                          ↕
-                                                    /bug (concurrent)
+install → /initialization → /compass → /define-features → /scaffold → /fine-tune → /continue
+                                                                            ↕
+                                                                      /bug (concurrent)
 ```
 
 ## 1) Install Scaffold
@@ -19,25 +19,38 @@ From the scaffold repo root:
 This installs the template, Copilot prompts, and meta-prompts by default.
 For template only: `./scripts/install.sh --minimal /path/to/your/project`
 
-## 2) Define Your Project (Compass)
+## 2) Run Phase 1 Initialization
 
 ```bash
 cd /path/to/your/project
 ```
 
-In your AI tool, run `/compass`. The agent conducts a dynamic discovery interview about your project — starting broad and narrowing based on your answers — and produces `.specify/constitution.md`.
+In your AI tool, run `/initialization`.
+
+This is the sole Phase 1 entrypoint. It detects whether the repo is:
+- a fresh scaffold install
+- an existing project that needs the workflow injected
+- an already-scaffolded repo (delegates to `/update-workflow`)
+
+It should place or merge scaffold assets, preserve protected project-owned files, and only ask for information that it cannot infer from the existing repo.
+
+## 3) Define Your Project (Compass)
+
+If `.specify/constitution.md` is missing or still placeholder-based, `/initialization` should auto-start `/compass`.
+
+If it does not auto-start, run `/compass`. The agent conducts a dynamic discovery interview about your project — starting broad and narrowing based on your answers — and produces `.specify/constitution.md`.
 
 Done means:
 - `.specify/constitution.md` has no `[PROJECT-SPECIFIC]` placeholders.
 
-## 3) Define One Feature
+## 4) Define One Feature
 
 Run `/define-features` and create exactly one feature spec.
 
 Done means:
 - `specs/[feature-id]-[slug].md` exists.
 
-## 4) Plan Architecture + Tasks
+## 5) Plan Architecture + Tasks
 
 Run `/scaffold`, then `/fine-tune`.
 
@@ -45,7 +58,7 @@ Done means:
 - `workflow/COMMANDS.md` Core Commands and Code Conventions are filled.
 - `tasks/[feature-id]-[slug].md` exists and maps ACs to tasks.
 
-## 5) Build, Test, Review, Ship
+## 6) Build, Test, Review, Ship
 
 Run `/continue`.
 
@@ -57,7 +70,7 @@ Expected flow:
 
 `/continue` loops automatically through these steps and pauses at stop gates.
 
-## 6) Maintain
+## 7) Maintain
 
 Run `/maintain` to generate/update docs and compliance artifacts.
 
